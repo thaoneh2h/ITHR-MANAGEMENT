@@ -1,0 +1,84 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.login-container {
+  background-image: url("../assets/background2.jpg");
+  height: calc(100vh - 75px);
+}
+
+.login-form-bg {
+  position: absolute;
+  z-index: 1;
+}
+
+.login-card {
+  backdrop-filter: blur(4px);
+  position: relative;
+  box-shadow: 1px 2px 4px 4px rgba(0, 0, 0, 0.2), 2px 4px 8px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card-container {
+  width: 1300px;
+  height: 600px;
+}
+.apply-card-container {
+  width: 1000px;
+  height: 600px;
+}
+.forgot-pass-card {
+  width: 1000px;
+  height: 650px;
+}
+
+.slider-container {
+  backdrop-filter: blur(4px);
+  position: relative;
+  box-shadow: 1px 2px 4px 4px rgba(0, 51, 255, 0.2);
+  border-radius: 15px;
+  transition-duration: 0.4s;
+  z-index: 1;
+}
+
+.apply-form-bg {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: 40px;
+  top: 180px;
+  z-index: 1;
+}
+.apply-bg {
+  width: 400px;
+}
+.apply-card {
+  backdrop-filter: blur(4px);
+  position: relative;
+  box-shadow: 1px 2px 4px 4px rgba(0, 0, 0, 0.2), 2px 4px 8px 4px rgba(0, 0, 0, 0.2);
+}
+.slider-container:hover {
+  box-shadow: 1px 2px 4px 4px rgba(0, 51, 255, 0.2), 2px 4px 8px 4px rgba(0, 51, 255, 0.3);
+}
+
+.slider-container img {
+  border-radius: 15px;
+}
+
+.form-container {
+  position: relative;
+  z-index: 10;
+  top: -100px;
+}
+
+.login-bg {
+  width: 900px;
+}
+
+.logo {
+  object-fit: contain;
+
+  border-radius: 100rem;
+  overflow: hidden;
+}

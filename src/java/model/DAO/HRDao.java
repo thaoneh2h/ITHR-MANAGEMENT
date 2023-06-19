@@ -1,0 +1,519 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model.DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import model.DTO.ApplicantDto;
+import model.DTO.ApplicationDTO;
+import model.DTO.EmployeeDto;
+import utils.DBHelper;
+
+/**
+ *
+ * @author ADMIN
+ */
+public class HRDao {
+
+    private List<ApplicationDTO> applicationList;
+
+    public List<ApplicationDTO> getApplicationList() {
+        return applicationList;
+    }
+
+    public void getDayLeave(ApplicationDTO dto, boolean status, String departmentId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT d.application_id, e.employee_name, d.application_title, d.application_description, [date-created] "
+                        + "FROM Application d "
+                        + "JOIN [User] u ON d.username = u.username "
+                        + "JOIN employee e ON e.employee_id = u.employee_id "
+                        + "WHERE d.status = ? AND e.department_id = ? AND application_type = 'dayleave' ";
+                stm = conn.prepareStatement(sql);
+                stm.setBoolean(1, status);
+                stm.setString(2, departmentId);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("application_id");
+                    String name = rs.getString("employee_name");
+                    String title = rs.getString("application_title");
+                    String description = rs.getString("application_description");
+                    Date dateCreate = rs.getDate("date-created");
+                    dto = new ApplicationDTO(id, title, description, dateCreate, status, "", "", name, 0, 0, 0, 0);
+                    if (this.applicationList == null) {
+                        this.applicationList = new ArrayList<>();
+                    }
+                    this.applicationList.add(dto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    public void getDayLeavePending(ApplicationDTO dto, String departmentId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT d.application_id, e.employee_name, d.application_title, d.application_description, [date-created] "
+                        + "FROM Application d "
+                        + "JOIN [User] u ON d.username = u.username "
+                        + "JOIN employee e ON e.employee_id = u.employee_id "
+                        + "WHERE d.status IS NULL AND e.department_id = ? AND application_type = 'dayleave'";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, departmentId);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("application_id");
+                    String name = rs.getString("employee_name");
+                    String title = rs.getString("application_title");
+                    String description = rs.getString("application_description");
+                    Date dateCreate = rs.getDate("date-created");
+                    dto = new ApplicationDTO(id, title, description, dateCreate, true, name, title, name, 0, 0, 0, 0);
+                    if (this.applicationList == null) {
+                        this.applicationList = new ArrayList<>();
+                    }
+                    this.applicationList.add(dto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    public boolean updateStatus(String id, boolean status) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "UPDATE Application "
+                        + "SET [status] = ? "
+                        + "WHERE application_id = ? ";
+                stm = conn.prepareStatement(sql);
+                stm.setBoolean(1, status);
+                stm.setString(2, id);
+                int effectRow = stm.executeUpdate();
+                if (effectRow > 0) {
+                    result = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
+
+    public void getSentLeaveReport(ApplicationDTO dto, String username) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT e.employee_name, d.application_id, d.application_title, d.application_description, d.[date-created], d.status "
+                        + "  FROM Application d "
+                        + "  JOIN [User] u ON d.username = u.username "
+                        + "  JOIN [employee] e ON e.employee_id = u.employee_id "
+                        + "  WHERE d.username = ? ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, username);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("application_id");
+                    String name = rs.getString("employee_name");
+                    String title = rs.getString("application_title");
+                    String description = rs.getString("application_description");
+                    Date dateCreate = rs.getDate("date-created");
+                    boolean status = rs.getBoolean("status");
+                    dto = new ApplicationDTO(id, title, description, dateCreate, status, "", "", name, 0, 0, 0, 0);
+                    if (this.applicationList == null) {
+                        this.applicationList = new ArrayList<>();
+                    }
+                    this.applicationList.add(dto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    private List<EmployeeDto> employeeList;
+
+    public List<EmployeeDto> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void searchByName(String name) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        EmployeeDto employeedto = null;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT e.employee_id, employee_name, gender, employee_phone, "
+                        + "department_name, u.roleName, u.status, u.username "
+                        + "FROM employee e "
+                        + "JOIN department d On e.department_id = d.department_id "
+                        + "JOIN [User] u On u.employee_id = e.employee_id "
+                        + "WHERE e.employee_name LIKE ? ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, "%" + name + "%");;
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String employeeId = rs.getString("employee_id");
+                    String employeeName = rs.getString("employee_name");
+                    boolean gender = rs.getBoolean("gender");
+                    int phoneNumer = rs.getInt("employee_phone");
+                    String departmentName = rs.getString("department_name");
+                    String role = rs.getString("roleName");
+                    boolean status = rs.getBoolean("status");
+                    employeedto = new EmployeeDto(employeeId, "", employeeName, null, phoneNumer, null,
+                            null, 0, gender, "", "", "", null, departmentName, role, "", "", "", status);
+                    if (this.employeeList == null) {
+                        this.employeeList = new ArrayList<>();
+                    }//end account List had NOT existed
+                    this.employeeList.add(employeedto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    public EmployeeDto getDepartmentID(String username) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        EmployeeDto employeedto = null;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT e.department_id "
+                        + "FROM employee e "
+                        + "JOIN [User] u On e.employee_id = u.employee_id "
+                        + "WHERE u.username = ? ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, username);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String departmentID = rs.getString("department_id");
+
+                    employeedto = new EmployeeDto("", departmentID, "", null, 0, null,
+                            null, 0, false, "", "", "", null, "", "", "", "", "", false);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return employeedto;
+    }
+
+    public void getEmployeeOfEachDepartment(String departmentID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        EmployeeDto employeedto = null;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT employee_name "
+                        + "FROM employee "
+                        + "WHERE department_id = ? ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, departmentID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String name = rs.getString("employee_name");
+                    employeedto = new EmployeeDto("", "", name, null, 0, null, "", 0, false, "", "", "", "", "", "", "", "", "", false);
+//                    employeedto = new EmployeeDto("", "", name, null, 0, null,
+//                            0, 0, false, "", "", "", null, "", "", "", "", false);
+                    if (this.employeeList == null) {
+                        this.employeeList = new ArrayList<>();
+                    }
+                    this.employeeList.add(employeedto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    public void getReport(String departmentID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        ApplicationDTO applicationdto = null;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT a.employee_name, application_title, application_description, [date-created] "
+                        + "FROM [Application] a "
+                        + "JOIN [User] u ON a.username = u.username "
+                        + "JOIN employee e ON e.employee_id = u.employee_id "
+                        + "WHERE e.department_id = ? AND a.application_type = 'report'"
+                        + "ORDER BY [date-created] desc ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, departmentID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String name = rs.getString("employee_name");
+                    String title = rs.getString("application_title");
+                    String description = rs.getString("application_description");
+                    Date dateCreate = rs.getDate("date-created");
+
+                    applicationdto = new ApplicationDTO(0, title, description, dateCreate, false, "", "", name, 0, 0, 0, 0);
+                    if (this.applicationList == null) {
+                        this.applicationList = new ArrayList<>();
+                    }
+                    this.applicationList.add(applicationdto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    public void getReportDetail(String departmentID, String name, Date date) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        ApplicationDTO applicationdto = null;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT a.employee_name, application_title, [date-created] , present_day, late_day, absent_day, overtime_day "
+                        + "FROM [Application] a "
+                        + "JOIN [User] u ON a.username = u.username "
+                        + "JOIN employee e ON e.employee_id = u.employee_id "
+                        + "WHERE e.department_id = ? AND a.application_type = 'report'"
+                        + "AND a.employee_name = ? AND [date-created] = ? ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, departmentID);
+                stm.setString(2, name);
+                stm.setDate(3, new java.sql.Date(date.getTime()));
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    name = rs.getString("employee_name");
+                    String title = rs.getString("application_title");
+                    Date dateCreate = rs.getDate("date-created");
+                    int presentDay = rs.getInt("present_day");
+                    int lateDay = rs.getInt("late_day");
+                    int absentDay = rs.getInt("absent_day");
+                    int overtimeDay = rs.getInt("overtime_day");
+
+                    applicationdto = new ApplicationDTO(0, title, "", dateCreate, false, "", "", name, presentDay, lateDay, absentDay, overtimeDay);
+                    if (this.applicationList == null) {
+                        this.applicationList = new ArrayList<>();
+                    }
+                    this.applicationList.add(applicationdto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    private List<ApplicantDto> listApplicant;
+
+    public List<ApplicantDto> getListApplicant() {
+        return listApplicant;
+    }
+
+    public void getPendingApplicant(String departmentID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        ApplicantDto applicantDto = null;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT a.[name], a.email, a.phoneNumer, d.department_name, a.interviewDate, a.gender "
+                        + "FROM Applicant a "
+                        + "JOIN JobOffering j ON j.jobOffering_id = a.jobOffering_id "
+                        + "JOIN department d ON d.department_id = j.departmentID "
+                        + "WHERE d.department_id = ? AND a.[status] IS NULL ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, departmentID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String email = rs.getString("email");
+                    String name = rs.getString("name");
+                    int phone = rs.getInt("phoneNumer");
+                    String departmentName = rs.getString("department_name");
+                    Date interviewDate = rs.getDate("interviewDate");
+                    boolean gender = rs.getBoolean("gender");
+                    applicantDto = new ApplicantDto(0, name, phone, email, "", gender, false, interviewDate, 0, "", departmentName);
+                    if (this.listApplicant == null) {
+                        this.listApplicant = new ArrayList<>();
+                    }
+                    this.listApplicant.add(applicantDto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+
+        }
+    }
+    
+    public void getApplicant(String departmentID, boolean status) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        ApplicantDto applicantDto = null;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT a.[name], a.email, a.phoneNumer, d.department_name, a.interviewDate, a.gender "
+                        + "FROM Applicant a "
+                        + "JOIN JobOffering j ON j.jobOffering_id = a.jobOffering_id "
+                        + "JOIN department d ON d.department_id = j.departmentID "
+                        + "WHERE d.department_id = ? AND a.[status] = ? ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, departmentID);
+                stm.setBoolean(2, status);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String email = rs.getString("email");
+                    String name = rs.getString("name");
+                    int phone = rs.getInt("phoneNumer");
+                    String departmentName = rs.getString("department_name");
+                    Date interviewDate = rs.getDate("interviewDate");
+                    boolean gender = rs.getBoolean("gender");
+                    applicantDto = new ApplicantDto(0, name, phone, email, "", gender, false, interviewDate, 0, "", departmentName);
+                    if (this.listApplicant == null) {
+                        this.listApplicant = new ArrayList<>();
+                    }
+                    this.listApplicant.add(applicantDto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+
+        }
+    }
+}

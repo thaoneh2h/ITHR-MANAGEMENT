@@ -1,0 +1,22 @@
+.salary-detail__head th {
+    position: relative;
+}
+
+.salary-detail__head>th::after {
+    content: "";
+    width: 1px;
+    height: 23px;
+
+    background-color: #000;
+    position: relative;
+    display: inline-block;
+}
+#datepickerId::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background-image: url("../assets/icons/calenda.svg") no-repeat;
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+}
