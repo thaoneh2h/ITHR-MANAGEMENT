@@ -32,7 +32,7 @@ public class SalaryDao {
         return salary;
     }
 
-    public List<SalaryDto> DetailSalary(int application_id) throws SQLException {
+    public List<SalaryDto> DetailSalary(int report_id) throws SQLException {
         List<SalaryDto> dtoList = null;
         Connection conn = null;
         PreparedStatement stm = null;
@@ -43,15 +43,15 @@ public class SalaryDao {
             if (conn != null) {
                 String sql = "SELECT employee.employee_name, contract.salaryBase,\n"
                         + "contract.medicalInsurance, contract.accidentalInsurance, contract.SocialAssurance, contract.tax,\n"
-                        + "(contract.overtime_day_bonus * Application.overtime_day) AS bonus, (Application.late_day * contract.late_day_penalty) + (Application.absent_day * contract.absent_day_penalty) AS penalty, Application.late_day, salary.application_id, Application.absent_day\n"
+                        + "(contract.overtime_day_bonus * Report.overtime_day) AS bonus, (Report.late_day * contract.late_day_penalty) + (Report.absent_day * contract.absent_day_penalty) AS penalty, Report.late_day, Report.report_id, Report.absent_day\n"
                         + "FROM employee \n"
                         + "LEFT JOIN contract ON contract.employee_contractId = employee.employee_contractId  \n"
                         + "LEFT JOIN salary ON employee.employee_id = salary.employee_id \n"
-                        + "INNER JOIN Application ON Application.application_id = salary.application_id\n"
-                        + "WHERE salary.application_id = ?";
+                        + "INNER JOIN Report ON Report.report_id = salary.report_id\n"
+                        + "WHERE salary.report_id = ?";
 
                 stm = conn.prepareStatement(sql);
-                stm.setInt(1, application_id);
+                stm.setInt(1, report_id);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String employee_name = rs.getString("employee_name");
@@ -65,9 +65,9 @@ public class SalaryDao {
                     int bonus = rs.getInt("bonus");
                     int penalty = rs.getInt("penalty");
                     int late_day=rs.getInt("late_day");
-                     application_id=rs.getInt("application_id");
+                     report_id=rs.getInt("report_id");
                      int absent_day=rs.getInt("absent_day");
-                    dto = new SalaryDto(employee_name, salaryBase, medicalInsurance, accidentalInsurance, SocialAssurance, tax, bonus, penalty,late_day,application_id,absent_day);
+                    dto = new SalaryDto(employee_name, salaryBase, medicalInsurance, accidentalInsurance, SocialAssurance, tax, bonus, penalty,late_day,report_id,absent_day);
                     if (dtoList == null) {
                         dtoList = new ArrayList<>();
                     }//end account List had NOT existed
@@ -101,13 +101,13 @@ public class SalaryDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT employee.employee_name, contract.salaryBase, (contract.overtime_day_bonus * Application.overtime_day) AS bonus,\n"
-                        + "       (Application.late_day * contract.late_day_penalty) + (Application.absent_day * contract.absent_day_penalty) AS penalty,\n"
-                        + "salary.application_id \n"
+                String sql = "SELECT employee.employee_name, contract.salaryBase, (contract.overtime_day_bonus * Report.overtime_day) AS bonus,\n"
+                        + "       (Report.late_day * contract.late_day_penalty) + (Report.absent_day * contract.absent_day_penalty) AS penalty,\n"
+                        + "salary.report_id \n"
                         + "FROM employee \n"
                         + "LEFT JOIN contract ON contract.employee_contractId = employee.employee_contractId  \n"
                         + "LEFT JOIN salary ON employee.employee_id = salary.employee_id \n"
-                        + "INNER JOIN Application ON Application.application_id = salary.application_id\n"
+                        + "INNER JOIN Report ON Report.report_id = salary.report_id\n"
                         + "WHERE salary.month = ? AND salary.year = ?; ";
 
                 stm = conn.prepareStatement(sql);
@@ -120,7 +120,7 @@ public class SalaryDao {
                     int salaryBase = rs.getInt("salaryBase");
                     int bonus = rs.getInt("bonus");
                     int penalty = rs.getInt("penalty");
-                    int application_id=rs.getInt("application_id");
+                    int application_id=rs.getInt("report_id");
                     dto = new SalaryDto(name, salaryBase, bonus, penalty,application_id);
                     if (dtoList == null) {
                         dtoList = new ArrayList<>();
@@ -143,5 +143,4 @@ public class SalaryDao {
         }
         return dtoList;
     }
-
 }
