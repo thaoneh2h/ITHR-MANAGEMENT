@@ -201,4 +201,96 @@ public class TimekeepingDAO {
         }
         return searchDate;
     }
+      public List<TimekeepingDTO> userTimekeepingDetail(String emp_ID) throws SQLException {
+        List<TimekeepingDTO> searchDate = null;
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        TimekeepingDTO timekeepingDTO = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "select e.employee_id, e.employee_name, t.[date], t.time_in, t.[time_out], t.[status] "
+                        + "from employee e "
+                        + "Join timekeeping t on t.employee_id = e.employee_id "
+                        + "Where e.employee_id = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, emp_ID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String id = rs.getString("employee_id");
+                    String name = rs.getString("employee_name");
+                    Date date = rs.getDate("date");
+                    Time timeIn = rs.getTime("time_in");
+                    Time timeOut = rs.getTime("time_out");
+                    String status = rs.getString("status");
+                    timekeepingDTO = new TimekeepingDTO(id, name, date, timeIn, timeOut, status);
+                   if(searchDate == null){
+                       searchDate = new ArrayList<>();
+                   }
+                    searchDate.add(timekeepingDTO);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return searchDate;
+    }
+      
+      public List<TimekeepingDTO> userTimekeepingDetail(String emp_ID, String month) throws SQLException {
+        List<TimekeepingDTO> searchDate = null;
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        TimekeepingDTO timekeepingDTO = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "select e.employee_id, e.employee_name, t.[date], t.time_in, t.[time_out], t.[status] "
+                        + "from employee e "
+                        + "Join timekeeping t on t.employee_id = e.employee_id "
+                        + "Where e.employee_id = ? AND MONTH(t.[date]) = ?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, emp_ID);
+                stm.setString(2, month);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String id = rs.getString("employee_id");
+                    String name = rs.getString("employee_name");
+                    Date date = rs.getDate("date");
+                    Time timeIn = rs.getTime("time_in");
+                    Time timeOut = rs.getTime("time_out");
+                    String status = rs.getString("status");
+                    timekeepingDTO = new TimekeepingDTO(id, name, date, timeIn, timeOut, status);
+                   if(searchDate == null){
+                       searchDate = new ArrayList<>();
+                   }
+                    searchDate.add(timekeepingDTO);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return searchDate;
+    }
 }
