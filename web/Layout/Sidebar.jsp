@@ -274,7 +274,12 @@
                     </a>
                 </li>
                 
+<<<<<<< HEAD
            
+=======
+          
+
+>>>>>>> 4544baac2448020fe8ca0a39ea54e9fcf7abcc34
 
 <!-- END HR SD -->
             </c:if>
@@ -309,7 +314,12 @@
                         <span class="ml-3">Create</span>
                     </a>
                 </li>
+<<<<<<< HEAD
                       <li class="nav-item ">
+=======
+
+       <li class="nav-item ">
+>>>>>>> 4544baac2448020fe8ca0a39ea54e9fcf7abcc34
                     <a href="DispatchServlet?btnAction=UserTimekeeping"
                        class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
                         <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
@@ -326,7 +336,10 @@
                         <span class="ml-3">User Timekeeping</span>
                     </a>
                 </li>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4544baac2448020fe8ca0a39ea54e9fcf7abcc34
             </c:if>
 
 
