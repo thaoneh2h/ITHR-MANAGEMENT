@@ -481,7 +481,7 @@
                                         </svg>
                                         <span class="ml-3">Staff</span>
                                     </a>
-                                </li>--
+                                </li>-->
 
                 <li class="nav-item ">
 
@@ -506,7 +506,7 @@
 
             <!--                    role HR_PM-->
 
-            <c:if test="${user != null and user.roleName == 'HR_PM'}">
+     
 
 
                 <li class="nav-item ">
@@ -520,7 +520,7 @@
                         <span class="ml-3">Create Application</span>
                     </a>
                 </li>
-            </c:if>
+          
 
             <li class="nav-item ">
                 <a href="DispatchServlet?btnAction=Sent"
@@ -532,7 +532,9 @@
 
                     <span class="ml-3">Sent</span>
                 </a>
-            </li>    
+            </li>
+            
+            </c:if>
         </ul>
 
     </div>
