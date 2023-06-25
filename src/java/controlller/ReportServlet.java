@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.DAO.HRDao;
-import model.DTO.ApplicationDTO;
 import model.DTO.EmployeeDto;
+import model.DTO.ReportDTO;
 import model.DTO.UserDto;
 
 /**
@@ -39,26 +39,41 @@ public class ReportServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         String url = REPORT_PAGE;
+        String monthInput = request.getParameter("date");
+        int month = 0;
+        int year = 0;
 
         HttpSession session = request.getSession();
         UserDto userDTO = (UserDto) session.getAttribute("user");
         String username = userDTO.getUsername();
 
         try {
-            HRDao dao = new HRDao();
+            if (monthInput != null && !monthInput.isEmpty()) {
+                try {
+                    String[] parts = monthInput.split("-");
+                    if (parts.length == 2) {
+                        year = Integer.parseInt(parts[0]);
+                        month = Integer.parseInt(parts[1]);
 
-            // Get department ID
-            EmployeeDto e_departmentid = dao.getDepartmentID(username);
+                        HRDao dao = new HRDao();
+                        // Get department ID
+                        EmployeeDto e_departmentid = dao.getDepartmentID(username);
 
-            session.setAttribute("DEPARTMENT_ID", e_departmentid);
-            EmployeeDto employeeDto = (EmployeeDto) session.getAttribute("DEPARTMENT_ID");
-            String departmentID = employeeDto.getDepartment_id();
+                        session.setAttribute("DEPARTMENT_ID", e_departmentid);
+                        EmployeeDto employeeDto = (EmployeeDto) session.getAttribute("DEPARTMENT_ID");
+                        String departmentID = employeeDto.getDepartment_id();
 
-            // Get report list
-            dao.getReport(departmentID);
-            List<ApplicationDTO> reportList = dao.getApplicationList();
-            request.setAttribute("REPORT_LIST", reportList);
+                        // Get report list
+                        dao.getReport(departmentID, month);
+                        List<ReportDTO> reportList = dao.getReportList();
+                        request.setAttribute("REPORT_LIST", reportList);
+
+                    }
+                } catch (Exception e) {
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

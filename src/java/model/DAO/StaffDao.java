@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import controlller.StaffListController;
 import java.util.Date;
+import model.DTO.ContractDTO;
 import utils.DBHelper;
 
 /**
@@ -52,7 +53,7 @@ public class StaffDao {
                     String departmetId = rs.getString("department_id");
                     boolean status = rs.getBoolean("status");
                     employeedto = new EmployeeDto(employeeId, departmentName, employeeName, null, phoneNumer, null, employeeName, phoneNumer, gender, departmentName, employeeName, employeeName, employeeName, departmentName, role, role, role, role, status);
-                    
+
                     if (this.staffList == null) {
                         this.staffList = new ArrayList<>();
                     }//end account List had NOT existed
@@ -216,14 +217,14 @@ public class StaffDao {
         return result;
     }
 
-    public boolean insertLeaveReport(int id, String title, String descr, String dateCreate, String username, String type) throws SQLException {
+    public boolean insertLeaveReport(int id, String title, String descr, String dateCreate, String username, String employeeID) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
         boolean result = false;
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "INSERT INTO [Application](application_id, application_title, application_description ,[date-created], username, application_type) "
+                String sql = "INSERT INTO DayLeave (dayleave_id, dayleave_title, dayleave_description, [date-created], username, employeeID) "
                         + "VALUES (?, ?, ?, ?, ?, ?);";
                 stm = conn.prepareStatement(sql);
                 stm.setInt(1, id);
@@ -231,7 +232,8 @@ public class StaffDao {
                 stm.setString(3, descr);
                 stm.setString(4, dateCreate);
                 stm.setString(5, username);
-                stm.setString(6, type);
+                stm.setString(6, employeeID);
+
                 int effect = stm.executeUpdate();
                 if (effect > 0) {
                     result = true;
@@ -289,7 +291,7 @@ public class StaffDao {
         }
         return result;
     }
-    
+
     private List<EmployeeDto> accountList;
 
     public List<EmployeeDto> getAccountList() {
@@ -321,7 +323,6 @@ public class StaffDao {
 
 //                    employeeDTO = new EmployeeDto(employeeId, department_id, employeeName, null, 0, null,
 //                            null, 0, true, "", employeeEmail, "", null, "", "", "", "");
-
                     if (this.accountList == null) {
                         this.accountList = new ArrayList<>();
                     }//
@@ -343,8 +344,7 @@ public class StaffDao {
         }
     }
 
-
-public List<EmployeeDto> getAccDetail(String name) throws SQLException {
+    public List<EmployeeDto> getAccDetail(String name) throws SQLException {
         List<EmployeeDto> AccList = null;
 
         Connection conn = null;
@@ -380,10 +380,10 @@ public List<EmployeeDto> getAccDetail(String name) throws SQLException {
 //                    
 //                    EmployeeDTO = new EmployeeDto(employeeId, department_id, employeeName, null, 0, datejoin,
 //                            null, 0, true, "", employeeEmail, "", null, department_name, roleName, username, "");
-                    
+
                     System.out.println("depart ID: " + department_id);
                     System.out.println("Depart Name: " + department_name);
-                    
+
                     if (AccList == null) {
                         AccList = new ArrayList<>();
                     }//
@@ -406,5 +406,39 @@ public List<EmployeeDto> getAccDetail(String name) throws SQLException {
         }
         return AccList;
     }
-    
+
+    public int getNumberOfExecuseDayOff(String id) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        int execuseDay = 0;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT execuseDayOff "
+                        + "FROM [contract]\n"
+                        + "WHERE employee_id = 'SD212' ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, id);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    execuseDay = rs.getInt("execuseDayOff");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return execuseDay;
+    }
+
 }

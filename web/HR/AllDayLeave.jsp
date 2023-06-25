@@ -22,7 +22,7 @@
                 <div class="m-10 p-10 w-1/2 rounded-lg bg-[#82cfef10]" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
                     <p class="text-center text-3xl font-bold mb-10">List Application Of Day Leave</p>
                     <br>
-                    <form action="DispatchServlet" id="statusForm" class="w-1/4" method="get">
+                    <form action="HRMainController" id="statusForm" class="w-1/4" method="get">
                         <c:set value="${param.btnAction}" var="action"></c:set>
                             <select 
                                 onChange="getApplicationByStatus()"

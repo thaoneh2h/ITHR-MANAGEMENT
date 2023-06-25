@@ -23,6 +23,8 @@ public class MainController extends HttpServlet {
     private static final String PASSED_APPLICANT_CONTROLLER = "PassApplicantServlet";
     private static final String REJECT_APPLICANT_CONTROLLER = "RejectApplicantServlet";
     private static final String APPLY_APPLICANT_CONTROLLER = "ApplyApplicantServlet";
+    private static final String SEARCH_REPORT_CONTROLLER = "SearchReporServlet";
+    private static final String CREATE_REPORT_CONTROLLER = "CreateReporServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,6 +49,12 @@ public class MainController extends HttpServlet {
                     break;
                 case "Rejected":
                     url = REJECT_APPLICANT_CONTROLLER;
+                    break;
+                case "Search":
+                    url = SEARCH_REPORT_CONTROLLER;
+                    break;
+                case "Create":
+                    url = CREATE_REPORT_CONTROLLER;
                     break;
             
             }

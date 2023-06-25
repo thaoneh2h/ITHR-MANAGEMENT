@@ -67,7 +67,7 @@
                         </div>
                         <p class="text-danger">${message}</p>
                         <div class="mb-3">
-                            <input class="btn btn-primary" type="submit" value="Apply">
+                            <input class="btn btn-primary" type="submit" name="btnAction" value="Apply"/>
                         </div>
                     </form>
             </div>

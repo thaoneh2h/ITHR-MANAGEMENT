@@ -36,7 +36,7 @@ public class DropDownServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = "HR/HRCreateDayLeave.jsp";
+        String url = "HR/CreateReport.jsp";
 
         HttpSession session = request.getSession();
         UserDto userDto = (UserDto) session.getAttribute("user");

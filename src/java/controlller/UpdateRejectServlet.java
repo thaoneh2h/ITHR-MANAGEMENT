@@ -35,10 +35,12 @@ public class UpdateRejectServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = DAY_LEAVE_PAGE;
-        String id = request.getParameter("dayLeaveId");
+        int id = Integer.parseInt(request.getParameter("dayLeaveId"));
         try {
             HRDao dao = new HRDao();
             boolean check = dao.updateStatus(id, false);
+            // update sau khi tạo timekeeping
+            dao.updateDayLeaveIdInTimekeeping(id, "absent without permission");
             if (check) {
                 url = "DispatchServlet"
                         + "?btnAction=Pending";

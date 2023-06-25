@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.DAO.HRDao;
-import model.DTO.ApplicationDTO;
+import model.DTO.DayLeaveDto;
 import model.DTO.EmployeeDto;
 import model.DTO.UserDto;
 
@@ -53,9 +53,9 @@ public class DayLeaveServlet extends HttpServlet {
             String departmentID = employeeDto.getDepartment_id();
             
             // Get day leave
-            ApplicationDTO dto = new ApplicationDTO();
-            dao.getDayLeave(dto, true, departmentID);
-            List<ApplicationDTO> approved = dao.getApplicationList();
+            DayLeaveDto dto = new DayLeaveDto();
+            dao.getDayLeave(true, departmentID);
+            List<DayLeaveDto> approved = dao.getDayLeaveList();
             request.setAttribute("APPROVE_LIST", approved);
             url = DAY_LEAVE_PAGE;
         } catch (Exception e) {
