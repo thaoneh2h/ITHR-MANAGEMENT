@@ -282,54 +282,6 @@
 
 
 
-            <c:if test="${user != null and user.roleName == 'STAFF'}">
-                <li class="nav-item">
-                    <a href="Staff home page.jsp"
-                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700">
-                        <svg aria-hidden="true"
-                             class="w-6 h-6 transition duration-75 text-gray-400  group-hover:text-white"
-                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                            <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                        </svg>
-                        <span class="ml-3">Staff</span>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="CreateDayLeave.jsp"
-                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700">
-                        <svg aria-hidden="true"
-                             class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
-                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                            <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                        </svg>
-                        <span class="ml-3">Create</span>
-                    </a>
-                </li>
-
-                <li class="nav-item ">
-
-                    <a href="DispatchServlet?btnAction=UserTimekeeping"
-                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
-                        <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
-                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                             aria-hidden="true">
-                            <path clip-rule="evenodd" fill-rule="evenodd"
-                                  d="M3 4.25A2.25 2.25 0 015.25 2h5.5A2.25 2.25 0 0113 4.25v2a.75.75 0 01-1.5 0v-2a.75.75 0 00-.75-.75h-5.5a.75.75 0 00-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 00.75-.75v-2a.75.75 0 011.5 0v2A2.25 2.25 0 0110.75 18h-5.5A2.25 2.25 0 013 15.75V4.25z">
-                            </path>
-                            <path clip-rule="evenodd" fill-rule="evenodd"
-                                  d="M6 10a.75.75 0 01.75-.75h9.546l-1.048-.943a.75.75 0 111.004-1.114l2.5 2.25a.75.75 0 010 1.114l-2.5 2.25a.75.75 0 11-1.004-1.114l1.048-.943H6.75A.75.75 0 016 10z">
-                            </path>
-                        </svg>
-
-                        <span class="ml-3">User Timekeeping</span>
-                    </a>
-                </li>
-
-            </c:if>
-
 
             <!--                    role HR_PM-->
 
@@ -888,6 +840,25 @@
                         </svg>
 
                         <span class="ml-3">Sent</span>
+                    </a>
+                </li>
+                
+                       <li class="nav-item ">
+
+                    <a href="DispatchServlet?btnAction=UserTimekeeping"
+                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
+                        <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
+                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                             aria-hidden="true">
+                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                  d="M3 4.25A2.25 2.25 0 015.25 2h5.5A2.25 2.25 0 0113 4.25v2a.75.75 0 01-1.5 0v-2a.75.75 0 00-.75-.75h-5.5a.75.75 0 00-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 00.75-.75v-2a.75.75 0 011.5 0v2A2.25 2.25 0 0110.75 18h-5.5A2.25 2.25 0 013 15.75V4.25z">
+                            </path>
+                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                  d="M6 10a.75.75 0 01.75-.75h9.546l-1.048-.943a.75.75 0 111.004-1.114l2.5 2.25a.75.75 0 010 1.114l-2.5 2.25a.75.75 0 11-1.004-1.114l1.048-.943H6.75A.75.75 0 016 10z">
+                            </path>
+                        </svg>
+
+                        <span class="ml-3">User Timekeeping</span>
                     </a>
                 </li>
 
