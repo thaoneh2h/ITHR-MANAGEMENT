@@ -13,6 +13,7 @@ import java.util.Date;
  */
 public class ContractDTO {
     private int employee_contractID;
+    private String employeeID;
     private String employee_name;
     private String salaryID;
     private Date signDate;
@@ -30,8 +31,9 @@ public class ContractDTO {
     public ContractDTO() {
     }
 
-    public ContractDTO(int employee_contractID, String employee_name, String salaryID, Date signDate, Date expDate, Date inspireDate, int welfareID, float bonus, int medInsurance, int accInsurance, int socInsurance, int tax, int penlty, String photo) {
+    public ContractDTO(int employee_contractID, String employeeID, String employee_name, String salaryID, Date signDate, Date expDate, Date inspireDate, int welfareID, float bonus, int medInsurance, int accInsurance, int socInsurance, int tax, int penlty, String photo) {
         this.employee_contractID = employee_contractID;
+        this.employeeID = employeeID;
         this.employee_name = employee_name;
         this.salaryID = salaryID;
         this.signDate = signDate;
@@ -53,6 +55,14 @@ public class ContractDTO {
 
     public void setEmployee_contractID(int employee_contractID) {
         this.employee_contractID = employee_contractID;
+    }
+
+    public String getEmployeeID() {
+        return employeeID;
+    }
+
+    public void setEmployeeID(String employeeID) {
+        this.employeeID = employeeID;
     }
 
     public String getEmployee_name() {
@@ -159,5 +169,6 @@ public class ContractDTO {
         this.photo = photo;
     }
 
+    
     
 }
