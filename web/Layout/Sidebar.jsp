@@ -154,18 +154,6 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="DispatchServlet?btnAction=ShowContractList"
-                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
-                        <svg  class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path clip-rule="evenodd" fill-rule="evenodd" d="M17.663 3.118c.225.015.45.032.673.05C19.876 3.298 21 4.604 21 6.109v9.642a3 3 0 01-3 3V16.5c0-5.922-4.576-10.775-10.384-11.217.324-1.132 1.3-2.01 2.548-2.114.224-.019.448-.036.673-.051A3 3 0 0113.5 1.5H15a3 3 0 012.663 1.618zM12 4.5A1.5 1.5 0 0113.5 3H15a1.5 1.5 0 011.5 1.5H12z"></path>
-                            <path d="M3 8.625c0-1.036.84-1.875 1.875-1.875h.375A3.75 3.75 0 019 10.5v1.875c0 1.036.84 1.875 1.875 1.875h1.875A3.75 3.75 0 0116.5 18v2.625c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625v-12z"></path>
-                            <path d="M10.5 10.5a5.23 5.23 0 00-1.279-3.434 9.768 9.768 0 016.963 6.963 5.23 5.23 0 00-3.434-1.279h-1.875a.375.375 0 01-.375-.375V10.5z"></path>
-                        </svg>
-                        <span class="ml-3">Contract</span>
-                    </a>
-                </li>    
-
-                <li class="nav-item">
                     <a href="DispatchServlet?btnAction=Timekeeping"
                        class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
                         <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
@@ -177,20 +165,6 @@
                         </svg>
                         <span class="ml-3">Timekeeping</span>
 
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="DispatchServlet?btnAction=ShowOvertimeList"
-                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
-                        <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
-                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                             aria-hidden="true">
-                            <path clip-rule="evenodd" fill-rule="evenodd"
-                                  d="M12.577 4.878a.75.75 0 01.919-.53l4.78 1.281a.75.75 0 01.531.919l-1.281 4.78a.75.75 0 01-1.449-.387l.81-3.022a19.407 19.407 0 00-5.594 5.203.75.75 0 01-1.139.093L7 10.06l-4.72 4.72a.75.75 0 01-1.06-1.061l5.25-5.25a.75.75 0 011.06 0l3.074 3.073a20.923 20.923 0 015.545-4.931l-3.042-.815a.75.75 0 01-.53-.919z">
-                            </path>
-                        </svg>
-                        <span class="ml-3">Overtime</span>
                     </a>
                 </li>
 
@@ -338,20 +312,6 @@
                         </svg>
                         <span class="ml-3">Timekeeping</span>
 
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="DispatchServlet?btnAction=ShowOvertimeList"
-                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
-                        <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
-                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                             aria-hidden="true">
-                            <path clip-rule="evenodd" fill-rule="evenodd"
-                                  d="M12.577 4.878a.75.75 0 01.919-.53l4.78 1.281a.75.75 0 01.531.919l-1.281 4.78a.75.75 0 01-1.449-.387l.81-3.022a19.407 19.407 0 00-5.594 5.203.75.75 0 01-1.139.093L7 10.06l-4.72 4.72a.75.75 0 01-1.06-1.061l5.25-5.25a.75.75 0 011.06 0l3.074 3.073a20.923 20.923 0 015.545-4.931l-3.042-.815a.75.75 0 01-.53-.919z">
-                            </path>
-                        </svg>
-                        <span class="ml-3">Overtime</span>
                     </a>
                 </li>
 
