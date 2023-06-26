@@ -372,7 +372,7 @@
 
                 });
                 $('#lateForWorkButton').click(function () {
-                    var application_id = $(this).val();
+                     var applicationId = $('#applicationId').val();
                     $.ajax({
                         type: 'POST',
                         url: 'RetrieveLateTimeServlet',

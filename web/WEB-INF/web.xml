@@ -172,6 +172,10 @@
         <servlet-name>AllRejectDayLeaveServlet</servlet-name>
         <servlet-class>controlller.AllRejectDayLeaveServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchNameContractServlet</servlet-name>
+        <servlet-class>controlller.SearchNameContractServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DispatchServlet</servlet-name>
         <url-pattern>/DispatchServlet</url-pattern>
@@ -343,6 +347,10 @@
     <servlet-mapping>
         <servlet-name>AllRejectDayLeaveServlet</servlet-name>
         <url-pattern>/AllRejectDayLeaveServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchNameContractServlet</servlet-name>
+        <url-pattern>/SearchNameContractServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

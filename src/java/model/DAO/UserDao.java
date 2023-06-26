@@ -143,9 +143,10 @@ public class UserDao {
                 stm.setString(1, username);
                 stm.setString(2, password);
                 rs = stm.executeQuery();
-                if (rs.next()) {
+                 if (rs.next()) {
                     String roleName = rs.getString("roleName");
-                    dto = new UserDto("", username, password, roleName, "");
+                    String employeeID = rs.getString("employee_id");
+                    dto = new UserDto(employeeID, username, password, roleName, "");
                 }
             }
         } catch (Exception e) {
