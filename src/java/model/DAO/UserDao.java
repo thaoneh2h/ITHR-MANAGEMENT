@@ -200,13 +200,12 @@ public class UserDao {
         return dto;
     }
 
-    
     private List<EmployeeDto> userInfoList;
 
     public List<EmployeeDto> getUserInfoList() {
         return userInfoList;
     }
-    
+
     public void getUserInfo(String username) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
@@ -237,8 +236,8 @@ public class UserDao {
                     String contractID = rs.getString("employee_contractId");
                     String email = rs.getString("employee_email");
                     username = rs.getString("username");
-                    dto = new EmployeeDto(employeeId, "", employeeName, birthday, phoneNumer, dateJoin, contractID, 
-                            0, gender, "", email, address, null, departmentName, role, username,"" ,
+                    dto = new EmployeeDto(employeeId, "", employeeName, birthday, phoneNumer, dateJoin, contractID,
+                            0, gender, "", email, address, null, departmentName, role, username, "",
                             "", false);
                     if (this.userInfoList == null) {
                         this.userInfoList = new ArrayList<>();
@@ -260,7 +259,7 @@ public class UserDao {
             }
         }
     }
-    
+
     public boolean UpdateUserInfo(int phone, String email, String address, String id) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
@@ -298,6 +297,81 @@ public class UserDao {
             }
         }
         return result;
+    }
+
+    public EmployeeDto getEmployeeID(String username) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        EmployeeDto employeedto = null;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT e.employee_id "
+                        + "FROM employee e "
+                        + "JOIN [User] u On e.employee_id = u.employee_id "
+                        + "WHERE u.username = ? ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, username);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String employeeID = rs.getString("employee_id");
+
+                    employeedto = new EmployeeDto(employeeID, "", "", null, 0, null,
+                            null, 0, false, "", "", "", null, "", "", "", "", "", false);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return employeedto;
+    }
+
+    public EmployeeDto getEmployeeIDFromDayleave(int id) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        EmployeeDto employeedto = null;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT employeeID "
+                        + "FROM DayLeave "
+                        + "WHERE dayleave_id = ?";
+                stm = conn.prepareStatement(sql);
+                stm.setInt(1, id);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String employeeID = rs.getString("employeeID");
+
+                    employeedto = new EmployeeDto(employeeID, "", "", null, 0, null,
+                            null, 0, false, "", "", "", null, "", "", "", "", "", false);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return employeedto;
     }
 
 }

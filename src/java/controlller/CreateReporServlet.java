@@ -7,25 +7,21 @@ package controlller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Random;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.DAO.StaffDao;
-import model.DTO.UserDto;
+import model.DAO.HRDao;
 
 /**
  *
  * @author ADMIN
  */
-public class CreateHrApplicationServlet extends HttpServlet {
+public class CreateReporServlet extends HttpServlet {
 
-    private static final String CREATE_LEAVE_DAY_PAGE = "HR/HRCreateDayLeave.jsp";
-
+    private static final String CREATE_REPORT_PAGE = "HR/CreateReport.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,41 +34,40 @@ public class CreateHrApplicationServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+         String url = CREATE_REPORT_PAGE;
         String title = request.getParameter("txtTitle");
-        String type = request.getParameter("txtType");
-        String description = request.getParameter("txtDescr");
-
-        HttpSession session = request.getSession();
-        UserDto userDTO = (UserDto) session.getAttribute("user");
-        String username = userDTO.getUsername();
-
-        // Lấy thời gian hiện tại
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        // Tạo định dạng ngày giờ mong muốn
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        // Tạo ngẫu nhiên một giá trị thời gian trong khoảng 10 ngày trước đến hiện tại
-        LocalDateTime randomDateTime = currentDateTime.minusMonths((long) (Math.random() * 3))
-                .minusHours((long) (Math.random() * 24))
-                .minusMinutes((long) (Math.random() * 60))
-                .minusSeconds((long) (Math.random() * 60));
-        // Định dạng giá trị ngẫu nhiên của datetime
-        String dateCreate = randomDateTime.format(formatter);
-
+        String id = request.getParameter("txtEmployeeID");
+        String descr = request.getParameter("txtDescr");
+        String monthInput = request.getParameter("date");
+        int month = 0;
+        int year = 0;
         // Lấy ID 
         Random random = new Random();
-        int ranID = random.nextInt(50);
-
-        String url = CREATE_LEAVE_DAY_PAGE;
+        int ranID = random.nextInt(500);
         try {
-            StaffDao dao = new StaffDao();
-            boolean check = dao.insertLeaveReport(ranID, title, description, dateCreate, username, type);
-            if (check) {
-                url = "DispatchServlet?btnAction=CreateApplication";
+            HRDao dao = new HRDao();
+            if (monthInput != null && !monthInput.isEmpty()) {
+                try {
+                    String[] parts = monthInput.split("-");
+                    if (parts.length == 2) {
+                        year = Integer.parseInt(parts[0]);
+                        month = Integer.parseInt(parts[1]);
+
+                        boolean check = dao.insertReport(ranID, title, id, month, year);
+                        if (check) {
+                            url = CREATE_REPORT_PAGE;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                request.setAttribute("message", "Please choose month first");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         } finally {
-            response.sendRedirect(url);
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 

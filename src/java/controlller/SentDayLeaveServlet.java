@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.DAO.HRDao;
-import model.DTO.ApplicationDTO;
+import model.DTO.DayLeaveDto;
 import model.DTO.UserDto;
 
 /**
@@ -46,9 +46,9 @@ public class SentDayLeaveServlet extends HttpServlet {
 
         try {
             HRDao dao = new HRDao();
-            ApplicationDTO dto = new ApplicationDTO();
+            DayLeaveDto dto = new DayLeaveDto();
             dao.getSentLeaveReport(dto, username);
-            List<ApplicationDTO> list = dao.getApplicationList();
+            List<DayLeaveDto> list = dao.getDayLeaveList();
             request.setAttribute("SENT_LIST", list);
             url = SENT_PAGE;
         } catch (Exception e) {

@@ -7,27 +7,22 @@ package controlller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.DAO.HRDao;
-import model.DAO.UserDao;
-import model.DTO.EmployeeDto;
-import model.DTO.ReportDTO;
-import model.DTO.UserDto;
 
 /**
  *
  * @author ADMIN
  */
-public class UpdateApproveServlet extends HttpServlet {
+public class HRMainController extends HttpServlet {
 
-    private static final String DAY_LEAVE_PAGE = "HR/DayLeave.jsp";
-
+    private static final String SEARCH_REPORT_CONTROLLER = "SearchAllReportServlet";
+    private static final String PENDING_DAY_LEAVE_CONTROLLER = "AllPendingDayLeaveServlet";
+    private static final String APPROVED_DAY_LEAVE_CONTROLLER = "AllApproveDayLeaveServlet";
+    private static final String REJECTED_DAY_LEAVE_CONTROLLER = "AllRejectDayLeaveServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,38 +35,24 @@ public class UpdateApproveServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = DAY_LEAVE_PAGE;
-        int id = Integer.parseInt(request.getParameter("dayLeaveId"));
-
+        String button = request.getParameter("btnAction");
+        String url = "";
         try {
-            // Get employeeID of dayleave
-            UserDao userDao = new UserDao();
-            EmployeeDto e_employeeID = userDao.getEmployeeIDFromDayleave(id);
-
-            HttpSession session = request.getSession();
-            session.setAttribute("EMPLOYEE_ID", e_employeeID);
-            EmployeeDto employeeDto = (EmployeeDto) session.getAttribute("EMPLOYEE_ID");
-            String employeeID = employeeDto.getEmployee_id();
-
-            HRDao dao = new HRDao();
-            boolean check = dao.updateStatus(id, true);
-            // update sau khi tạo timekeeping
-            dao.updateDayLeaveIdInTimekeeping(id, "absent with permission");
-
-            //Get report ID
-            int reportId = dao.getReportID(employeeID, id);
-            //Update absentday in report
-            dao.updateReportAbsentDayAndExcuseDay(reportId);
-            
-            //Update excuseday in contract
-            dao.updateExecuseDayLeft(employeeID);
-            if (check) {
-                url = "DispatchServlet"
-                        + "?btnAction=Pending";
+            switch (button) {
+                case "Search":
+                    url = SEARCH_REPORT_CONTROLLER;
+                    break;
+                case "Pending":
+                    url = PENDING_DAY_LEAVE_CONTROLLER;
+                    break;
+                case "Approved":
+                    url = APPROVED_DAY_LEAVE_CONTROLLER;
+                    break;
+                case "Rejected":
+                    url = REJECTED_DAY_LEAVE_CONTROLLER;
+                    break;
             }
-
         } catch (Exception e) {
-            e.printStackTrace();
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
