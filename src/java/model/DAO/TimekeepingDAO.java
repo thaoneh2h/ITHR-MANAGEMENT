@@ -78,7 +78,7 @@ public class TimekeepingDAO {
             if (con != null) {
                 String sql = "select e.employee_id, e.employee_name "
                         + "from employee e "
-                        + "Join timekeeping t on t.employeeID = e.employee_id "
+                        + "Join timekeeping t on t.employee_id = e.employee_id "
                         + "Where MONTH(t.[date]) = ?";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, month);
@@ -118,9 +118,9 @@ public class TimekeepingDAO {
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "select e.employee_id, e.employee_name, t.[date], t.timekiN, t.[timeOut], t.[status] "
+                String sql = "select e.employee_id, e.employee_name, t.[date], t.time_in, t.[time_out], t.[status] "
                         + "from employee e "
-                        + "Join timekeeping t on t.employeeID = e.employee_id "
+                        + "Join timekeeping t on t.employee_id = e.employee_id "
                         + "Where e.employee_name LIKE N'%' + ? + N'%' AND MONTH(t.[date]) = ?";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, emp_Name);
@@ -130,8 +130,8 @@ public class TimekeepingDAO {
                     String id = rs.getString("employee_id");
                     String name = rs.getString("employee_name");
                     Date date = rs.getDate("date");
-                    Time timeIn = rs.getTime("timekiN");
-                    Time timeOut = rs.getTime("timeOut");
+                    Time timeIn = rs.getTime("time_in");
+                    Time timeOut = rs.getTime("time_out");
                     String status = rs.getString("status");
                     timekeepingDTO = new TimekeepingDTO(id, name, date, timeIn, timeOut, status);
                    if(searchDate == null){
@@ -165,9 +165,9 @@ public class TimekeepingDAO {
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "select e.employee_id, e.employee_name, t.[date], t.timekiN, t.[timeOut], t.[status] "
+                String sql = "select e.employee_id, e.employee_name, t.[date], t.time_in, t.[time_out], t.[status] "
                         + "from employee e "
-                        + "Join timekeeping t on t.employeeID = e.employee_id "
+                        + "Join timekeeping t on t.employee_id = e.employee_id "
                         + "Where e.employee_name LIKE N'%' + ? + N'%' ";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, emp_Name);
@@ -176,8 +176,8 @@ public class TimekeepingDAO {
                     String id = rs.getString("employee_id");
                     String name = rs.getString("employee_name");
                     Date date = rs.getDate("date");
-                    Time timeIn = rs.getTime("timekiN");
-                    Time timeOut = rs.getTime("timeOut");
+                    Time timeIn = rs.getTime("time_in");
+                    Time timeOut = rs.getTime("time_out");
                     String status = rs.getString("status");
                     timekeepingDTO = new TimekeepingDTO(id, name, date, timeIn, timeOut, status);
                    if(searchDate == null){
