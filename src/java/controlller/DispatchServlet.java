@@ -56,6 +56,10 @@ public class DispatchServlet extends HttpServlet {
     private static final String CONTRACT_LIST = "ContractListServlet";
     private static final String CONTRACT_DETAIL = "ContractDetailServlet";
 
+    private static final String APPLY_APPLICATION_CONTROLLER = "ApplyApplicantServlet";
+
+    private static final String SEARCH_CONTRACT_NAME = "SearchNameContractServlet";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -107,9 +111,6 @@ public class DispatchServlet extends HttpServlet {
 //                case "Save":
 //                    url = UPDATE_STAFF_DETAIL_CONTROLLER;
 //                    break;
-                case "CreateApplication":
-                    url = DROP_DOWN_CONTROLLER;    //khi vào createapplication.jsp thì dropdown list nv của report sẽ xuất hiện
-                    break;
                 case "ShowAccountList":
                     url = ACCOUNT_LIST;
                     break;
@@ -178,6 +179,12 @@ public class DispatchServlet extends HttpServlet {
 
                 case "ContractDetail":
                     url = CONTRACT_DETAIL;
+                    break;
+                    
+                case "Search Contract Name":
+                    url = SEARCH_CONTRACT_NAME;
+                    break;    
+                    
                 case "Save":
                     url = UPDATE_USER_INFO_CONTROLLER;
                     break;
@@ -188,7 +195,12 @@ public class DispatchServlet extends HttpServlet {
                 case "SalaryDetail":
                     url = "SalaryDetailServlet";
                     break;
-
+                case "Apply":
+                    url = APPLY_APPLICATION_CONTROLLER;
+                    break;
+                case "CreateReport":
+                    url = DROP_DOWN_CONTROLLER;
+                    break;
                 case "UserTimekeeping":
                     url = "UserTimekeepingServlet";
                     break;

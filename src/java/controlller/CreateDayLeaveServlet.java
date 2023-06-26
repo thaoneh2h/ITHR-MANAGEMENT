@@ -7,9 +7,12 @@ package controlller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.DAO.StaffDao;
+import model.DAO.UserDao;
+import model.DTO.EmployeeDto;
 import model.DTO.UserDto;
 
 /**
@@ -37,42 +42,47 @@ public class CreateDayLeaveServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String button = request.getParameter("btnAction");
         if (button.equals("Create")) {
-            
+
             String title = request.getParameter("txtTitle");
-            String type = request.getParameter("txtType");
             String description = request.getParameter("txtDescr");
+            String date = request.getParameter("date");
 
             HttpSession session = request.getSession();
             UserDto userDTO = (UserDto) session.getAttribute("user");
             String username = userDTO.getUsername();
 
-            // Lấy thời gian hiện tại
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            // Tạo định dạng ngày giờ mong muốn
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            // Tạo ngẫu nhiên một giá trị thời gian trong khoảng 10 ngày trước đến hiện tại
-            LocalDateTime randomDateTime = currentDateTime.minusMonths((long) (Math.random() * 3))
-                    .minusHours((long) (Math.random() * 24))
-                    .minusMinutes((long) (Math.random() * 60))
-                    .minusSeconds((long) (Math.random() * 60));
-            // Định dạng giá trị ngẫu nhiên của datetime
-            String dateCreate = randomDateTime.format(formatter);
+            // Get employeeID
+            UserDao userDao = new UserDao();
+            EmployeeDto e_employeeID = userDao.getEmployeeID(username);
+
+            session.setAttribute("EMPLOYEE_ID", e_employeeID);
+            EmployeeDto employeeDto = (EmployeeDto) session.getAttribute("EMPLOYEE_ID");
+            String employeeID = employeeDto.getEmployee_id();
 
             // Lấy ID 
             Random random = new Random();
-            int ranID = random.nextInt(50);
+            int ranID = random.nextInt(500);
 
             String url = CREATE_LEAVE_DAY_PAGE;
+
             try {
+
                 StaffDao dao = new StaffDao();
-                boolean check = dao.insertLeaveReport(ranID, title, description, dateCreate, username, type);
-                if (check) {
-                    url = CREATE_LEAVE_DAY_PAGE;
+                // Get number of execuse day in contract  
+                int number = dao.getNumberOfExecuseDayOff(employeeID);
+                if (number > 0) {
+                    boolean check = dao.insertLeaveReport(ranID, title, description, date, username, employeeID);
+                    if (check) {
+                        url = CREATE_LEAVE_DAY_PAGE;
+                    }
+                } else {
+                    request.setAttribute("CREATE_DAY_LEAVE_ERROR", "Your number of day off is exceeded");
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -94,7 +104,11 @@ public class CreateDayLeaveServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateDayLeaveServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -108,7 +122,11 @@ public class CreateDayLeaveServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateDayLeaveServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

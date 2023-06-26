@@ -56,12 +56,12 @@ public class RetrieveLateTimeServlet extends HttpServlet {
             try {
                 conn = DBHelper.makeConnection();
                 if (conn != null) {
-                    String sql = "SELECT Application.late_day, contract.late_day_penalty, (Application.late_day * contract.late_day_penalty) AS total_penalty "
+                    String sql = "SELECT Report.late_day, contract.late_day_penalty, (Report.late_day * contract.late_day_penalty) AS total_penalty "
                             + "FROM employee \n"
                             + "LEFT JOIN contract ON contract.employee_contractId = employee.employee_contractId  \n"
                             + "LEFT JOIN salary ON employee.employee_id = salary.employee_id \n"
-                            + "INNER JOIN Application ON Application.application_id = salary.application_id \n"
-                            + "WHERE salary.application_id = ?";
+                            + "INNER JOIN Report ON Report.report_id = salary.report_id \n"
+                            + "WHERE salary.report_id = ?";
                     stm = conn.prepareStatement(sql);
                     stm.setInt(1, application_id);
                     rs = stm.executeQuery();

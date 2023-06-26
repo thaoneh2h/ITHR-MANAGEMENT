@@ -36,20 +36,20 @@ public class ContractDAO {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT c.employee_contractId, e.employee_name, signDate, expDate, inspireDate, " +
-                             "medicalInsurance, accidentalInsurance, SocialAssurance, tax " +
-                             "FROM contract c " +
-                             "JOIN employee e On e.employee_contractId = c.employee_contractId";
+                String sql = "SELECT c.employee_contractId, e.employee_id, e.employee_name, signDate, expDate, inspireDate "  
+                            + "FROM contract c "
+                            + "JOIN employee e On e.employee_contractId = c.employee_contractId";
                 stm = conn.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int employee_contractID = rs.getInt("employee_contractId");
+                    String employeeID = rs.getString("employee_id");
                     String employee_name = rs.getString("employee_name");
                     Date signDate = rs.getDate("signDate");
                     Date expDate = rs.getDate("expDate");
                     Date inspireDate = rs.getDate("inspireDate");
                     
-                    contractDTO = new ContractDTO(employee_contractID, employee_name, "", signDate, expDate, inspireDate, 0, 0, 0, 0, 0, 0, 0, null);
+                    contractDTO = new ContractDTO(employee_contractID, employeeID, employee_name, "", signDate, expDate, inspireDate, 0, 0, 0, 0, 0, 0, 0, null);
                     
                     if (this.ContractList == null) {
                         this.ContractList = new ArrayList<>();
@@ -83,7 +83,7 @@ public class ContractDAO {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT contract_photo "
+                String sql = "SELECT contract_img "
                             +"FROM [dbo].[contract] "
                             + "WHERE [employee_contractId] LIKE N'%' + ? + N'%' ";
                 stm = conn.prepareStatement(sql);
@@ -91,9 +91,9 @@ public class ContractDAO {
                 rs = stm.executeQuery();
                 while (rs.next()) {
 
-                    String photo = rs.getString("contract_photo");
+                    String photo = rs.getString("contract_img");
 
-                    contractDTO = new ContractDTO(0, null, sql, null, null, null, 0, 0, 0, 0, 0, 0, 0, photo);
+                    contractDTO = new ContractDTO(0, null, null, sql, null, null, null, 0, 0, 0, 0, 0, 0, 0, photo);
                     
                     if (ContractList == null) {
                         ContractList = new ArrayList<>();
@@ -116,6 +116,55 @@ public class ContractDAO {
             }
         }
         return ContractList;
+    }
+        
+        public void searchContractbyName(String keyword) throws SQLException{
+            Connection conn = null;
+            PreparedStatement stm = null;
+            ResultSet rs = null;
+            ContractDTO contractDTO = null;
+            
+            try{
+                conn = DBHelper.makeConnection();
+                if (conn != null) {
+                    
+                String sql = "SELECT c.employee_contractId, e.employee_id, e.employee_name, signDate, expDate, inspireDate "  
+                            + "FROM contract c "
+                            + "JOIN employee e On e.employee_contractId = c.employee_contractId "
+                            + "WHERE e.employee_name LIKE ? ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, "%" + keyword + "%");
+                
+                rs = stm.executeQuery();
+                while (rs.next()) {
+
+                    int employee_contractID = rs.getInt("employee_contractId");
+                    String employeeID = rs.getString("employee_id");
+                    String employee_name = rs.getString("employee_name");
+                    Date signDate = rs.getDate("signDate");
+                    Date expDate = rs.getDate("expDate");
+                    Date inspireDate = rs.getDate("inspireDate");                  
+                    contractDTO = new ContractDTO(employee_contractID, employeeID, employee_name, null, signDate, expDate, inspireDate, 0, 0, 0, 0, 0, 0, 0, null);
+                    
+                    if (ContractList == null) {
+                        ContractList = new ArrayList<>();
+                    }//
+                    ContractList.add(contractDTO);
+                }
+            }
+            }catch (Exception e) {
+            e.printStackTrace();
+            }finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
     }
 
 }

@@ -47,7 +47,7 @@
                                 <div class="col-span-2 w-full bg-white border border-gray-200 rounded-lg shadow hover:box-shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-1 " >
                                     <div class="p-5">
                                         <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 ">
-                                            Net Receiver
+                                          Salary Base
                                         </h5>
                                         <p class="mb-3 font-normal text-gray-700 font-bold text-lg">
                                             <%= salaryDetail.getSalaryBase()%>
@@ -372,7 +372,7 @@
 
                 });
                 $('#lateForWorkButton').click(function () {
-                    var application_id = $(this).val();
+                     var applicationId = $('#applicationId').val();
                     $.ajax({
                         type: 'POST',
                         url: 'RetrieveLateTimeServlet',

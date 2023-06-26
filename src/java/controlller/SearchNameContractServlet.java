@@ -13,21 +13,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.DAO.HRDao;
-import model.DAO.UserDao;
-import model.DTO.EmployeeDto;
-import model.DTO.ReportDTO;
-import model.DTO.UserDto;
+import model.DAO.ContractDAO;
+import model.DTO.ContractDTO;
 
 /**
  *
- * @author ADMIN
+ * @author 23030
  */
-public class UpdateApproveServlet extends HttpServlet {
-
-    private static final String DAY_LEAVE_PAGE = "HR/DayLeave.jsp";
-
+public class SearchNameContractServlet extends HttpServlet {
+    private final String CONTRACT_LIST = "ContractList.jsp";
+    private final String RESULT_NAME_CONTRACT = "SearchNameContract.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,41 +35,25 @@ public class UpdateApproveServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = DAY_LEAVE_PAGE;
-        int id = Integer.parseInt(request.getParameter("dayLeaveId"));
-
+        String searchValue = request.getParameter("txtSearchValue");
+        String url = CONTRACT_LIST;
+        
         try {
-            // Get employeeID of dayleave
-            UserDao userDao = new UserDao();
-            EmployeeDto e_employeeID = userDao.getEmployeeIDFromDayleave(id);
-
-            HttpSession session = request.getSession();
-            session.setAttribute("EMPLOYEE_ID", e_employeeID);
-            EmployeeDto employeeDto = (EmployeeDto) session.getAttribute("EMPLOYEE_ID");
-            String employeeID = employeeDto.getEmployee_id();
-
-            HRDao dao = new HRDao();
-            boolean check = dao.updateStatus(id, true);
-            // update sau khi tạo timekeeping
-            dao.updateDayLeaveIdInTimekeeping(id, "absent with permission");
-
-            //Get report ID
-            int reportId = dao.getReportID(employeeID, id);
-            //Update absentday in report
-            dao.updateReportAbsentDayAndExcuseDay(reportId);
-            
-            //Update excuseday in contract
-            dao.updateExecuseDayLeft(employeeID);
-            if (check) {
-                url = "DispatchServlet"
-                        + "?btnAction=Pending";
+            if(!searchValue.trim().isEmpty()){
+                ContractDAO dao = new ContractDAO();
+                
+                dao.searchContractbyName(searchValue);
+                
+                List<ContractDTO> result = dao.getContractList();
+                request.setAttribute("SEARCH_RESULT_CONTRACT", result);
+                url = RESULT_NAME_CONTRACT;
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        }catch (Exception e){
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
+
         }
     }
 

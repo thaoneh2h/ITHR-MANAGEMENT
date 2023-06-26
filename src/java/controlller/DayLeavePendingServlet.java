@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.DAO.HRDao;
-import model.DTO.ApplicationDTO;
+import model.DTO.DayLeaveDto;
 import model.DTO.EmployeeDto;
 import model.DTO.UserDto;
 
@@ -56,9 +56,9 @@ public class DayLeavePendingServlet extends HttpServlet {
             String departmentID = employeeDto.getDepartment_id();
 
             // Get dayleave
-            ApplicationDTO dto = new ApplicationDTO();
+            DayLeaveDto dto = new DayLeaveDto();
             dao.getDayLeavePending(dto, departmentID);
-            List<ApplicationDTO> pending = dao.getApplicationList();
+            List<DayLeaveDto> pending = dao.getDayLeaveList();
             request.setAttribute("PENDING_LIST", pending);
             url = DAY_LEAVE_PAGE;
         } catch (Exception e) {

@@ -21,14 +21,14 @@
             <div class="w-full flex justify-center ">
                 <div class="m-10 p-10 w-2/3 rounded-lg bg-[#82cfef10]" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
                     <p class="text-center text-3xl font-bold mb-10">List Reports</p>
-                    <form id="searchForm" action="/HRManagement/ReportServlet" method="post">
+                    <form id="searchForm" action="/HRManagement/AllReportServlet" method="post">
                         <div class="relative max-w-sm">
                             <input name="date" onchange="submitForm()" type="month"  id="datepickerId" 
                                    data-date="${param.date}" value="${param.date}" 
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Select date"/>
                         </div>
                     </form>
-                    <form action="/HRManagement/MainController">
+                    <form action="/HRManagement/HRMainController">
                         <input type="text" name="txtSearch" value="${param.txtSearch}" placeholder="Enter employee's name"/>
                         <input type="hidden" name="date" value="${param.date}"/>
                         <input type="submit" name="btnAction" value="Search"/>
@@ -82,7 +82,7 @@
                                 <c:forEach var="dto" items="${result}" varStatus="counter">
                                     <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
                                         <td class="px-3 py-3">
-                                            ${counter.count}
+                                            ${counter.count}.
                                         </td>
                                         <td class="px-3 py-3">
                                             ${dto.employeeName}
