@@ -54,7 +54,7 @@
                                 ${salary.penalty}
                             </td>
                             <td>
-                                <a class="px-3 py-3 text-blue-400" href="<c:url value="/SalaryDetailServlet" />?application_id=${salary.application_id}">Details</a> 
+                                  <a class="px-3 py-3 text-blue-400" href="<c:url value="/SalaryDetailServlet" />?report_id=${salary.application_id}">Details</a>  
                             </td>
                         </tr>
                     </c:forEach>
