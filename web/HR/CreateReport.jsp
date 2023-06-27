@@ -42,9 +42,17 @@
                                     Report for</label>
                                 <div class="relative max-w-sm">
                                     <select name="txtEmployeeID">
-                                        <c:forEach var="dto" items="${requestScope.LIST_DEPARTMENT_EMPLOYEE}">
-                                            <option value="${dto.employee_id}">${dto.employee_name}-${dto.employee_id}</option>
-                                        </c:forEach>                           
+                                        <c:if test="${not empty LIST_DEPARTMENT_EMPLOYEE}">
+                                            <c:forEach var="dto" items="${requestScope.LIST_DEPARTMENT_EMPLOYEE}">
+                                                <option value="${dto.employee_id}">${dto.employee_name}-${dto.employee_id}</option>
+                                            </c:forEach>
+                                        </c:if>
+                                        <c:if test="${not empty LIST_DEPARTMENT_EMPLOYEE2}">
+                                            <c:forEach var="dto" items="${requestScope.LIST_DEPARTMENT_EMPLOYEE2}">
+                                                <option value="${dto.employee_id}">${dto.employee_name}-${dto.employee_id}</option>
+                                            </c:forEach>
+                                        </c:if>
+
                                     </select>
                                 </div>
 

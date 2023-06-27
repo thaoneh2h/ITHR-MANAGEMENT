@@ -465,6 +465,45 @@ public class HRDao {
             }
         }
     }
+    public void getEmployee() throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        EmployeeDto employeedto = null;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT employee_name, employee_id "
+                        + "FROM employee ";
+                stm = conn.prepareStatement(sql);
+               
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String id = rs.getString("employee_id");
+                    String name = rs.getString("employee_name");
+                    employeedto = new EmployeeDto(id, "", name, null, 0, null, "", 0, false, "", "", "", "", "", "", "", "", "", false);
+//                    employeedto = new EmployeeDto("", "", name, null, 0, null,
+//                            0, 0, false, "", "", "", null, "", "", "", "", false);
+                    if (this.employeeList == null) {
+                        this.employeeList = new ArrayList<>();
+                    }
+                    this.employeeList.add(employeedto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
 
     public void getReport(String departmentID, int month) throws SQLException {
         Connection conn = null;
