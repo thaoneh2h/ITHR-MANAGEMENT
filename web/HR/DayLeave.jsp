@@ -47,6 +47,12 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                            <c:set var="error1" value="${requestScope.APPROVE_DAY_LEAVE_ERROR}"/>
+                            <c:if test="${not empty error1}">
+                                ${error1}
+                            </c:if>
+
                             <!-- Approve list  -->
                             <c:set var="resultApprove" value="${requestScope.APPROVE_LIST}" />
                             <c:if test="${not empty resultApprove}">
@@ -92,7 +98,7 @@
                                         <td class="px-3 py-3">
                                             ${dto.dayleave_description}
                                         </td>
-                                         <td class="px-3 py-3">
+                                        <td class="px-3 py-3">
                                             ${dto.date_created}
                                         </td>  
 
@@ -129,9 +135,9 @@
                                     <td class="px-3 py-3">
                                         ${dto.dayleave_description}
                                     </td>
-                                     <td class="px-3 py-3">
-                                            ${dto.date_created}
-                                        </td>  
+                                    <td class="px-3 py-3">
+                                        ${dto.date_created}
+                                    </td>  
 
                                     <td class="px-2 py-3 rounded-r-[0.25rem]">
 

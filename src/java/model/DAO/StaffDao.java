@@ -416,8 +416,8 @@ public class StaffDao {
             conn = DBHelper.makeConnection();
             if (conn != null) {
                 String sql = "SELECT execuseDayOff "
-                        + "FROM [contract]\n"
-                        + "WHERE employee_id = 'SD212' ";
+                        + "FROM [contract] "
+                        + "WHERE employee_id = ? ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, id);
                 rs = stm.executeQuery();

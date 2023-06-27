@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.DAO.HRDao;
+import model.DAO.StaffDao;
 import model.DAO.UserDao;
 import model.DTO.EmployeeDto;
 import model.DTO.ReportDTO;
@@ -44,6 +45,7 @@ public class UpdateApproveServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("dayLeaveId"));
 
         try {
+
             // Get employeeID of dayleave
             UserDao userDao = new UserDao();
             EmployeeDto e_employeeID = userDao.getEmployeeIDFromDayleave(id);
@@ -53,22 +55,31 @@ public class UpdateApproveServlet extends HttpServlet {
             EmployeeDto employeeDto = (EmployeeDto) session.getAttribute("EMPLOYEE_ID");
             String employeeID = employeeDto.getEmployee_id();
 
-            HRDao dao = new HRDao();
-            boolean check = dao.updateStatus(id, true);
-            // update sau khi tạo timekeeping
-            dao.updateDayLeaveIdInTimekeeping(id, "absent with permission");
+            StaffDao staffDao = new StaffDao();
+            // Get number of execuse day in contract  
+            int number = staffDao.getNumberOfExecuseDayOff(employeeID);
+            // If dayleave in contract still exist
+            if (number > 0) {
 
-            //Get report ID
-            int reportId = dao.getReportID(employeeID, id);
-            //Update absentday in report
-            dao.updateReportAbsentDayAndExcuseDay(reportId);
-            
-            //Update excuseday in contract
-            dao.updateExecuseDayLeft(employeeID);
-            if (check) {
-                url = "DispatchServlet"
-                        + "?btnAction=Pending";
+                HRDao dao = new HRDao();
+                boolean check = dao.updateStatus(id, true);
+                // update sau khi tạo timekeeping
+                dao.updateDayLeaveIdInTimekeeping(id, "absent with permission");
+
+                //Get report ID
+                int reportId = dao.getReportID(employeeID, id);
+                //Update absentday in report
+                dao.updateReportAbsentDayAndExcuseDay(reportId);
+
+                //Update excuseday in contract
+                dao.updateExecuseDayLeft(employeeID);
+
+            } else {
+                request.setAttribute("APPROVE_DAY_LEAVE_ERROR", "Employee's day off is exceeded");
             }
+            
+            url = "DispatchServlet"
+                    + "?btnAction=Pending";
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -75,10 +75,14 @@ public class CreateDayLeaveServlet extends HttpServlet {
                 // Get number of execuse day in contract  
                 int number = dao.getNumberOfExecuseDayOff(employeeID);
                 if (number > 0) {
-                    boolean check = dao.insertLeaveReport(ranID, title, description, date, username, employeeID);
-                    if (check) {
-                        url = CREATE_LEAVE_DAY_PAGE;
-                    }
+                    if (((!title.isEmpty()) || (!description.isEmpty()) )) {
+                        boolean check = dao.insertLeaveReport(ranID, title, description, date, username, employeeID);
+                        if (check) {
+                            url = CREATE_LEAVE_DAY_PAGE;
+                        }
+                    } else {
+                        request.setAttribute("EMPTY_ERROR", "All fields must be filled");
+                    } 
                 } else {
                     request.setAttribute("CREATE_DAY_LEAVE_ERROR", "Your number of day off is exceeded");
                 }
