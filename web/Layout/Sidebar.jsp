@@ -264,7 +264,7 @@
             <!-- ROLE HR Manager -->
             <c:if test="${user != null and user.roleName == 'HRM'}">               
                 <li class="nav-item ">
-                    <a href="DispatchServlet?btnAction=Staff"
+                    <a href="/HRManagement/DispatchServlet?btnAction=Staff"
                        class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
                         <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
                              fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
@@ -278,7 +278,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="DispatchServlet?btnAction=ShowAccountList"
+                    <a href="/HRManagement/DispatchServlet?btnAction=ShowAccountList"
                        class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
 
                         <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -289,7 +289,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="DispatchServlet?btnAction=ShowContractList"
+                    <a href="/HRManagement/DispatchServlet?btnAction=ShowContractList"
                        class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
                         <svg  class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path clip-rule="evenodd" fill-rule="evenodd" d="M17.663 3.118c.225.015.45.032.673.05C19.876 3.298 21 4.604 21 6.109v9.642a3 3 0 01-3 3V16.5c0-5.922-4.576-10.775-10.384-11.217.324-1.132 1.3-2.01 2.548-2.114.224-.019.448-.036.673-.051A3 3 0 0113.5 1.5H15a3 3 0 012.663 1.618zM12 4.5A1.5 1.5 0 0113.5 3H15a1.5 1.5 0 011.5 1.5H12z"></path>
@@ -301,7 +301,7 @@
                 </li>    
 
                 <li class="nav-item">
-                    <a href="DispatchServlet?btnAction=Timekeeping"
+                    <a href="/HRManagement/DispatchServlet?btnAction=Timekeeping"
                        class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
                         <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
                              fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
@@ -316,7 +316,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="DispatchServlet?btnAction=Salary"
+                    <a href="/HRManagement/DispatchServlet?btnAction=Salary"
                        class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
                         <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
                              fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
