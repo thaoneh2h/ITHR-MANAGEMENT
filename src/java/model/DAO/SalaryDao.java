@@ -143,4 +143,61 @@ public class SalaryDao {
         }
         return dtoList;
     }
+
+public List<SalaryDto> SearchByEmployeeId(String employeeId) throws SQLException, ClassNotFoundException {
+    Connection conn = null;
+    PreparedStatement stm = null;
+    ResultSet rs = null;
+    List<SalaryDto> salaryList = new ArrayList<>();
+    SalaryDto dto = null;
+    
+    try {
+        conn = DBHelper.makeConnection();
+        if (conn != null) {
+            String sql = "SELECT employee.employee_name, contract.salaryBase, (contract.overtime_day_bonus * Report.overtime_day) AS bonus,\n"
+                    + "       (Report.late_day * contract.late_day_penalty) + (Report.absent_day * contract.absent_day_penalty) AS penalty,\n"
+                    + " salary.month, salary.year, salary.report_id \n"
+                    + "FROM employee \n"
+                    + "LEFT JOIN contract ON contract.employee_contractId = employee.employee_contractId  \n"
+                    + "LEFT JOIN salary ON employee.employee_id = salary.employee_id \n"
+                    + "INNER JOIN Report ON Report.report_id = salary.report_id\n"
+                    + "WHERE  employee.employee_id = ?; ";
+            
+            stm = conn.prepareStatement(sql);
+        
+            stm.setString(1, employeeId);
+            rs = stm.executeQuery();
+            
+            while (rs.next()) {
+                String name = rs.getString("employee_name");
+                int salaryBase = rs.getInt("salaryBase");
+                int bonus = rs.getInt("bonus");
+                int penalty = rs.getInt("penalty");
+                
+                int month=rs.getInt("month");
+                int year=rs.getInt("year");
+                int application_id = rs.getInt("report_id");
+                dto = new SalaryDto(name, salaryBase, bonus, penalty,month,year, application_id);
+                
+                salaryList.add(dto);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        if (rs != null) {
+            rs.close();
+        }
+        if (stm != null) {
+            stm.close();
+        }
+        if (conn != null) {
+            conn.close();
+        }
+    }
+    
+    return salaryList;
 }
+}
+
+
