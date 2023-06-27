@@ -551,7 +551,7 @@ public class HRDao {
         }
     }
 
-    public void getReportDetail(String departmentID, String name, int month) throws SQLException {
+    public void getReportDetail(String name, int month) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -563,11 +563,10 @@ public class HRDao {
                         + "FROM Report r "
                         + "JOIN [User] u ON r.employee_id = u.employee_id "
                         + "JOIN employee e ON e.employee_id = u.employee_id "
-                        + "WHERE e.department_id = ? AND e.employee_name = ? AND [month] = ? ";
+                        + "WHERE e.employee_name LIKE N'%' + ? + N'%' AND [month] = ? ";
                 stm = conn.prepareStatement(sql);
-                stm.setString(1, departmentID);
-                stm.setString(2, name);
-                stm.setInt(3, month);
+                stm.setString(1, name);
+                stm.setInt(2, month);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String title = rs.getString("report_title");

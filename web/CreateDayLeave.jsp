@@ -79,6 +79,10 @@
                 <c:if test="${not empty error}">
                     ${error}
                 </c:if>
+                <c:set var="error1" value="${requestScope.EMPTY_ERROR}"/>
+                <c:if test="${not empty error1}">
+                    ${error1}
+                </c:if>
 
             </div>
         </section>
