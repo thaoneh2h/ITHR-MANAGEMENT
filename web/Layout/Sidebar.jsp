@@ -202,19 +202,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="DispatchServlet?btnAction=Salary"
-                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
-                        <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
-                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                             aria-hidden="true">
-                            <path clip-rule="evenodd" fill-rule="evenodd"
-                                  d="M1 4a1 1 0 011-1h16a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm12 4a3 3 0 11-6 0 3 3 0 016 0zM4 9a1 1 0 100-2 1 1 0 000 2zm13-1a1 1 0 11-2 0 1 1 0 012 0zM1.75 14.5a.75.75 0 000 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 00-1.5 0v.784a.272.272 0 01-.35.25A49.043 49.043 0 001.75 14.5z">
-                            </path>
-                        </svg>
-                        <span class="ml-3">Salaries</span>
-                    </a>
-                </li>
+
 
                 <li class="nav-item ">
                     <a href="CreateDayLeave.jsp"
@@ -291,7 +279,19 @@
                         <span class="ml-3">Applicant</span>
                     </a>
                 </li>
-
+                <li class="nav-item">
+                    <a href="UserSalaryServlet"
+                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
+                        <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
+                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                             aria-hidden="true">
+                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                  d="M1 4a1 1 0 011-1h16a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm12 4a3 3 0 11-6 0 3 3 0 016 0zM4 9a1 1 0 100-2 1 1 0 000 2zm13-1a1 1 0 11-2 0 1 1 0 012 0zM1.75 14.5a.75.75 0 000 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 00-1.5 0v.784a.272.272 0 01-.35.25A49.043 49.043 0 001.75 14.5z">
+                            </path>
+                        </svg>
+                        <span class="ml-3"> Your Salaries</span>
+                    </a>
+                </li>
 
 
             </c:if>
@@ -521,7 +521,7 @@
                         <span class="ml-3">Create Application</span>
                     </a>
                 </li>
-            </c:if>
+          
 
             <li class="nav-item ">
                 <a href="DispatchServlet?btnAction=Sent"
@@ -533,9 +533,22 @@
 
                     <span class="ml-3">Sent</span>
                 </a>
-            </li>    
+            </li>  
+            <li class="nav-item">
+                <a href="UserSalaryServlet"
+                   class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
+                    <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
+                         fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                         aria-hidden="true">
+                        <path clip-rule="evenodd" fill-rule="evenodd"
+                              d="M1 4a1 1 0 011-1h16a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm12 4a3 3 0 11-6 0 3 3 0 016 0zM4 9a1 1 0 100-2 1 1 0 000 2zm13-1a1 1 0 11-2 0 1 1 0 012 0zM1.75 14.5a.75.75 0 000 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 00-1.5 0v.784a.272.272 0 01-.35.25A49.043 49.043 0 001.75 14.5z">
+                        </path>
+                    </svg>
+                    <span class="ml-3"> Your Salaries</span>
+                </a>
+            </li>
         </ul>
-
+  </c:if>
     </div>
 
 </aside>
