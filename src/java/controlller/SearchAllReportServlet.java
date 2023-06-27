@@ -7,21 +7,26 @@ package controlller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.DAO.HRDao;
+import model.DAO.HRMDao;
+import model.DTO.EmployeeDto;
+import model.DTO.ReportDTO;
+import model.DTO.UserDto;
 
 /**
  *
  * @author ADMIN
  */
-public class UpdateRejectServlet extends HttpServlet {
+public class SearchAllReportServlet extends HttpServlet {
 
-    private static final String DAY_LEAVE_PAGE = "HR/DayLeave.jsp";
-
+    private static final String REPORT_PAGE = "HR/AllReport.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,16 +39,38 @@ public class UpdateRejectServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = DAY_LEAVE_PAGE;
-        int id = Integer.parseInt(request.getParameter("dayLeaveId"));
+        String url = REPORT_PAGE;
+        String monthInput = request.getParameter("date");
+        int month = 0;
+        int year = 0;
+
+        HttpSession session = request.getSession();
+        UserDto userDTO = (UserDto) session.getAttribute("user");
+        String username = userDTO.getUsername();
+
         try {
-            HRDao dao = new HRDao();
-            boolean check = dao.updateStatus(id, false);
-            // update sau khi tạo timekeeping
-            dao.updateDayLeaveIdInTimekeeping(id, "absent without permission");
-            if (check) {
-                url = "DispatchServlet"
-                        + "?btnAction=Pending";
+            if (monthInput != null && !monthInput.isEmpty()) {
+                try {
+                    String[] parts = monthInput.split("-");
+                    if (parts.length == 2) {
+                        year = Integer.parseInt(parts[0]);
+                        month = Integer.parseInt(parts[1]);
+
+                        HRMDao dao = new HRMDao();
+
+                        //Get list by search name
+                        String search = request.getParameter("txtSearch");
+                        if (!search.isEmpty()) {
+                            dao.getReportByName(month, search);
+                            List<ReportDTO> reportList2 = dao.getReportList();
+                            request.setAttribute("REPORT_LIST_BY_NAME", reportList2);
+                        }
+
+                    }
+                } catch (Exception e) {
+                }
+            } else {
+                request.setAttribute("message", "Please choose month first");
             }
         } catch (Exception e) {
             e.printStackTrace();

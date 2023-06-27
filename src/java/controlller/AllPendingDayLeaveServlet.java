@@ -7,21 +7,26 @@ package controlller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.DAO.HRDao;
+import model.DAO.HRMDao;
+import model.DTO.DayLeaveDto;
+import model.DTO.EmployeeDto;
+import model.DTO.UserDto;
 
 /**
  *
  * @author ADMIN
  */
-public class UpdateRejectServlet extends HttpServlet {
+public class AllPendingDayLeaveServlet extends HttpServlet {
 
-    private static final String DAY_LEAVE_PAGE = "HR/DayLeave.jsp";
-
+    private static final String DAY_LEAVE_PAGE = "HR/AllDayLeave.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,16 +40,20 @@ public class UpdateRejectServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = DAY_LEAVE_PAGE;
-        int id = Integer.parseInt(request.getParameter("dayLeaveId"));
+
+        HttpSession session = request.getSession();
+        UserDto userDTO = (UserDto) session.getAttribute("user");
+        String username = userDTO.getUsername();
+
         try {
-            HRDao dao = new HRDao();
-            boolean check = dao.updateStatus(id, false);
-            // update sau khi tạo timekeeping
-            dao.updateDayLeaveIdInTimekeeping(id, "absent without permission");
-            if (check) {
-                url = "DispatchServlet"
-                        + "?btnAction=Pending";
-            }
+            HRMDao dao = new HRMDao();
+
+            // Get dayleave
+            DayLeaveDto dto = new DayLeaveDto();
+            dao.getDayLeavePending(dto);
+            List<DayLeaveDto> pending = dao.getDayLeaveList();
+            request.setAttribute("PENDING_LIST", pending);
+            url = DAY_LEAVE_PAGE;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

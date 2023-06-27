@@ -128,12 +128,10 @@
         <servlet-name>ApplyApplicantServlet</servlet-name>
         <servlet-class>controlller.ApplyApplicantServlet</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>UpdateUserInfoServlet</servlet-name>
         <servlet-class>controlller.UpdateUserInfoServlet</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>CreateDayLeaveServlet</servlet-name>
         <servlet-class>controlller.CreateDayLeaveServlet</servlet-class>
@@ -143,11 +141,41 @@
         <servlet-class>controlller.CreateHrApplicationServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SearchReporServlet</servlet-name>
+        <servlet-class>controlller.SearchReporServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateReporServlet</servlet-name>
+        <servlet-class>controlller.CreateReporServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HRMainController</servlet-name>
+        <servlet-class>controlller.HRMainController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AllReportServlet</servlet-name>
+        <servlet-class>controlller.AllReportServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchAllReportServlet</servlet-name>
+        <servlet-class>controlller.SearchAllReportServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AllPendingDayLeaveServlet</servlet-name>
+        <servlet-class>controlller.AllPendingDayLeaveServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AllApproveDayLeaveServlet</servlet-name>
+        <servlet-class>controlller.AllApproveDayLeaveServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AllRejectDayLeaveServlet</servlet-name>
+        <servlet-class>controlller.AllRejectDayLeaveServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>SearchNameContractServlet</servlet-name>
         <servlet-class>controlller.SearchNameContractServlet</servlet-class>
     </servlet>
-
-
     <servlet-mapping>
         <servlet-name>DispatchServlet</servlet-name>
         <url-pattern>/DispatchServlet</url-pattern>
@@ -181,7 +209,6 @@
         <url-pattern>/DeleteStaffDetailServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>CreateDayLeaveServlet</servlet-name>
         <url-pattern>/CreateDayLeaveServlet</url-pattern>
     </servlet-mapping>
@@ -194,7 +221,6 @@
         <url-pattern>/OvertimeDetailServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>AccountListServlet</servlet-name>
         <url-pattern>/AccountListServlet</url-pattern>
     </servlet-mapping>
@@ -202,7 +228,6 @@
         <servlet-name>AccountDetailServlet</servlet-name>
         <url-pattern>/AccountDetailServlet</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>ContractListServlet</servlet-name>
         <url-pattern>/ContractListServlet</url-pattern>
@@ -283,22 +308,50 @@
         <servlet-name>ApplyApplicantServlet</servlet-name>
         <url-pattern>/ApplyApplicantServlet</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>UpdateUserInfoServlet</servlet-name>
         <url-pattern>/UpdateUserInfoServlet</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>CreateHrApplicationServlet</servlet-name>
         <url-pattern>/CreateHrApplicationServlet</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>SearchReporServlet</servlet-name>
+        <url-pattern>/SearchReporServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateReporServlet</servlet-name>
+        <url-pattern>/CreateReporServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HRMainController</servlet-name>
+        <url-pattern>/HRMainController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AllReportServlet</servlet-name>
+        <url-pattern>/AllReportServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchAllReportServlet</servlet-name>
+        <url-pattern>/SearchAllReportServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AllPendingDayLeaveServlet</servlet-name>
+        <url-pattern>/AllPendingDayLeaveServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AllApproveDayLeaveServlet</servlet-name>
+        <url-pattern>/AllApproveDayLeaveServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AllRejectDayLeaveServlet</servlet-name>
+        <url-pattern>/AllRejectDayLeaveServlet</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchNameContractServlet</servlet-name>
         <url-pattern>/SearchNameContractServlet</url-pattern>
     </servlet-mapping>
-
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

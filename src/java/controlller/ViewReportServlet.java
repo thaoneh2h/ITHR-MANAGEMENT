@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.DAO.HRDao;
-import model.DTO.ApplicationDTO;
 import model.DTO.EmployeeDto;
+import model.DTO.ReportDTO;
 import model.DTO.UserDto;
 
 /**
@@ -31,6 +31,7 @@ import model.DTO.UserDto;
 public class ViewReportServlet extends HttpServlet {
 
     private static final String REPORT_PAGE = "HR/ReportDetail.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,31 +44,30 @@ public class ViewReportServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-         String url = REPORT_PAGE;
+        String url = REPORT_PAGE;
 
         HttpSession session = request.getSession();
         UserDto userDTO = (UserDto) session.getAttribute("user");
         String username = userDTO.getUsername();
 
-        String dateCreateStr = request.getParameter("txtDateCreate");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateCreate = dateFormat.parse(dateCreateStr);
-        
+        String monthInput = request.getParameter("txtMonth");
+
         String name = request.getParameter("txtEmployeeName");
         try {
-            HRDao dao = new HRDao();
+            if (monthInput != null && !monthInput.isEmpty()) {
+                String[] parts = monthInput.split("-");
+                if (parts.length == 2) {
+                    int year = Integer.parseInt(parts[0]);
+                    int month = Integer.parseInt(parts[1]);
 
-            // Get department ID
-            EmployeeDto e_departmentid = dao.getDepartmentID(username);
+                    HRDao dao = new HRDao();
 
-            session.setAttribute("DEPARTMENT_ID", e_departmentid);
-            EmployeeDto employeeDto = (EmployeeDto) session.getAttribute("DEPARTMENT_ID");
-            String departmentID = employeeDto.getDepartment_id();
-
-            // Get report list
-            dao.getReportDetail(departmentID, name, dateCreate);
-            List<ApplicationDTO> reportList = dao.getApplicationList();
-            request.setAttribute("REPORT_DETAIL_LIST", reportList);
+                    // Get report list
+                    dao.getReportDetail(name, month);
+                    List<ReportDTO> reportList = dao.getReportList();
+                    request.setAttribute("REPORT_DETAIL_LIST", reportList);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

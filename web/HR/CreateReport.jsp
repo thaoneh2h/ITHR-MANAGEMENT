@@ -24,18 +24,13 @@
 
                     </div>
                     <p class="text-2xl text-white font-bold text-center w-full my-2 mb-4">
-                        Create Application
+                        Create Report
                     </p>                      
-
-                    <c:set var="error1" value="${requestScope.CREATE_DAY_LEAVE_ERROR}"/>
-                    <c:if test="${not empty error1}">
-                        ${error1}
-                    </c:if>
 
                     <div class="w-full items-center flex  flex-col rounded-xl p-5 overflow-hidden relative">
 
                         <div class="w-full">
-                            <form class="position-relative w-full" action="CreateDayLeaveServlet">
+                            <form class="position-relative w-full" action="/HRManagement/MainController">
                                 <div class="mb-3">
                                     <label for="txtType" class="block mb-2 text-sm font-medium ">
                                         Title</label>
@@ -43,21 +38,32 @@
                                            class=" border text-sm rounded-lg block w-full p-2.5  border-gray-600 placeholder-gray-400  ring-blue-500 focus:border-blue-500"
                                            id="txtType" name="txtTitle" placeholder="Enter your title" />
                                 </div>
-                                <!--                                <div class="mb-3">
-                                                                    <label for="lang-select"
-                                                                           class="block mb-2 text-sm font-medium ">Type</label>
-                                                                    <select name="txtType" id="lang-select"
-                                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                                                                        <option selected value="dayleave">Day leave</option>
-                                                                    </select>
-                                                                </div>-->
-                                <label for="txtDate" class="block mb-2 text-sm font-medium ">
-                                    Date off</label>
+                                <label for="txtId" class="block mb-2 text-sm font-medium ">
+                                    Report for</label>
                                 <div class="relative max-w-sm">
-                                    <input name="date" type="date"  id="datepickerId" 
+                                    <select name="txtEmployeeID">
+                                        <c:if test="${not empty LIST_DEPARTMENT_EMPLOYEE}">
+                                            <c:forEach var="dto" items="${requestScope.LIST_DEPARTMENT_EMPLOYEE}">
+                                                <option value="${dto.employee_id}">${dto.employee_name}-${dto.employee_id}</option>
+                                            </c:forEach>
+                                        </c:if>
+                                        <c:if test="${not empty LIST_DEPARTMENT_EMPLOYEE2}">
+                                            <c:forEach var="dto" items="${requestScope.LIST_DEPARTMENT_EMPLOYEE2}">
+                                                <option value="${dto.employee_id}">${dto.employee_name}-${dto.employee_id}</option>
+                                            </c:forEach>
+                                        </c:if>
+
+                                    </select>
+                                </div>
+
+                                <label for="txtDate" class="block mb-2 text-sm font-medium ">
+                                    Date</label>
+                                <div class="relative max-w-sm">
+                                    <input name="date" type="month"  id="datepickerId" 
                                            data-date="${param.date}" value="" 
                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Select date"/>
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="txtDescr" class="block mb-2 text-sm font-medium ">
                                         Description</label>
@@ -78,10 +84,6 @@
                 <c:set var="error" value="${requestScope.DATE_ERROR_MESSAGE}"/>
                 <c:if test="${not empty error}">
                     ${error}
-                </c:if>
-                <c:set var="error1" value="${requestScope.EMPTY_ERROR}"/>
-                <c:if test="${not empty error1}">
-                    ${error1}
                 </c:if>
 
             </div>

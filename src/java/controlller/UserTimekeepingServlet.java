@@ -50,8 +50,6 @@ public class UserTimekeepingServlet extends HttpServlet {
             List<TimekeepingDTO> userTimekeeping = dao.userTimekeepingDetail(employeeID);
             if(userTimekeeping != null){
                 request.setAttribute("USER_TIMEKEEPING", userTimekeeping);
-            } else {
-                url = "Timekeeping.jsp";
             } 
         } catch (Exception ex){
         } finally {

@@ -32,10 +32,10 @@
                         
                         <!-- ĐÂY LÀ PHẦN SEARCH CONTRACT THEO EMPLOYEE'S NAME -->
                         <!-- PHẦN NÀY CHƯA HOÀN THIỆN -->
-                                    <form action="DispatchServlet">
+                                    <!--  <form action="DispatchServlet">
                                     Search Contract by name <input type="text" name="txtSearchValue" value="" /> <br>
                                     <input type="submit" name = "bntAction" value="Search Contract Name" />
-                                    </form> <br>
+                                    </form> <br>-->
                                     
                                     
                         <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">

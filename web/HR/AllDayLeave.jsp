@@ -22,7 +22,7 @@
                 <div class="m-10 p-10 w-1/2 rounded-lg bg-[#82cfef10]" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
                     <p class="text-center text-3xl font-bold mb-10">List Application Of Day Leave</p>
                     <br>
-                    <form action="DispatchServlet" id="statusForm" class="w-1/4" method="get">
+                    <form action="HRMainController" id="statusForm" class="w-1/4" method="get">
                         <c:set value="${param.btnAction}" var="action"></c:set>
                             <select 
                                 onChange="getApplicationByStatus()"
@@ -47,12 +47,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            <c:set var="error1" value="${requestScope.APPROVE_DAY_LEAVE_ERROR}"/>
-                            <c:if test="${not empty error1}">
-                                ${error1}
-                            </c:if>
-
                             <!-- Approve list  -->
                             <c:set var="resultApprove" value="${requestScope.APPROVE_LIST}" />
                             <c:if test="${not empty resultApprove}">
@@ -98,7 +92,7 @@
                                         <td class="px-3 py-3">
                                             ${dto.dayleave_description}
                                         </td>
-                                        <td class="px-3 py-3">
+                                         <td class="px-3 py-3">
                                             ${dto.date_created}
                                         </td>  
 
@@ -135,9 +129,9 @@
                                     <td class="px-3 py-3">
                                         ${dto.dayleave_description}
                                     </td>
-                                    <td class="px-3 py-3">
-                                        ${dto.date_created}
-                                    </td>  
+                                     <td class="px-3 py-3">
+                                            ${dto.date_created}
+                                        </td>  
 
                                     <td class="px-2 py-3 rounded-r-[0.25rem]">
 

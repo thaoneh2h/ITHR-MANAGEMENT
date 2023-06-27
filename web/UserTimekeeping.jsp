@@ -86,5 +86,8 @@
             </table>
 
         </c:if>
+        <c:if test="${empty result}">
+            EMPTY
+        </c:if>
     </body>
 </html>

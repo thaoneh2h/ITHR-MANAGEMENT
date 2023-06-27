@@ -12,30 +12,34 @@ import java.util.Date;
  * @author ADMIN
  */
 public class DayLeaveDto {
-    private String dayleave_id;
+    private int dayleave_id;
     private String dayleave_title;
     private String dayleave_description;
-    private Date dateCreate;
+    private Date date_created;
     private boolean status;
     private String username;
+    private String employeeID;
+    private String employeeName;
 
     public DayLeaveDto() {
     }
 
-    public DayLeaveDto(String dayleave_id, String dayleave_title, String dayleave_description, Date dateCreate, boolean status, String username) {
+    public DayLeaveDto(int dayleave_id, String dayleave_title, String dayleave_description, Date date_created, boolean status, String username, String employeeID, String employeeName) {
         this.dayleave_id = dayleave_id;
         this.dayleave_title = dayleave_title;
         this.dayleave_description = dayleave_description;
-        this.dateCreate = dateCreate;
+        this.date_created = date_created;
         this.status = status;
         this.username = username;
+        this.employeeID = employeeID;
+        this.employeeName = employeeName;
     }
 
-    public String getDayleave_id() {
+    public int getDayleave_id() {
         return dayleave_id;
     }
 
-    public void setDayleave_id(String dayleave_id) {
+    public void setDayleave_id(int dayleave_id) {
         this.dayleave_id = dayleave_id;
     }
 
@@ -55,12 +59,12 @@ public class DayLeaveDto {
         this.dayleave_description = dayleave_description;
     }
 
-    public Date getDateCreate() {
-        return dateCreate;
+    public Date getDate_created() {
+        return date_created;
     }
 
-    public void setDateCreate(Date dateCreate) {
-        this.dateCreate = dateCreate;
+    public void setDate_created(Date date_created) {
+        this.date_created = date_created;
     }
 
     public boolean isStatus() {
@@ -78,7 +82,23 @@ public class DayLeaveDto {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String getEmployeeID() {
+        return employeeID;
+    }
+
+    public void setEmployeeID(String employeeID) {
+        this.employeeID = employeeID;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
     
     
-    
+   
 }

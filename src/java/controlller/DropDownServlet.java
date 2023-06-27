@@ -36,25 +36,36 @@ public class DropDownServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = "HR/HRCreateDayLeave.jsp";
+        String url = "HR/CreateReport.jsp";
 
         HttpSession session = request.getSession();
         UserDto userDto = (UserDto) session.getAttribute("user");
         String username = userDto.getUsername();
-
+        String roleName = userDto.getRoleName();
         try {
             HRDao dao = new HRDao();
 
-            // Get department id
-            EmployeeDto e_departmentid = dao.getDepartmentID(username);
-            session.setAttribute("DEPARTMENT_ID", e_departmentid);
-            EmployeeDto employeeDto = (EmployeeDto) session.getAttribute("DEPARTMENT_ID");
-            String departmentID = employeeDto.getDepartment_id();
+            switch (roleName) {
+                // Get department id
+                case "LEADER":
+                    EmployeeDto e_departmentid = dao.getDepartmentID(username);
+                    session.setAttribute("DEPARTMENT_ID", e_departmentid);
+                    EmployeeDto employeeDto = (EmployeeDto) session.getAttribute("DEPARTMENT_ID");
+                    String departmentID = employeeDto.getDepartment_id();
 
-            // Get employee of each department
-            dao.getEmployeeOfEachDepartment(departmentID);
-            List<EmployeeDto> list = dao.getEmployeeList();
-            request.setAttribute("LIST_DEPARTMENT_EMPLOYEE", list);
+                    // Get employee of each department
+                    dao.getEmployeeOfEachDepartment(departmentID);
+                    List<EmployeeDto> list = dao.getEmployeeList();
+                    request.setAttribute("LIST_DEPARTMENT_EMPLOYEE", list);
+                    break;
+
+                case "HRM":
+                    // Get employee of each department
+                    dao.getEmployee();
+                    List<EmployeeDto> list2 = dao.getEmployeeList();
+                    request.setAttribute("LIST_DEPARTMENT_EMPLOYEE2", list2);
+                    break;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
