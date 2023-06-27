@@ -67,10 +67,20 @@
                                             ${dto.date}
                                         </td>
                                         <td class="px-3 py-3">
-                                            ${dto.timekiN}
+                                            <c:if test="${not empty dto.timekiN}">
+                                                ${dto.timekiN}
+                                            </c:if>
+                                            <c:if test="${empty dto.timekiN}">
+                                                No data
+                                            </c:if>
                                         </td>
                                         <td class="px-3 py-3">
-                                            ${dto.timeOut}
+                                            <c:if test="${not empty dto.timeOut}">
+                                                ${dto.timeOut}
+                                            </c:if>
+                                            <c:if test="${empty dto.timeOut}">
+                                                No data
+                                            </c:if>
                                         </td>
                                         <td class="px-3 py-3 rounded-r-[0.25rem]">
                                             ${dto.status}
