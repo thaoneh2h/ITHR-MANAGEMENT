@@ -48,6 +48,14 @@
 
                             </div>
                             <ul class="py-1" role="none">
+                                <li>
+                                    <a href="DispatchServlet?btnAction=UserInfo"
+                                       class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white"
+                                       role="menuitem">
+                                        User Info
+                                    </a>
+                                </li>
+
 
                                 <li>
                                     <a href="/HRManagement/DispatchServlet?btnAction=newPassword"
@@ -76,7 +84,7 @@
                                    class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white"
                                    role="menuitem">Sign out</a>
                             </li>
-                            <li class="nav-item ">
+                            <!-- <li class="nav-item ">
                                 <a href="DispatchServlet?btnAction=UserInfo"
                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
                                     <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
@@ -92,7 +100,7 @@
 
                                     <span class="ml-3">User Info</span>
                                 </a>
-                            </li>
+                            </li> -->
 
 
                             <c:if test="${user!=null}">  
