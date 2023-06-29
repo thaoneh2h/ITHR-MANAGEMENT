@@ -21,18 +21,22 @@
             <div class="w-full flex justify-center ">
                 <div class="m-10 p-10 w-2/3 rounded-lg bg-[#82cfef10]" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
                     <p class="text-center text-3xl font-bold mb-10">List Reports</p>
-                    <form id="searchForm" action="/HRManagement/ReportServlet" method="post">
-                        <div class="relative max-w-sm">
-                            <input name="date" onchange="submitForm()" type="month"  id="datepickerId" 
-                                   data-date="${param.date}" value="${param.date}" 
-                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Select date"/>
-                        </div>
-                    </form>
-                    <form action="/HRManagement/MainController">
-                        <input type="text" name="txtSearch" value="${param.txtSearch}" placeholder="Enter employee's name"/>
-                        <input type="hidden" name="date" value="${param.date}"/>
-                        <input type="submit" name="btnAction" value="Search"/>
-                    </form>
+                    <div class="flex justify-between gap-3">
+                         <form id="searchForm" action="/HRManagement/ReportServlet" method="post">
+                            <div class="relative max-w-sm">
+                                <input name="date" onchange="submitForm()" type="month"  id="datepickerId" 
+                                       data-date="${param.date}" value="${param.date}" 
+                                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Select date"/>
+                            </div>
+                        </form>
+                        <form action="/HRManagement/MainController" class="flex gap-3 col-span-1 w-1/3 h-fit items-center">
+                            <input type="text" name="txtSearch" value="${param.txtSearch}"  
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                                   placeholder="Enter employee's name"/>
+                            <input type="hidden" name="date" value="${param.date}"/>
+                            <input type="submit" name="btnAction" value="Search" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" />
+                        </form>
+                    </div> 
                     <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">
                         <thead class="">
                             <tr class="text-[#464646] text-lg font-semibold">
@@ -50,7 +54,7 @@
                             <c:if test="${not empty error}">
                                 <c:out value="${error}"/>
                             </c:if>
-                            
+
                             <c:set var="result" value="${requestScope.REPORT_LIST}" />
                             <c:if test="${not empty result}">
                                 <c:forEach var="dto" items="${result}" varStatus="counter">
@@ -68,7 +72,7 @@
                                             ${dto.department}
                                         </td>   
                                         <td class="px-3 py-3">
-                                            <a href="DispatchServlet?btnAction=ViewReport&txtEmployeeName=${dto.employeeName}&txtMonth=${param.date}">
+                                            <a href="DispatchServlet?btnAction=ViewReport&txtEmployeeName=${dto.employeeName}&txtMonth=${param.date}" class="text-white bg-[#0d6efd] rounded-md px-2 py-1 cursor-pointer hover:text-[#0d6efd] hover:bg-[#dce7f9] border-2 border-[#0d6efd] transition-all font-medium">
                                                 View
                                             </a> 
                                         </td>
@@ -94,7 +98,7 @@
                                             ${dto.department}
                                         </td>   
                                         <td class="px-3 py-3">
-                                            <a href="DispatchServlet?btnAction=ViewReport&txtEmployeeName=${dto.employeeName}&txtMonth=${param.date}"">
+                                            <a href="DispatchServlet?btnAction=ViewReport&txtEmployeeName=${dto.employeeName}&txtMonth=${param.date}" class="text-white bg-[#0d6efd] rounded-md px-2 py-1 cursor-pointer hover:text-[#0d6efd] hover:bg-[#dce7f9] border-2 border-[#0d6efd] transition-all font-medium">
                                                 View
                                             </a> 
                                         </td>
