@@ -142,7 +142,7 @@
 
                         </tbody>
                     </table>
-                    <c:if test="${ empty resultApprove &&  empty resultPending && empty resultRejected}">
+                    <c:if test="${ empty resultApprove &&  empty resultPending && empty resultReject}">
                         <div class="text-red-400 mx-auto justify-center items-center flex flex-col pt-10">
                             <p class="text-lg">Empty list</p>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
