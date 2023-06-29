@@ -30,9 +30,9 @@
                         <th class="px-3 py-2 text-start">Bonus</th>
                         <th class="px-3 py-2 text-start">Penalty</th>
                         <th class="px-3 py-2 text-start">Month</th>
-                          <th class="px-3 py-2 text-start">Year</th>
-                            <th class="px-3 py-2 text-start">Actions</th>
-                        
+                        <th class="px-3 py-2 text-start">Year</th>
+                        <th class="px-3 py-2 text-start">Actions</th>
+
                     </tr>
 
                     <c:forEach var="salary" items="${list2}" varStatus="loop">
