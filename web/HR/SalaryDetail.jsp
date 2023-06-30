@@ -177,7 +177,7 @@
                                      >
                                     <div class="p-5">
                                         <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 ">
-                                            Absent for work
+                                            Absent without permission
                                         </h5>
                                         <div class="flex justify-between">
                                             <p class="mb-3 font-normal text-gray-700 font-bold text-lg">

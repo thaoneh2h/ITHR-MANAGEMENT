@@ -513,7 +513,7 @@ public class HRDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.employee_name, r.report_title, r.report_id, d.department_name, [month] "
+                String sql = "SELECT e.employee_id, e.employee_name, r.report_title, r.report_id, d.department_name, [month] "
                         + "FROM Report r "
                         + "JOIN employee e ON e.employee_id = r.employee_id "
                         + "JOIN department d ON d.department_id = e.department_id "
@@ -528,8 +528,9 @@ public class HRDao {
                     int id = rs.getInt("report_id");
                     String department = rs.getString("department_name");
                     month = rs.getInt("month");
+                    String emId = rs.getString("employee_id");
 
-                    reportdto = new ReportDTO(id, title, name, 0, 0, 0, "", month, 0, department);
+                    reportdto = new ReportDTO(id, title, name, 0, 0, 0, emId, month, 0, department);
                     if (this.reportList == null) {
                         this.reportList = new ArrayList<>();
                     }
@@ -772,7 +773,7 @@ public class HRDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.employee_name, r.report_title, r.report_id, d.department_name, [month] "
+                String sql = "SELECT e.employee_id, e.employee_name, r.report_title, r.report_id, d.department_name, [month] "
                         + "FROM Report r "
                         + "JOIN employee e ON e.employee_id = r.employee_id "
                         + "JOIN department d ON d.department_id = e.department_id "
@@ -788,8 +789,9 @@ public class HRDao {
                     int id = rs.getInt("report_id");
                     String department = rs.getString("department_name");
                     month = rs.getInt("month");
+                    String emID = rs.getString("employee_id");
 
-                    reportdto = new ReportDTO(id, title, name, 0, 0, 0, "", month, 0, department);
+                    reportdto = new ReportDTO(id, title, name, 0, 0, 0, emID, month, 0, department);
                     if (this.reportList == null) {
                         this.reportList = new ArrayList<>();
                     }
