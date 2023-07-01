@@ -89,7 +89,7 @@ public class UpdateApproveServlet extends HttpServlet {
                 int timekeepingID = dao.getTimekeepingID(date, employeeID);
                 // 2. insert timekeeping
                 dao.insertTimekeepingIDInDayLeave(timekeepingID, employeeID, date);
-
+                
             } else {
                 request.setAttribute("APPROVE_DAY_LEAVE_ERROR", "Employee's day off is exceeded");
             }
