@@ -390,6 +390,53 @@ public class StaffDao {
             }
         }
     }
+    public void getAccListByDepartment(EmployeeDto employeeDTO, String department_id) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT e.[employee_id], employee_name, "
+                        + "e.[department_id], e.[employee_email] "
+                        + "FROM employee e "
+                        + "JOIN department d On e.department_id = d.department_id "
+                        + "JOIN [User] u On u.employee_id = e.employee_id "
+                        + "WHERE e.department_id = ? ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, department_id);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String employeeId = rs.getString("employee_id");
+                    String employeeName = rs.getString("employee_name");
+                    department_id = rs.getString("department_id");
+                    String employeeEmail = rs.getString("employee_email");
+                    employeeDTO = new EmployeeDto(employeeId, department_id, employeeName, null, 0, null, employeeEmail, 0, true, department_id, employeeEmail, employeeName, employeeName, department_id, sql, employeeName, sql, sql, true);
+
+//                    employeeDTO = new EmployeeDto(employeeId, department_id, employeeName, null, 0, null,
+//                            null, 0, true, "", employeeEmail, "", null, "", "", "", "");
+                    if (this.accountList == null) {
+                        this.accountList = new ArrayList<>();
+                    }//
+                    this.accountList.add(employeeDTO);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
 
     public List<EmployeeDto> getAccDetail(String name) throws SQLException {
         List<EmployeeDto> AccList = null;
