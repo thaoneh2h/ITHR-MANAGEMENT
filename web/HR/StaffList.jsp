@@ -120,19 +120,100 @@
                                                             </svg>
                                                         </a>
                                                     </c:if>
-                                                    <c:if test="${!dto.status}">
-                                                        <a 
-                                                            class="text-[#52c41a] py-1 px-2 rounded-md font-medium 
-                                                            hover:bg-[#f6ffed] transition-all flex items-center justify-center" 
-                                                            href="DispatchServlet?btnAction=Delete_StaffDetail&employee_name=${dto.employee_name}"
-                                                            title="Add user"
+                                                  
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    </c:if>
+                                    
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </c:if>
+                    <c:set var="result" value="${requestScope.LIST_STAFF_BY_DEPARTMENT}"/>
+                    <c:if test="${not empty result}">
+                        <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">
+                            <thead class="">
+                                <tr 
+                                    class="text-[#464646] text-lg font-semibold"
+                                    >
+                                    <th class="px-3 py-2 text-start">Name</th>
+                                    <th class="px-3 py-2 text-start">Gender</th>
+                                    <th class="px-3 py-2 text-start">Phone Number</th>
+                                    <th class="px-3 py-2 text-start">Department</th>                         
+                                    <th class="px-3 py-2 text-start">Role</th>
+                                    <th class="px-3 py-2 text-start">Status</th>
+                                    <th class="px-3 py-2 text-start w-20">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="dto" items="${result}">
+                                    <c:if test="${statusWorker == dto.status}">
+                                        <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
+                                            <td class="px-3 py-3 rounded-l-[0.25rem]">
+                                                <c:url var="staffDetail" value="DispatchServlet">
+                                                    <c:param name="btnAction" value="staffDetail" />
+                                                    <c:param name="employee_name" value="${dto.employee_name}"/>
+                                                </c:url> 
+                                                <a href="${staffDetail}" class="border-black hover:border-b-2 text-black"> 
+                                                    ${dto.employee_name}
+                                                </a>                                 
+                                            </td>
+                                            <td class="px-3 py-3">
+                                                <c:if test="${dto.gender}">
+                                                    Male
+                                                </c:if>
+                                                <c:if test="${!dto.gender}">
+                                                    Female
+                                                </c:if>
+                                            </td>
+                                            <td class="px-3 py-3">
+                                                ${dto.employee_phone}
+                                            </td>
+                                            <td class="px-3 py-3">
+                                                ${dto.departmentName}
+                                            </td>        
+                                            <td class="px-3 py-3">
+                                                ${dto.role}
+                                            </td>
+                                            <td class="px-3 py-3">
+                                                <c:if test="${dto.status}">
+                                                    <p class="text-sm text-[#52c41a] bg-[#f6ffed] border-2 border-[#b7eb8f] rounded-md w-fit py-[1px] px-[17px]">
+                                                        Active
+                                                    </p>
+                                                </c:if>
+                                                <c:if test="${!dto.status}">
+                                                    <p class="text-sm text-[#ff4d4f] bg-[#fff2f0] border-2 border-[#ffccc7] rounded-md w-fit py-[1px] px-3">
+                                                        Inactive
+                                                    </p> 
+                                                </c:if>
+                                            </td>
+                                            <td class="px-3 py-3 rounded-r-[0.25rem]">
+                                                <div class="flex gap-1">
+                                                    <a 
+                                                        class="text-[#0d6efd] py-1 px-2 rounded-md font-medium 
+                                                        hover:bg-[#0d6efd30] transition-all" 
+                                                        href="${staffDetail}"
+                                                        title="Information of user"
                                                         >
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
-                                                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                                                                <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z"/>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                                                        <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
+                                                        </svg>
+                                                    </a>
+                                                    <c:if test="${dto.status}">
+                                                        <a 
+                                                            class="text-[#dc3545] py-1 px-2 rounded-md font-medium 
+                                                            hover:bg-[#dc354530] transition-all flex items-center justify-center" 
+                                                            href="DispatchServlet?btnAction=Delete_StaffDetail&employee_id=${dto.employee_id}&employee_status=${dto.status}"
+                                                            title="Delete user"
+                                                        >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
                                                             </svg>
                                                         </a>
                                                     </c:if>
+                                                  
                                                 </div>
 
                                             </td>
