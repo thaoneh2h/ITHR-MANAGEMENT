@@ -73,7 +73,7 @@
                                             Accidental Insurance
                                         </h5>
                                         <p class="mb-3 font-normal text-gray-700 font-bold text-lg">
-                                            <%= salaryDetail.getMedicalInsurance()%>
+                                            <%= salaryDetail.getAccidentalInsurance() %>
                                         </p>
                                     </div>
                                 </div>
