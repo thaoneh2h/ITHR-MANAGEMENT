@@ -16,6 +16,7 @@ import model.DTO.ApplicantDto;
 import model.DTO.DayLeaveDto;
 import model.DTO.EmployeeDto;
 import model.DTO.ReportDTO;
+import model.DTO.TimekeepingDTO;
 import utils.DBHelper;
 
 /**
@@ -251,6 +252,75 @@ public class HRDao {
         return result;
     }
 
+    public void insertTimekeepingIDInDayLeave(int timekeepingID, String emID, Date date) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "UPDATE DayLeave "
+                        + "SET timekeeping_id = ? "
+                        + "WHERE employeeID =? and [date-created] = ? ";
+                stm = conn.prepareStatement(sql);
+                stm.setInt(1, timekeepingID);
+                stm.setString(2, emID);
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                stm.setDate(3, sqlDate);
+                int effectRow = stm.executeUpdate();
+                if (effectRow > 0) {
+                    result = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    public int getTimekeepingID(Date date, String id) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        TimekeepingDTO dto = null;
+        int timekeepingID = 0;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT timekeeping_id "
+                        + "FROM timekeeping t "
+                        + "WHERE t.date = ? AND t.employee_id = ? ";
+                stm = conn.prepareStatement(sql);
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                stm.setDate(1, sqlDate);
+                stm.setString(2, id);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    timekeepingID = rs.getInt("timekeeping_id");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return timekeepingID;
+    }
+
     public int getReportID(String employeeID, int dayLeaveID) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
@@ -465,6 +535,7 @@ public class HRDao {
             }
         }
     }
+
     public void getEmployee() throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
@@ -476,7 +547,7 @@ public class HRDao {
                 String sql = "SELECT employee_name, employee_id "
                         + "FROM employee ";
                 stm = conn.prepareStatement(sql);
-               
+
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String id = rs.getString("employee_id");

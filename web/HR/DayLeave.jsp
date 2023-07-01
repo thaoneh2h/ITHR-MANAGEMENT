@@ -105,6 +105,7 @@
                                         <td class="px-2 py-3 rounded-r-[0.25rem]">
 
                                             <input type="hidden" name="dayLeaveId" value="${dto.dayleave_id}">
+                                            <input type="hidden" name="dayLeaveDate" value="${dto.date_created}">
 
                                             <button>
                                                 <input type="submit" name="btnAction" value="Reject" />
