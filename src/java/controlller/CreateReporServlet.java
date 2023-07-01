@@ -55,7 +55,7 @@ public class CreateReporServlet extends HttpServlet {
 
                         boolean check = dao.insertReport(ranID, title, id, month, year);
                         if (check) {
-                            url = CREATE_REPORT_PAGE;
+                            url = "DispatchServlet?btnAction=CreateReport";
                         }
                     }
                 } catch (Exception e) {

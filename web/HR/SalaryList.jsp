@@ -10,15 +10,15 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Salary List</title>
-        <link rel="stylesheet" href="../styles/tailwind.css" />
+        <title>IT HRMS</title>
+        <script src="https://cdn.tailwindcss.com"></script>
         <%@include file="../Layout/TailwindHead.jsp" %>
     </head>
 
     <body>
         <%@include file="../Layout/Sidebar.jsp" %>
         <section class="p-16 sm:ml-64">
-            <div class="p-10 mt-14 rounded-lg rounded-lg bg-[#82cfef10] salary-list "
+            <div class="p-10 mt-14 rounded-lg bg-[#82cfef10] salary-list "
                  style="box-shadow: rgba(50, 50, 93, 0.35) 0px 50px 50px -20px, rgba(0, 0, 0, 0.4) 0px 30px 30px -30px, rgba(10, 37, 64, 0.45) 0px -2px 6px 0px inset;">
                 <p class="text-center text-3xl font-bold mb-10">List of Salary</p>
                 <form id="searchForm" action="SalaryListServlet" method="post">

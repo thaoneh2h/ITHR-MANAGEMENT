@@ -92,7 +92,7 @@
                                         <td class="px-3 py-3">
                                             ${dto.dayleave_description}
                                         </td>
-                                         <td class="px-3 py-3">
+                                        <td class="px-3 py-3">
                                             ${dto.date_created}
                                         </td>  
 
@@ -100,13 +100,13 @@
 
                                             <input type="hidden" name="dayLeaveId" value="${dto.dayleave_id}">
 
-                                            <button>
-                                                <input type="submit" name="btnAction" value="Reject" />
-                                            </button>
+                                                <button>
+                                                    <input type="submit" name="btnAction" value="Reject" class="text-white bg-[#0d6efd] rounded-md px-2 py-1 cursor-pointer hover:text-[#0d6efd] hover:bg-[#dce7f9] border-2 border-[#0d6efd] transition-all font-medium"/>
+                                                </button>
 
-                                            <button>
-                                                <input type="submit" name="btnAction" value="Approve" />
-                                            </button>
+                                                <button>
+                                                    <input type="submit" name="btnAction" value="Approve" class="text-white bg-red-700 rounded-md px-2 py-1 cursor-pointer hover:text-red-700 hover:bg-red-100 border-2 border-red-700 transition-all font-medium" />
+                                                </button>
                                         </td>
                                     </tr>
                                 </form>
@@ -129,9 +129,9 @@
                                     <td class="px-3 py-3">
                                         ${dto.dayleave_description}
                                     </td>
-                                     <td class="px-3 py-3">
-                                            ${dto.date_created}
-                                        </td>  
+                                    <td class="px-3 py-3">
+                                        ${dto.date_created}
+                                    </td>  
 
                                     <td class="px-2 py-3 rounded-r-[0.25rem]">
 
@@ -142,7 +142,7 @@
 
                         </tbody>
                     </table>
-                    <c:if test="${ empty resultApprove &&  empty resultPending && empty resultRejected}">
+                    <c:if test="${ empty resultApprove &&  empty resultPending && empty resultReject}">
                         <div class="text-red-400 mx-auto justify-center items-center flex flex-col pt-10">
                             <p class="text-lg">Empty list</p>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
