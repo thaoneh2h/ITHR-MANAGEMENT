@@ -430,7 +430,7 @@ public class HRDao {
                     String employeeId = rs.getString("employee_id");
                     String employeeName = rs.getString("employee_name");
                     boolean gender = rs.getBoolean("gender");
-                    int phoneNumer = rs.getInt("employee_phone");
+                    String phoneNumer = rs.getString("employee_phone");
                     String departmentName = rs.getString("department_name");
                     String role = rs.getString("roleName");
                     boolean status = rs.getBoolean("status");
@@ -475,7 +475,7 @@ public class HRDao {
                 while (rs.next()) {
                     String departmentID = rs.getString("department_id");
 
-                    employeedto = new EmployeeDto("", departmentID, "", null, 0, null,
+                    employeedto = new EmployeeDto("", departmentID, "", null, "", null,
                             null, 0, false, "", "", "", null, "", "", "", "", "", false);
                 }
             }
@@ -512,7 +512,7 @@ public class HRDao {
                 while (rs.next()) {
                     String id = rs.getString("employee_id");
                     String name = rs.getString("employee_name");
-                    employeedto = new EmployeeDto(id, "", name, null, 0, null, "", 0, false, "", "", "", "", "", "", "", "", "", false);
+                    employeedto = new EmployeeDto(id, "", name, null, "", null, "", 0, false, "", "", "", "", "", "", "", "", "", false);
 //                    employeedto = new EmployeeDto("", "", name, null, 0, null,
 //                            0, 0, false, "", "", "", null, "", "", "", "", false);
                     if (this.employeeList == null) {
@@ -552,7 +552,7 @@ public class HRDao {
                 while (rs.next()) {
                     String id = rs.getString("employee_id");
                     String name = rs.getString("employee_name");
-                    employeedto = new EmployeeDto(id, "", name, null, 0, null, "", 0, false, "", "", "", "", "", "", "", "", "", false);
+                    employeedto = new EmployeeDto(id, "", name, null, "", null, "", 0, false, "", "", "", "", "", "", "", "", "", false);
 //                    employeedto = new EmployeeDto("", "", name, null, 0, null,
 //                            0, 0, false, "", "", "", null, "", "", "", "", false);
                     if (this.employeeList == null) {
