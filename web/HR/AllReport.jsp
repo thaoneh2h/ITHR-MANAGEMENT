@@ -37,6 +37,7 @@
                         <thead class="">
                             <tr class="text-[#464646] text-lg font-semibold">
                                 <th class="px-3 py-2 text-start">No.</th>
+                                <th class="px-3 py-2 text-start">Employee ID</th>
                                 <th class="px-3 py-2 text-start">Employee</th>
                                 <th class="px-3 py-2 text-start">Title</th>
                                 <th class="px-3 py-2 text-start">Department</th>
@@ -57,6 +58,9 @@
                                     <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
                                         <td class="px-3 py-3">
                                             ${counter.count}.
+                                        </td>
+                                        <td class="px-3 py-3">
+                                            ${dto.employeeID}
                                         </td>
                                         <td class="px-3 py-3">
                                             ${dto.employeeName}

@@ -6,6 +6,7 @@
 package controlller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,36 +14,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.DAO.OvertimeDAO;
-import model.DTO.OvertimeDTO;
+import model.DAO.SalaryDao;
+import model.DTO.SalaryDto;
+import model.DTO.UserDto;
 
 /**
  *
- * @author 23030
+ * @author quanb
  */
-@WebServlet(name = "OvertimeListServlet", urlPatterns = {"/OvertimeListServlet"})
+@WebServlet(name = "UserSalaryServlet", urlPatterns = {"/UserSalaryServlet"})
+public class UserSalaryServlet extends HttpServlet {
 
-public class OvertimeListServlet extends HttpServlet {
-     
-    private static final String OT_LIST = "OTList.jsp";
-    
-//    List<EmployeeDto> employees = (List<EmployeeDto>) getEmployees();
-//    
-//    private static List<EmployeeDto> getEmployees() {
-//
-//        List<EmployeeDto> employees = new ArrayList<>();
-//        return employees;
-//    }
-    
-//        int totalEmployeesWorkingOvertime = 0;
-//        int totalEmployeesNotWorkingOvertime = 0;
-//            for (EmployeeDTO employee : employees) {
-//                if (employee.getWorkingStatus() = true) {
-//                    totalEmployeesWorkingOvertime++;
-//                } else {
-//                    totalEmployeesNotWorkingOvertime++;
-//                }
-//            }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -55,32 +37,41 @@ public class OvertimeListServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = OT_LIST;
+        UserDto user = (UserDto) request.getSession().getAttribute("user");
+        String id = (user != null) ? user.getEmployeeId() : null;
+        String url = "Staff/UserSalary.jsp";
+
         try {
-            OvertimeDAO dao = new OvertimeDAO();
-            OvertimeDTO dto = new OvertimeDTO();
-            dao.getOvertimes(dto);
-            List<OvertimeDTO> result = dao.getOvertimeList();
-            request.setAttribute("OT_LIST", result);
-            url = OT_LIST;
+
+            SalaryDao dao = new SalaryDao();
+            SalaryDto dto = new SalaryDto();
+
+            List<SalaryDto> list2 = dao.SearchByEmployeeId(id);
+            request.setAttribute("list2", list2);
+
+            url = "Staff/UserSalary.jsp";
         } catch (Exception e) {
-        }finally {
+            request.setAttribute("message", "loi roi");
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+/**
+ * Handles the HTTP <code>GET</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+@Override
+        protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -94,7 +85,7 @@ public class OvertimeListServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -105,7 +96,7 @@ public class OvertimeListServlet extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

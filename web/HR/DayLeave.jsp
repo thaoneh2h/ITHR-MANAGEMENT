@@ -76,7 +76,6 @@
                                         </td>  
 
                                         <td class="px-2 py-3 rounded-r-[0.25rem]">
-
                                             <input type="hidden" name="dayLeaveId" value="${dto.dayleave_id}">
                                             <input type="hidden" name="dayLeaveDate" value="${dto.date_created}">
 
@@ -85,7 +84,7 @@
                                             </button>
 
                                             <button>
-                                                <input type="submit" name="btnAction" value="Approve" />
+                                                <input type="submit" name="btnAction" value="Approve" class="text-white bg-red-700 rounded-md px-2 py-1 cursor-pointer hover:text-red-700 hover:bg-red-100 border-2 border-red-700 transition-all font-medium" />
                                             </button>
                                         </td>
                                     </tr>
@@ -95,7 +94,6 @@
 
                         </tbody>
                     </table>
-
                     <c:if test="${empty resultPending}">
                         <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">
                             <thead class="">

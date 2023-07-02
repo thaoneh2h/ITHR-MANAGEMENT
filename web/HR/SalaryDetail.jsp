@@ -12,8 +12,9 @@
 <html>
 
     <head>
-        <title>Salary Detail</title>
+        <title>IT HRMS</title>
         <%@include file="../Layout/TailwindHead.jsp" %>
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
 
     <body>
@@ -23,9 +24,23 @@
             }
         %>
         <%@include file="../Layout/Sidebar.jsp" %>
+        <script>
+            function back() {
+                window.location.href = "/HRManagement/DispatchServlet?btnAction=Salary";
+            }
+        </script>
         <section class="w-full ml-64 pb-10 pt-20 sm:ml-32 flex justify-center">
 
-            <div class="w-full flex justify-center align-middle">
+            <div class="w-full flex justify-center align-middle relative">
+                <button onclick="back()" class="flex gap-2 items-center py-1 px-3 text-red-500 absolute top-6 left-48
+                    hover:scale-105 hover:bg-[#dc354530] transition-all rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z" />
+                    </svg>
+                    Back
+                </button>
                 <div class="w-1/3 items-center flex flex-col rounded-xl p-5 overflow-hidden relative"
                      style="box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;">
                     <img src="assets/background.png"
@@ -73,7 +88,7 @@
                                             Accidental Insurance
                                         </h5>
                                         <p class="mb-3 font-normal text-gray-700 font-bold text-lg">
-                                            <%= salaryDetail.getMedicalInsurance()%>
+                                            <%= salaryDetail.getAccidentalInsurance() %>
                                         </p>
                                     </div>
                                 </div>
@@ -162,7 +177,7 @@
                                      >
                                     <div class="p-5">
                                         <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 ">
-                                            Absent for work
+                                            Absent without permission
                                         </h5>
                                         <div class="flex justify-between">
                                             <p class="mb-3 font-normal text-gray-700 font-bold text-lg">
