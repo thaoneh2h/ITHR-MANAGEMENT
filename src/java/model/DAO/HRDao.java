@@ -503,9 +503,9 @@ public class HRDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT employee_name, employee_id "
-                        + "FROM employee "
-                        + "WHERE department_id = ? ";
+                String sql = "SELECT e.employee_name, e.employee_id "
+                        + "FROM employee e JOIN [User] u ON e.employee_id = u.employee_id "
+                        + "WHERE department_id = ? AND u.[status] = 1 ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, departmentID);
                 rs = stm.executeQuery();
