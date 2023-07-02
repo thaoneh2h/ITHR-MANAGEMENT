@@ -847,7 +847,7 @@ public class HRDao {
                         + "FROM Report r "
                         + "JOIN employee e ON e.employee_id = r.employee_id "
                         + "JOIN department d ON d.department_id = e.department_id "
-                        + "WHERE e.department_id = ? AND [month] = ? AND e.employee_name = ?";
+                        + "WHERE e.department_id = ? AND [month] = ? AND e.employee_name LIKE '%' + ? + '%' ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, departmentID);
                 stm.setInt(2, month);
