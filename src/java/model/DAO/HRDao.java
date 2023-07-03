@@ -676,7 +676,7 @@ public class HRDao {
         return listApplicant;
     }
 
-    public void getPendingApplicant(String departmentID) throws SQLException {
+    public void getPendingApplicant() throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -688,14 +688,13 @@ public class HRDao {
                         + "FROM Applicant a "
                         + "JOIN JobOffering j ON j.jobOffering_id = a.jobOffering_id "
                         + "JOIN department d ON d.department_id = j.departmentID "
-                        + "WHERE d.department_id = ? AND a.[status] IS NULL ";
+                        + "WHERE a.[status] IS NULL ";
                 stm = conn.prepareStatement(sql);
-                stm.setString(1, departmentID);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String email = rs.getString("email");
                     String name = rs.getString("name");
-                    int phone = rs.getInt("phoneNumer");
+                    String phone = rs.getString("phoneNumer");
                     String departmentName = rs.getString("department_name");
                     Date interviewDate = rs.getDate("interviewDate");
                     boolean gender = rs.getBoolean("gender");
@@ -722,7 +721,7 @@ public class HRDao {
         }
     }
 
-    public void getApplicant(String departmentID, boolean status) throws SQLException {
+    public void getApplicant(boolean status) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -734,15 +733,14 @@ public class HRDao {
                         + "FROM Applicant a "
                         + "JOIN JobOffering j ON j.jobOffering_id = a.jobOffering_id "
                         + "JOIN department d ON d.department_id = j.departmentID "
-                        + "WHERE d.department_id = ? AND a.[status] = ? ";
+                        + "WHERE a.[status] = ? ";
                 stm = conn.prepareStatement(sql);
-                stm.setString(1, departmentID);
-                stm.setBoolean(2, status);
+                stm.setBoolean(1, status);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String email = rs.getString("email");
                     String name = rs.getString("name");
-                    int phone = rs.getInt("phoneNumer");
+                    String phone = rs.getString("phoneNumer");
                     String departmentName = rs.getString("department_name");
                     Date interviewDate = rs.getDate("interviewDate");
                     boolean gender = rs.getBoolean("gender");

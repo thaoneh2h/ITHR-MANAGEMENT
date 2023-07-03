@@ -45,15 +45,8 @@ public class PassApplicantServlet extends HttpServlet {
         try {
             HRDao dao = new HRDao();
             
-            // Get department ID
-            EmployeeDto e_departmentid = dao.getDepartmentID(username);
-            
-            session.setAttribute("DEPARTMENT_ID", e_departmentid);
-            EmployeeDto employeeDto = (EmployeeDto) session.getAttribute("DEPARTMENT_ID");          
-            String departmentID = employeeDto.getDepartment_id();
-            
             // Get pending applicant
-            dao.getApplicant(departmentID, true);
+            dao.getApplicant(true);
             List<ApplicantDto> list = dao.getListApplicant();
             request.setAttribute("LIST_PASSED_APPLICANT", list);
         } catch (Exception e) {
