@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.DAO.HRDao;
-import model.DTO.ApplicantDto;
 import model.DTO.EmployeeDto;
 import model.DTO.UserDto;
 
@@ -23,9 +22,10 @@ import model.DTO.UserDto;
  *
  * @author ADMIN
  */
-public class PassApplicantServlet extends HttpServlet {
+public class SearchStaffServlet extends HttpServlet {
 
-    private static final String APPLICANT_PAGE = "HR/Applicant.jsp";
+    private static final String STAFF_PAGE = "HR/StaffList.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,20 +38,37 @@ public class PassApplicantServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = APPLICANT_PAGE;
+        String url = STAFF_PAGE;
         HttpSession session = request.getSession();
-        UserDto userDTO = (UserDto)session.getAttribute("user");
-        String username = userDTO.getUsername();
+        UserDto userDto = (UserDto) session.getAttribute("user");
+        String username = userDto.getUsername();
+        String roleName = userDto.getRoleName();
+        String name = request.getParameter("txtSearch");
+        HRDao dao = new HRDao();
         try {
-            HRDao dao = new HRDao();
-            
-            // Get pending applicant
-            dao.getApplicant(true);
-            List<ApplicantDto> list = dao.getListApplicant();
-            request.setAttribute("LIST_PASSED_APPLICANT", list);
+            switch (roleName) {
+                case "HRM":
+                    dao.getStaffByName(name);
+                    List<EmployeeDto> list = dao.getEmployeeList();
+                    request.setAttribute("LIST_STAFF_BY_NAME", list);
+                    url = STAFF_PAGE;
+                    break;
+                case "LEADER":
+                    // Get department ID
+                    EmployeeDto e_departmentid = dao.getDepartmentID(username);
+
+                    session.setAttribute("DEPARTMENT_ID", e_departmentid);
+                    EmployeeDto employeeDto = (EmployeeDto) session.getAttribute("DEPARTMENT_ID");
+                    String departmentID = employeeDto.getDepartment_id();
+                    dao.getStaffByNameEachDepartment(name, departmentID);
+                    List<EmployeeDto> list1 = dao.getEmployeeList();
+                    request.setAttribute("LIST_STAFF_BY_NAME", list1);
+                    url = STAFF_PAGE;
+                    break;
+
+            }
         } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

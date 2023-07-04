@@ -7,25 +7,19 @@ package controlller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.DAO.HRDao;
-import model.DTO.ApplicantDto;
-import model.DTO.EmployeeDto;
-import model.DTO.UserDto;
 
 /**
  *
  * @author ADMIN
  */
-public class PassApplicantServlet extends HttpServlet {
+public class UpdateApplicantServlet extends HttpServlet {
 
-    private static final String APPLICANT_PAGE = "HR/Applicant.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,22 +32,24 @@ public class PassApplicantServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = APPLICANT_PAGE;
-        HttpSession session = request.getSession();
-        UserDto userDTO = (UserDto)session.getAttribute("user");
-        String username = userDTO.getUsername();
+        String button = request.getParameter("btnAction");
+        int applicantID = Integer.parseInt(request.getParameter("applicantID"));
+        String url = "HR/Applicant.jsp";
+        HRDao dao = new HRDao();
         try {
-            HRDao dao = new HRDao();
-            
-            // Get pending applicant
-            dao.getApplicant(true);
-            List<ApplicantDto> list = dao.getListApplicant();
-            request.setAttribute("LIST_PASSED_APPLICANT", list);
+            switch (button) {
+                case "Approve":
+                    dao.updateApplicantStatus(true, applicantID);
+                    url = "MainController?btnAction=Pending";
+                    break;
+                case "Reject":
+                    dao.updateApplicantStatus(false, applicantID);
+                    url = "MainController?btnAction=Pending";
+                    break;
+            }
         } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+        } finally {
+            response.sendRedirect(url);
         }
     }
 
