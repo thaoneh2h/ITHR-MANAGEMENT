@@ -13,8 +13,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.DAO.HRDao;
 import model.DAO.StaffDao;
 import model.DTO.EmployeeDto;
+import model.DTO.UserDto;
 
 /**
  *
@@ -23,6 +26,7 @@ import model.DTO.EmployeeDto;
 public class StaffListController extends HttpServlet {
 
     private static final String STAFF_PAGE = "HR/StaffList.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,15 +40,41 @@ public class StaffListController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = STAFF_PAGE;
+
+        HttpSession session = request.getSession();
+        UserDto userDto = (UserDto) session.getAttribute("user");
+        String username = userDto.getUsername();
+        String roleName = userDto.getRoleName();
         try {
-            StaffDao dao = new StaffDao();
+            StaffDao sDao = new StaffDao();
             EmployeeDto dto = new EmployeeDto();
-            dao.searchStaff(dto);
-            List<EmployeeDto> result = dao.getStaffList();
-            request.setAttribute("LIST_STAFF", result);
-            url = STAFF_PAGE;
+            HRDao hDao = new HRDao();
+
+            switch (roleName) {
+                // Get department id
+                case "LEADER":
+                    // Get department ID
+                    EmployeeDto e_departmentid = hDao.getDepartmentID(username);
+
+                    session.setAttribute("DEPARTMENT_ID", e_departmentid);
+                    EmployeeDto employeeDto = (EmployeeDto) session.getAttribute("DEPARTMENT_ID");
+                    String departmentID = employeeDto.getDepartment_id();
+
+                    sDao.searchStaffByDepartment(dto, departmentID);
+                    List<EmployeeDto> result1 = sDao.getStaffList();
+                    request.setAttribute("LIST_STAFF_BY_DEPARTMENT", result1);
+                    url = STAFF_PAGE;
+                    break;
+
+                case "HRM":
+                    sDao.searchStaff(dto);
+                    List<EmployeeDto> result = sDao.getStaffList();
+                    request.setAttribute("LIST_STAFF", result);
+                    url = STAFF_PAGE;
+                    break;
+            }
         } catch (Exception e) {
-        }finally {
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

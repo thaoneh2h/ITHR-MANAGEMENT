@@ -7,7 +7,13 @@ package controlller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -39,10 +45,14 @@ public class UpdateApproveServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         String url = DAY_LEAVE_PAGE;
         int id = Integer.parseInt(request.getParameter("dayLeaveId"));
+        
+        String inputDate = request.getParameter("dayLeaveDate");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = dateFormat.parse(inputDate);
 
         try {
 
@@ -73,7 +83,13 @@ public class UpdateApproveServlet extends HttpServlet {
 
                 //Update excuseday in contract
                 dao.updateExecuseDayLeft(employeeID);
-
+                
+                //Insert timekeeping in dayleave table
+                // 1.get timekeeping id
+                int timekeepingID = dao.getTimekeepingID(date, employeeID);
+                // 2. insert timekeeping
+                dao.insertTimekeepingIDInDayLeave(timekeepingID, employeeID, date);
+                
             } else {
                 request.setAttribute("APPROVE_DAY_LEAVE_ERROR", "Employee's day off is exceeded");
             }
@@ -101,7 +117,11 @@ public class UpdateApproveServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(UpdateApproveServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -115,7 +135,11 @@ public class UpdateApproveServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(UpdateApproveServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

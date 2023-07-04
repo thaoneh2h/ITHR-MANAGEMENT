@@ -45,16 +45,8 @@ public class RejectApplicantServlet extends HttpServlet {
         String username = userDTO.getUsername();
         try {
             HRDao dao = new HRDao();
-
-            // Get department ID
-            EmployeeDto e_departmentid = dao.getDepartmentID(username);
-
-            session.setAttribute("DEPARTMENT_ID", e_departmentid);
-            EmployeeDto employeeDto = (EmployeeDto) session.getAttribute("DEPARTMENT_ID");
-            String departmentID = employeeDto.getDepartment_id();
-
             // Get pending applicant
-            dao.getApplicant(departmentID, false);
+            dao.getApplicant(false);
             List<ApplicantDto> list = dao.getListApplicant();
             request.setAttribute("LIST_REJECT_APPLICANT", list);
         } catch (Exception e) {

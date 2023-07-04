@@ -83,6 +83,10 @@
                 <c:if test="${not empty error1}">
                     ${error1}
                 </c:if>
+                <c:set var="message" value="${requestScope.CREATE_DAY_LEAVE}"/>
+                <c:if test="${not empty message}">
+                    ${message}
+                </c:if>
 
             </div>
         </section>

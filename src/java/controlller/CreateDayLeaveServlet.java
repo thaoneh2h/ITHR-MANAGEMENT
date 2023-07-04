@@ -79,6 +79,7 @@ public class CreateDayLeaveServlet extends HttpServlet {
                         boolean check = dao.insertLeaveReport(ranID, title, description, date, username, employeeID);
                         if (check) {
                             url = CREATE_LEAVE_DAY_PAGE;
+                            request.setAttribute("CREATE_DAY_LEAVE", "Sucessful");
                         }
                     } else {
                         request.setAttribute("EMPTY_ERROR", "All fields must be filled");

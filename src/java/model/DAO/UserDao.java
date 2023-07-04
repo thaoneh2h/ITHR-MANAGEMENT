@@ -232,7 +232,7 @@ public class UserDao {
                     String employeeName = rs.getString("employee_name");
                     boolean gender = rs.getBoolean("gender");
                     Date dateJoin = rs.getDate("datejoin");
-                    int phoneNumer = rs.getInt("employee_phone");
+                    String phoneNumer = rs.getString("employee_phone");
                     String departmentName = rs.getString("department_name");
                     String address = rs.getString("employee_address");
                     String role = rs.getString("roleName");
@@ -321,7 +321,7 @@ public class UserDao {
                 while (rs.next()) {
                     String employeeID = rs.getString("employee_id");
 
-                    employeedto = new EmployeeDto(employeeID, "", "", null, 0, null,
+                    employeedto = new EmployeeDto(employeeID, "", "", null, "", null,
                             null, 0, false, "", "", "", null, "", "", "", "", "", false);
                 }
             }
@@ -358,7 +358,7 @@ public class UserDao {
                 while (rs.next()) {
                     String employeeID = rs.getString("employeeID");
 
-                    employeedto = new EmployeeDto(employeeID, "", "", null, 0, null,
+                    employeedto = new EmployeeDto(employeeID, "", "", null, "", null,
                             null, 0, false, "", "", "", null, "", "", "", "", "", false);
                 }
             }
