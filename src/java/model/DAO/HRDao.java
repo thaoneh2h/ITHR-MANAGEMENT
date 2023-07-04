@@ -697,7 +697,7 @@ public class HRDao {
                     String phone = rs.getString("phoneNumer");
                     String departmentName = rs.getString("department_name");
                     Date interviewDate = rs.getDate("interviewDate");
-                    String gender = rs.getString("gender");
+                    boolean gender = rs.getBoolean("gender");
                     applicantDto = new ApplicantDto(id, name, phone, email, "", gender, false, interviewDate, 0, "", departmentName);
                     if (this.listApplicant == null) {
                         this.listApplicant = new ArrayList<>();
@@ -742,7 +742,7 @@ public class HRDao {
                     String phone = rs.getString("phoneNumer");
                     String departmentName = rs.getString("department_name");
                     Date interviewDate = rs.getDate("interviewDate");
-                    String gender = rs.getString("gender");
+                    boolean gender = rs.getBoolean("gender");
                     applicantDto = new ApplicantDto(0, name, phone, email, "", gender, false, interviewDate, 0, "", departmentName);
                     if (this.listApplicant == null) {
                         this.listApplicant = new ArrayList<>();
