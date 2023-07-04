@@ -48,15 +48,16 @@ public class ApplyApplicantServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
+        String idValue = request.getParameter("idValue");
         Random random = new Random();
-        int id = random.nextInt(100);
+        int id = random.nextInt(1000);
         String name = request.getParameter("txtName");
         String phone = request.getParameter("txtPhone");
         String gender = request.getParameter("txtSex");
         String email = request.getParameter("txtEmail");
         String deparmentID = request.getParameter("position");
         Part part = request.getPart("cv");
-        
+
         Calendar calendar = Calendar.getInstance();
         Date currentDate = calendar.getTime();
 
@@ -70,8 +71,9 @@ public class ApplyApplicantServlet extends HttpServlet {
         // Định dạng ngày bất kỳ theo định dạng năm-tháng-ngày
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String interviewDate = dateFormat.format(randomDate);
-        
+
         try {
+            
             String filename = part.getSubmittedFileName();
 
             String path = getServletContext().getRealPath("/" + "files" + File.separator + filename);
@@ -79,10 +81,9 @@ public class ApplyApplicantServlet extends HttpServlet {
             InputStream is = part.getInputStream();
             boolean sucs = uploadFile(is, path);
             boolean check = GuessDao.insertApplicant(id, name, phone, email, gender, deparmentID, interviewDate);
-            if (sucs && check) {
-                url = APPLY_PAGE;
-                request.setAttribute("MESSAGE_SUCCESS", "You will receive an email to schedule an interview soon");
-            }
+
+            url = "ApplyPage.jsp?id=" + idValue;
+            request.setAttribute("MESSAGE_SUCCESS", "You will receive an email to schedule an interview soon");
 
         } catch (Exception e) {
             e.printStackTrace();

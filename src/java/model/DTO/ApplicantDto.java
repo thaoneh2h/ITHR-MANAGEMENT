@@ -17,7 +17,7 @@ public class ApplicantDto {
     private String phoneNumber;
     private String email;
     private String CV;
-    private boolean gender;
+    private String gender;
     private boolean status;
     private Date interviewDate;
     private int jobOfferingID;
@@ -27,7 +27,7 @@ public class ApplicantDto {
     public ApplicantDto() {
     }
 
-    public ApplicantDto(int applicantID, String name, String phoneNumber, String email, String CV, boolean gender, boolean status, Date interviewDate, int jobOfferingID, String employeeID, String departmentName) {
+    public ApplicantDto(int applicantID, String name, String phoneNumber, String email, String CV, String gender, boolean status, Date interviewDate, int jobOfferingID, String employeeID, String departmentName) {
         this.applicantID = applicantID;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -81,13 +81,13 @@ public class ApplicantDto {
         this.CV = CV;
     }
 
-    public boolean isGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(String gender) {
         this.gender = gender;
-    }
+    }   
 
     public boolean isStatus() {
         return status;

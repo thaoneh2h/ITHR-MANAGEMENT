@@ -16,6 +16,7 @@
             window.onload = function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 var idValue = urlParams.get("id");
+                document.getElementById("idValue").value = idValue;
                 if (idValue === "back-end") {
                     var element = document.getElementById(idValue);
                     if (element) {
@@ -250,7 +251,7 @@
         <h1>Apply for this job</h1>
         <form action="ApplyApplicantServlet" method="POST" enctype="multipart/form-data" id="form">
             <div class="mb-3">
-                <label for="txtName" class="form-label">Name</label>
+                <label for="txtName" class="form-label">Full name</label>
                 <input required type="text" class="form-control" id="txtName" name="txtName"
                        placeholder="Name">
             </div>
@@ -265,8 +266,8 @@
                     name="txtSex" 
                     class=" border text-sm rounded-lg block w-full p-2.5  border-gray-600 placeholder-gray-400  ring-blue-500 focus:border-blue-500"
                     >   
-                    <option value="male" >Male</option>
-                    <option value="female" >Female</option>
+                    <option value="Male" >Male</option>
+                    <option value="Female" >Female</option>
                 </select>
 
             </div>
@@ -281,7 +282,8 @@
             <p class="text-danger">${message}</p>
             <div class="mb-3">
                 <input type="hidden" name="position" id="positionInput">
-                <input class="btn btn-primary" type="submit" name="btnAction" value="Apply"/>
+                <input type="hidden" name="idValue" id="idValue">
+                <input class="btn btn-primary" type="submit" name="btnAction" value="Apply">
             </div>
         </form>
         <c:set var="message" value="${requestScope.MESSAGE_SUCCESS}"/>
