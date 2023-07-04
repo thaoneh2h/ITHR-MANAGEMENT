@@ -12,7 +12,7 @@
     </head>
 
     <!----------------------------------------------------------------------------------------------->
-        
+
     <body>
         <%@include file="/Layout/Header.jsp" %>
 
@@ -98,56 +98,32 @@
                             <thead>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Description</th>
-                                    <th>Quantity</th>
-                                    <th>Base Salary</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Tuyển DEV</td>
-                                    <td>Tuyển 12 dev</td>
-                                    <td>20</td>
-                                    <td>10.000.000 VND</td>                    
+                                    <td>Back-end Recruitment</td>                   
                                     <td>
-                                        <a href="ApplyForm.jsp">Apply</a>
+                                        <a href="#" onclick="goToDestination('back-end')">Apply</a>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Tuyển Marketing</td>
-                                    <td>Tuyển 5 vị trí</td>
-                                    <td>10</td>
-                                    <td>5.000.000</td>
+                                    <td>Marketing Recruitment</td>
                                     <td>
-                                        <a href="ApplyForm.jsp">Apply</a>
+                                        <a href="#" onclick="goToDestination('marketing')">Apply</a>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Tuyển nhân viên vệ sinh</td>
-                                    <td>3 vị trí</td>
-                                    <td>5</td>
-                                    <td>3.000.000</td>
+                                    <td>Front-end Recruitment</td>
                                     <td>
-                                        <a href="ApplyForm.jsp">Apply</a>
+                                        <a href="#" onclick="goToDestination('front-end')">Apply</a>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Tuyển Front-end</td>
-                                    <td>Tuyển 10 vị trí</td>
-                                    <td>20</td>
-                                    <td>20.000.000</td>
+                                    <td>Project Manager Recruitment</td>
                                     <td>
-                                        <a href="ApplyForm.jsp">Apply</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Tuyển Quản lí dụ án</td>
-                                    <td>Tuyển 3 vị trí</td>
-                                    <td>10</td>
-                                    <td>50.000.000</td>
-                                    <td>
-                                        <a href="ApplyForm.jsp">Apply</a>
+                                        <a href="#" onclick="goToDestination('productManager')">Apply</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -231,6 +207,11 @@
         <script type='text/javascript'>document.addEventListener('DOMContentLoaded', function () {
                 window.setTimeout(document.querySelector('svg').classList.add('animated'), 1000);
             })</script>
+        <script>
+            function goToDestination(idValue) {
+                window.location.href = "ApplyPage.jsp?id=" + idValue;
+            }
+        </script>
     </body>
 
 </html>
