@@ -103,25 +103,25 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Tuyển Back-end</td>                   
+                                    <td>Back-end Recruitment</td>                   
                                     <td>
                                         <a href="#" onclick="goToDestination('back-end')">Apply</a>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Tuyển Marketing</td>
+                                    <td>Marketing Recruitment</td>
                                     <td>
                                         <a href="#" onclick="goToDestination('marketing')">Apply</a>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Front-end</td>
+                                    <td>Front-end Recruitment</td>
                                     <td>
                                         <a href="#" onclick="goToDestination('front-end')">Apply</a>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Tuyển Quản lí dụ án</td>
+                                    <td>Project Manager Recruitment</td>
                                     <td>
                                         <a href="#" onclick="goToDestination('productManager')">Apply</a>
                                     </td>
