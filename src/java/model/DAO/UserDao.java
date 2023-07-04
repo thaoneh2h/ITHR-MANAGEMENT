@@ -215,7 +215,7 @@ public class UserDao {
             conn = DBHelper.makeConnection();
             if (conn != null) {
                 String sql = "SELECT e.[employee_id], d.[department_id] ,[employee_name], "
-                        + "[employee_dob], [employee_phone] , d.department_name, [datejoin] , [employee_contractId], [age], [gender], "
+                        + "[employee_dob], [employee_phone] , d.department_name, [datejoin], [age], [gender], "
                         + "[employee_email], [employee_address], u.roleName , u.username "
                         + "FROM [employee] e inner JOIN [User] u ON e.employee_id = u.employee_id "
                         + "inner JOIN [department] d ON d.department_id = e.department_id "
@@ -233,10 +233,9 @@ public class UserDao {
                     String address = rs.getString("employee_address");
                     String role = rs.getString("roleName");
                     Date birthday = rs.getDate("employee_dob");
-                    String contractID = rs.getString("employee_contractId");
                     String email = rs.getString("employee_email");
                     username = rs.getString("username");
-                    dto = new EmployeeDto(employeeId, "", employeeName, birthday, phoneNumer, dateJoin, contractID,
+                    dto = new EmployeeDto(employeeId, "", employeeName, birthday, phoneNumer, dateJoin, "",
                             0, gender, "", email, address, null, departmentName, role, username, "",
                             "", false);
                     if (this.userInfoList == null) {
