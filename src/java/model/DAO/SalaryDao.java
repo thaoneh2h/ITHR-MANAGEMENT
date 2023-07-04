@@ -45,7 +45,7 @@ public class SalaryDao {
                         + "contract.medicalInsurance, contract.accidentalInsurance, contract.SocialAssurance, contract.tax,\n"
                         + "(contract.overtime_day_bonus * Report.overtime_day) AS bonus, (Report.late_day * contract.late_day_penalty) + (Report.absent_day * contract.absent_day_penalty) AS penalty, Report.late_day, Report.report_id, Report.absent_day\n"
                         + "FROM employee \n"
-                        + "LEFT JOIN contract ON contract.employee_contractId = employee.employee_contractId  \n"
+                        + "LEFT JOIN contract ON contract.employee_id = employee.employee_id  \n"
                         + "LEFT JOIN salary ON employee.employee_id = salary.employee_id \n"
                         + "INNER JOIN Report ON Report.report_id = salary.report_id\n"
                         + "WHERE salary.report_id = ?";
@@ -105,7 +105,7 @@ public class SalaryDao {
                         + "       (Report.late_day * contract.late_day_penalty) + (Report.absent_day * contract.absent_day_penalty) AS penalty,\n"
                         + "salary.report_id \n"
                         + "FROM employee \n"
-                        + "LEFT JOIN contract ON contract.employee_contractId = employee.employee_contractId  \n"
+                        + "LEFT JOIN contract ON contract.employee_id = employee.employee_id \n"
                         + "LEFT JOIN salary ON employee.employee_id = salary.employee_id \n"
                         + "INNER JOIN Report ON Report.report_id = salary.report_id\n"
                         + "WHERE salary.month = ? AND salary.year = ?; ";
@@ -158,7 +158,7 @@ public List<SalaryDto> SearchByEmployeeId(String employeeId) throws SQLException
                     + "       (Report.late_day * contract.late_day_penalty) + (Report.absent_day * contract.absent_day_penalty) AS penalty,\n"
                     + " salary.month, salary.year, salary.report_id \n"
                     + "FROM employee \n"
-                    + "LEFT JOIN contract ON contract.employee_contractId = employee.employee_contractId  \n"
+                    + "LEFT JOIN contract ON contract.employee_id = employee.employee_id  \n"
                     + "LEFT JOIN salary ON employee.employee_id = salary.employee_id \n"
                     + "INNER JOIN Report ON Report.report_id = salary.report_id\n"
                     + "WHERE  employee.employee_id = ?; ";
