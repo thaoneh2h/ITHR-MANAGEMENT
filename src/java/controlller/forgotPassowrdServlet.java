@@ -87,8 +87,8 @@ public class forgotPassowrdServlet extends HttpServlet {
                     MimeMessage message = new MimeMessage(session);
                     message.setFrom(new InternetAddress(email));// change accordingly
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-                    message.setSubject("Hello");
-                    message.setText("your OTP is: " + otpValue);
+                    message.setSubject("IT-Human-Resource-Management OTP Authentication Account");
+                    message.setText("Your verification code is: " + otpValue);
                     // send message
                     Transport.send(message);
                     System.out.println("message sent successfully");
