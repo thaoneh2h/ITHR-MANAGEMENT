@@ -16,13 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.DAO.ContractDAO;
 import model.DTO.ContractDTO;
+import model.DTO.UserDto;
 
 /**
  *
  * @author 23030
  */
-public class ContractDetailServlet extends HttpServlet {
-    private static final String CONTRACT_DETAIL = "ContractDetail.jsp";
+public class UserContractServlet extends HttpServlet {
+    private static final String USER_CONTRACT_PAGE = "UserContract.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,23 +38,19 @@ public class ContractDetailServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String url = CONTRACT_DETAIL;      
-        String contractID = request.getParameter("employeeID");
+        String url = USER_CONTRACT_PAGE;
+        HttpSession session = request.getSession();
+        UserDto userDTO = (UserDto) session.getAttribute("user");
+        String employeeID = userDTO.getEmployeeId();
         
-        try  {
+        try{
             ContractDAO dao = new ContractDAO();
-            ContractDTO dto = new ContractDTO();
-            
-            List<ContractDTO> ContractDetail = dao.getContractDetail(contractID);
-            
-            if(ContractDetail != null)
-            {
-                request.setAttribute("CONTRACT_DETAIL", ContractDetail);
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("CONTRACT_DETAIL_ERROR", "Not found any contract");
+            List<ContractDTO> userContract = dao.userContractDetail(employeeID);
+            if(userContract != null){
+                request.setAttribute("USER_CONTRACT", userContract);
             }
-        } catch(Exception e){
+
+        } catch (Exception e){
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

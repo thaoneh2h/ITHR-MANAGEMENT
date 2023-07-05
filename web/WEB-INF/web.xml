@@ -128,12 +128,10 @@
         <servlet-name>ApplyApplicantServlet</servlet-name>
         <servlet-class>controlller.ApplyApplicantServlet</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>UpdateUserInfoServlet</servlet-name>
         <servlet-class>controlller.UpdateUserInfoServlet</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>CreateDayLeaveServlet</servlet-name>
         <servlet-class>controlller.CreateDayLeaveServlet</servlet-class>
@@ -146,8 +144,10 @@
         <servlet-name>SearchNameContractServlet</servlet-name>
         <servlet-class>controlller.SearchNameContractServlet</servlet-class>
     </servlet>
-
-
+    <servlet>
+        <servlet-name>UserContractServlet</servlet-name>
+        <servlet-class>controlller.UserContractServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DispatchServlet</servlet-name>
         <url-pattern>/DispatchServlet</url-pattern>
@@ -181,7 +181,6 @@
         <url-pattern>/DeleteStaffDetailServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>CreateDayLeaveServlet</servlet-name>
         <url-pattern>/CreateDayLeaveServlet</url-pattern>
     </servlet-mapping>
@@ -194,7 +193,6 @@
         <url-pattern>/OvertimeDetailServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>AccountListServlet</servlet-name>
         <url-pattern>/AccountListServlet</url-pattern>
     </servlet-mapping>
@@ -202,7 +200,6 @@
         <servlet-name>AccountDetailServlet</servlet-name>
         <url-pattern>/AccountDetailServlet</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>ContractListServlet</servlet-name>
         <url-pattern>/ContractListServlet</url-pattern>
@@ -283,22 +280,22 @@
         <servlet-name>ApplyApplicantServlet</servlet-name>
         <url-pattern>/ApplyApplicantServlet</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>UpdateUserInfoServlet</servlet-name>
         <url-pattern>/UpdateUserInfoServlet</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>CreateHrApplicationServlet</servlet-name>
         <url-pattern>/CreateHrApplicationServlet</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>SearchNameContractServlet</servlet-name>
         <url-pattern>/SearchNameContractServlet</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>UserContractServlet</servlet-name>
+        <url-pattern>/UserContractServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

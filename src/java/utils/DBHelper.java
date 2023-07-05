@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class DBHelper {
         public static Connection makeConnection() throws ClassNotFoundException, SQLException{
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String url = "jdbc:sqlserver://localhost:1433;databaseName=hrManager16thang6";
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=hrManager3thang7";
         Connection conn = DriverManager.getConnection(url,"sa", "12345");
         return conn;
     }

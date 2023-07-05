@@ -55,6 +55,7 @@ public class DispatchServlet extends HttpServlet {
     private static final String SEARCH_OVERTIME = "SearchDateOvertime";
     private static final String CONTRACT_LIST = "ContractListServlet";
     private static final String CONTRACT_DETAIL = "ContractDetailServlet";
+    private static final String USER_CONTRACT = "UserContractServlet";
     private static final String SEARCH_CONTRACT_NAME = "SearchNameContractServlet";
 
 
@@ -181,6 +182,10 @@ public class DispatchServlet extends HttpServlet {
                     
                 case "ContractDetail":
                     url = CONTRACT_DETAIL;
+                    break;
+                    
+                case "UserContract":
+                    url = USER_CONTRACT;
                     break;
                     
                 case "Search Contract Name":
