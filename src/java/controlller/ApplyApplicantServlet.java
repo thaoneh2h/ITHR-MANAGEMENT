@@ -53,8 +53,10 @@ public class ApplyApplicantServlet extends HttpServlet {
         int id = random.nextInt(1000);
         String name = request.getParameter("txtName");
         String phone = request.getParameter("txtPhone");
-        String gender = request.getParameter("txtSex");
+        boolean gender = Boolean.parseBoolean(request.getParameter("txtSex"));
         String email = request.getParameter("txtEmail");
+        String address = request.getParameter("txtAdress");
+        String dob = request.getParameter("date");
         String deparmentID = request.getParameter("position");
         Part part = request.getPart("cv");
 
@@ -80,7 +82,7 @@ public class ApplyApplicantServlet extends HttpServlet {
             // Tiếp tục xử lý tập tin
             InputStream is = part.getInputStream();
             boolean sucs = uploadFile(is, path);
-            boolean check = GuessDao.insertApplicant(id, name, phone, email, gender, deparmentID, interviewDate);
+            boolean check = GuessDao.insertApplicant(id, name, phone, email, gender, deparmentID, interviewDate, address, dob);
 
             url = "ApplyPage.jsp?id=" + idValue;
             request.setAttribute("MESSAGE_SUCCESS", "You will receive an email to schedule an interview soon");
@@ -88,8 +90,7 @@ public class ApplyApplicantServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            response.sendRedirect(url);
         }
     }
 

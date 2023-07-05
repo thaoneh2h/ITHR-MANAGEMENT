@@ -266,8 +266,8 @@
                     name="txtSex" 
                     class=" border text-sm rounded-lg block w-full p-2.5  border-gray-600 placeholder-gray-400  ring-blue-500 focus:border-blue-500"
                     >   
-                    <option value="Male" >Male</option>
-                    <option value="Female" >Female</option>
+                    <option value="true" >Male</option>
+                    <option value="false" >Female</option>
                 </select>
 
             </div>
@@ -277,6 +277,18 @@
                        placeholder="Email">
             </div>
             <div class="mb-3">
+                <label for="txtAdress" class="form-label">Address</label>
+                <input required type="text" class="form-control" id="txtAdress" name="txtAdress"
+                       placeholder="Address">
+            </div>
+            <div class="mb-3">
+                <label for="txtDate" class="block mb-2 text-sm font-medium ">
+                    Date of birth</label>
+                <div class="relative max-w-sm">
+                    <input name="date" type="date"  id="datepickerId" 
+                           data-date="${param.date}" value="" 
+                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Select date"/>
+                </div>
                 CV <input type="file" name="cv" value=""/> <br/>
             </div>
             <p class="text-danger">${message}</p>
