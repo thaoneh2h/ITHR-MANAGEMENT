@@ -7,12 +7,26 @@ package controlller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.DAO.HRDao;
+import model.DAO.StaffDao;
+import model.DAO.UserDao;
+import model.DTO.EmployeeDto;
+import model.DTO.ReportDTO;
+import model.DTO.UserDto;
 
 /**
  *
@@ -21,6 +35,7 @@ import model.DAO.HRDao;
 public class UpdateApproveServlet extends HttpServlet {
 
     private static final String DAY_LEAVE_PAGE = "HR/DayLeave.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,17 +46,97 @@ public class UpdateApproveServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String url = DAY_LEAVE_PAGE;
-        String id = request.getParameter("dayLeaveId");
+        int id = Integer.parseInt(request.getParameter("dayLeaveId"));
+
+        String inputDate = request.getParameter("dayLeaveDate");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = dateFormat.parse(inputDate);
+
+        HttpSession session = request.getSession();
+        UserDto userDto = (UserDto) session.getAttribute("user");
+        String username = userDto.getUsername();
+        String roleName = userDto.getRoleName();
+
+        UserDao userDao = new UserDao();
+        StaffDao staffDao = new StaffDao();
+        // get employee ID of day leave
+        EmployeeDto e_employeeID = userDao.getEmployeeIDFromDayleave(id);
+        session.setAttribute("EMPLOYEE_ID", e_employeeID);
+        EmployeeDto employeeDto = (EmployeeDto) session.getAttribute("EMPLOYEE_ID");
+        String employeeID = employeeDto.getEmployee_id();
+
+        // Get number of execuse day in contract  
+        int number = staffDao.getNumberOfExecuseDayOff(employeeID);
+
         try {
-            HRDao dao = new HRDao();
-            boolean check = dao.updateStatus(id, true);
-            if (check) {
-                url = "DispatchServlet"
-                        + "?btnAction=Pending";
+
+            switch (roleName) {
+                case "LEADER":
+                    // If dayleave in contract still exist
+                    if (number > 0) {
+
+                        HRDao dao = new HRDao();
+                        boolean check = dao.updateStatus(id, true);
+                        // update sau khi tạo timekeeping
+                        dao.updateDayLeaveIdInTimekeeping(id, "absent with permission");
+
+                        //Get report ID
+                        int reportId = dao.getReportID(employeeID, id);
+                        //Update absentday in report
+                        dao.updateReportAbsentDayAndExcuseDay(reportId);
+
+                        //Update excuseday in contract
+                        dao.updateExecuseDayLeft(employeeID);
+
+                        //Insert timekeeping in dayleave table
+                        // 1.get timekeeping id
+                        int timekeepingID = dao.getTimekeepingID(date, employeeID);
+                        // 2. insert timekeeping
+                        dao.insertTimekeepingIDInDayLeave(timekeepingID, employeeID, date);
+
+                    } else {
+                        request.setAttribute("APPROVE_DAY_LEAVE_ERROR", "Employee's day off is exceeded");
+                    }
+
+                    url = "DispatchServlet"
+                            + "?btnAction=Pending";
+                    break;
+
+                case "HRM":
+                    // If dayleave in contract still exist
+                    if (number > 0) {
+
+                        HRDao dao = new HRDao();
+                        boolean check = dao.updateStatus(id, true);
+                        // update sau khi tạo timekeeping
+                        dao.updateDayLeaveIdInTimekeeping(id, "absent with permission");
+
+                        //Get report ID
+                        int reportId = dao.getReportID(employeeID, id);
+                        //Update absentday in report
+                        dao.updateReportAbsentDayAndExcuseDay(reportId);
+
+                        //Update excuseday in contract
+                        dao.updateExecuseDayLeft(employeeID);
+
+                        //Insert timekeeping in dayleave table
+                        // 1.get timekeeping id
+                        int timekeepingID = dao.getTimekeepingID(date, employeeID);
+                        // 2. insert timekeeping
+                        dao.insertTimekeepingIDInDayLeave(timekeepingID, employeeID, date);
+
+                    } else {
+                        request.setAttribute("APPROVE_DAY_LEAVE_ERROR", "Employee's day off is exceeded");
+                    }
+
+                    url = "HRMainController"
+                            + "?btnAction=Pending";
+                    break;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -62,7 +157,13 @@ public class UpdateApproveServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(UpdateApproveServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdateApproveServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -76,7 +177,13 @@ public class UpdateApproveServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(UpdateApproveServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdateApproveServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

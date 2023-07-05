@@ -22,20 +22,28 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+        
 
     </head>
 
     <body class="">
+        
+        
+        
+        
+        
         <%@include file="Layout/Header.jsp" %>
         <div
             class="container-fluid login-container d-flex flex-column justify-content-center align-items-center p-4">
+            
             <div
                 class="card apply-card-container d-flex flex-column justify-content-center align-items-center bg-transparent login-card">
                 <div class="apply-form-bg">
                     <img src="assets/applicant.svg" class="apply-bg">
                 </div>
-                <form class="position-relative" action="DispatchServlet" method="post">
-                    <form action="ApplyApplicantServlet" method="POST" enctype="multipart/form-data">
+        
+                <!--<form  action="DispatchServlet" method="post">-->
+                    <form class="position-relative" action="ApplyApplicantServlet" method="POST" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="txtName" class="form-label">Name</label>
                             <input required type="text" class="form-control" id="txtName" name="txtName"
@@ -67,7 +75,7 @@
                         </div>
                         <p class="text-danger">${message}</p>
                         <div class="mb-3">
-                            <input class="btn btn-primary" type="submit" value="Apply">
+                            <input class="btn btn-primary" type="submit" name="btnAction" value="Apply"/>
                         </div>
                     </form>
             </div>

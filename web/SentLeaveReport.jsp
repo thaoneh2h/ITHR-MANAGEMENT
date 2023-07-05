@@ -31,7 +31,7 @@
                         <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">
                             <thead class="">
                                 <tr  class="text-[#464646] text-lg font-semibold">
-                                    <th class="px-3 py-2 text-start">Name</th>
+                                    <th class="px-3 py-2 text-start">No.</th>
                                     <th class="px-3 py-2 text-start">Title</th>
                                     <th class="px-3 py-2 text-start">Description</th>
                                     <th class="px-3 py-2 text-start">Create at</th>
@@ -42,22 +42,22 @@
                                 <c:forEach var="dto" items="${result}" varStatus="loop">
                                     <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
                                         <td class="px-3 py-3">
-                                            ${dto.employeeName}
+                                            ${loop.count}.
                                         </td>
                                         <td class="px-3 py-3">
-                                            ${dto.title}
+                                            ${dto.dayleave_title}
                                         </td>   
                                         <td class="px-3 py-3">
-                                            ${dto.description}
+                                            ${dto.dayleave_description}
                                         </td>    
                                         <td class="px-3 py-3">
-                                            ${dto.dateCreate}
+                                            ${dto.date_created}
                                         </td>         
                                         <td class="px-2 py-3 rounded-r-[0.25rem]">
                                             <c:if test="${dto.status}">Approved</c:if>
                                             <c:if test="${!dto.status}">Rejected</c:if>
                                             <c:if test="${empty dto.status}">
-                                                hoping
+                                                Pending
                                             </c:if>
                                         </td>
                                     </tr>

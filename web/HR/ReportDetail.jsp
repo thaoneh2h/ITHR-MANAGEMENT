@@ -50,9 +50,8 @@
                                     <tr>
                                         <th class="px-3 py-2 text-start">Title</th>
                                         <th class="px-3 py-2 text-start">Report for</th>
-                                        <th class="px-3 py-2 text-start">Create at</th>
-                                        <th class="px-3 py-2 text-start">Present day</th>
                                         <th class="px-3 py-2 text-start">Absent day</th>
+                                        <th class="px-3 py-2 text-start">Excuse absent day</th>
                                         <th class="px-3 py-2 text-start">Overtime day</th>
                                         <th class="px-3 py-2 text-start">Late day</th>
                                     </tr>
@@ -61,11 +60,10 @@
                                     <tr>
                                         <td class="px-3 py-3 rounded-l-[0.25rem]">${dto.title}</td>
                                         <td class="px-3 py-3 rounded-l-[0.25rem]">${dto.employeeName}</td>
-                                        <td class="px-3 py-3 rounded-l-[0.25rem]">${dto.dateCreate}</td>
-                                        <td class="px-3 py-3 rounded-l-[0.25rem]">${dto.presentDay} </td>
-                                        <td class="px-3 py-3 rounded-l-[0.25rem]">${dto.absentDay}  </td>
-                                        <td class="px-3 py-3 rounded-l-[0.25rem]">${dto.overtimeDay} </td>
-                                        <td class="px-3 py-3 rounded-l-[0.25rem]">${dto.lateDay} </td>
+                                        <td class="px-3 py-3 rounded-l-[0.25rem]">${dto.absent_day}  </td>
+                                        <td class="px-3 py-3 rounded-l-[0.25rem]">${dto.excused_absent_day}  </td>
+                                        <td class="px-3 py-3 rounded-l-[0.25rem]">${dto.overtime_day} </td>
+                                        <td class="px-3 py-3 rounded-l-[0.25rem]">${dto.late_day} </td>  
                                     </tr>               
                                 </tbody>
                             </table>

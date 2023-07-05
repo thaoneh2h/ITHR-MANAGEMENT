@@ -14,18 +14,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.DAO.OvertimeDAO;
-import model.DTO.EmployeeDto;
-import model.DTO.OvertimeDTO;
+import model.DAO.HRMDao;
+import model.DTO.DayLeaveDto;
+import model.DTO.UserDto;
 
 /**
  *
- * @author 23030
+ * @author ADMIN
  */
+public class AllRejectDayLeaveServlet extends HttpServlet {
 
-public class OvertimeDetailServlet extends HttpServlet {
+    private static final String DAY_LEAVE_PAGE = "HR/AllDayLeave.jsp";
 
-    private static final String OVERTIME_DETAIL_PAGE = "OTDetail.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,26 +38,26 @@ public class OvertimeDetailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = OVERTIME_DETAIL_PAGE;      
-        String employeeName = request.getParameter("employee_name");
-        String month = request.getParameter("month");
-        
+        String url = DAY_LEAVE_PAGE;
+
+        HttpSession session = request.getSession();
+        UserDto userDTO = (UserDto) session.getAttribute("user");
+        String username = userDTO.getUsername();
         try {
-            OvertimeDAO dao = new OvertimeDAO();
-            List<OvertimeDTO> OvertimeDetail = dao.getOvertimeDetail(employeeName, month);
-            
-            if (OvertimeDetail != null) {
-                request.setAttribute("OT_DETAIL", OvertimeDetail);
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("OT_DETAIL_ERROR", "Not found");
-            }
+            HRMDao dao = new HRMDao();
+
+            // Get day leave
+            DayLeaveDto dto = new DayLeaveDto();
+            dao.getDayLeave(false);
+            List<DayLeaveDto> approved = dao.getDayLeaveList();
+            request.setAttribute("REJECT_LIST", approved);
+            url = DAY_LEAVE_PAGE;
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

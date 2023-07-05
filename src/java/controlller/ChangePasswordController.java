@@ -7,6 +7,7 @@ package controlller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.regex.Pattern;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,11 +28,9 @@ import utils.Validation;
  */
 public class ChangePasswordController extends HttpServlet {
 
-    private static final String MAIN_PAGE = "Home page.jsp";
-    private static final String ERROR_PAGE = "updatePageError.jsp";
+    private static final String CHANGE_PASS_PAGE = "ChangePassword.jsp";
     //private static final String SPECIAL_PATTERN = "(?=.*[!.#$@_+,?-]))"; 
     //private static final String SPECIAL_PATTERN = "[!@#$%&*()_+=|<>?{}\\[\\]~-]";
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,19 +44,16 @@ public class ChangePasswordController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR_PAGE;;
-        
-        
+        String url = CHANGE_PASS_PAGE;
 
         //Get param from updatePage
         String currentPassword = request.getParameter("txtCurrentPassword");
         String newPassword = request.getParameter("txtNewPassword");
         String confirm = request.getParameter("txtConfirm");
 
-        HttpSession session = request.getSession();     
-        UserDto user = (UserDto)session.getAttribute("user");
+        HttpSession session = request.getSession();
+        UserDto user = (UserDto) session.getAttribute("user");
         String username = user.getUsername();
-        
 
         boolean foundError = false;
         UpdateErrorDto error = new UpdateErrorDto();
@@ -68,31 +64,31 @@ public class ChangePasswordController extends HttpServlet {
                 error.setPasswordError("Incorrect password");
                 foundError = true;
             }
-            
-            if(Validation.readPattern(newPassword) == false){
+
+            if (Validation.readPattern(newPassword) == false) {
                 error.setSpecialCharError("Must contain at least 1 special character");
                 foundError = true;
             }
-            
-            if(Validation.checkUpperCase(newPassword) == false){
+
+            if (Validation.checkUpperCase(newPassword) == false) {
                 error.setFirstCharPasswordError("Must contain at least 1 uppercase");
                 foundError = true;
             }
             boolean checkNum = Validation.numberPattern(newPassword);
-            if(checkNum == false){
+            if (checkNum == false) {
                 error.setFirstCharPasswordError("Must contain at least 1 number");
                 foundError = true;
             }
-            
-            if(newPassword.length() < 8){
+
+            if (newPassword.length() < 8) {
                 error.setPasswordLenError("Password must be at least 8 characters");
                 foundError = true;
             }
-            
-            if(newPassword.isEmpty()){
+
+            if (newPassword.isEmpty()) {
                 error.setNewPasswordEmpty("Field must be filled");
             }
-            
+
             if (!(newPassword.trim().equalsIgnoreCase(confirm))) {
                 error.setIsNotMatch("2 passwords are not matched");
                 foundError = true;
@@ -107,11 +103,15 @@ public class ChangePasswordController extends HttpServlet {
                 request.setAttribute("CREATE_ERROR", error);
                 session.setAttribute("USER", check);
             } else {
+//                dao.getUserPhoto(username);
+//                List<EmployeeDto> userInfo = dao.getUserInfoList();
+//                session.setAttribute("USER_PHOTO", userInfo);
 
                 //String username = request.getParameter("txtUsername");
                 boolean result = dao.updatePassword(newPassword, username);
                 if (result) {
-                    url = MAIN_PAGE;
+                    url = CHANGE_PASS_PAGE;
+                    request.setAttribute("MESSAGE_SUCESS", "Update password sucesfully");
                 }
             }
         } catch (Exception e) {

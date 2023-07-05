@@ -30,12 +30,6 @@
                     <c:set var="result" value="${requestScope.LIST_CONTRACT}"/>
                     <c:if test="${not empty result}">   
                         
-                        <!-- ĐÂY LÀ PHẦN SEARCH CONTRACT THEO EMPLOYEE'S NAME -->
-                        <!-- PHẦN NÀY CHƯA HOÀN THIỆN -->
-                                   <!--  <form action="DispatchServlet">
-                                    Search Contract by name <input type="text" name="txtSearchValue" value="" /> <br>
-                                    <input type="submit" name = "bntAction" value="Search Contract Name" />
-                                    </form> <br>-->
                                     
                                     
                         <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">

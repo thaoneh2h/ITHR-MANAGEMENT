@@ -19,18 +19,21 @@ public class TimekeepingDTO {
     private Time timekiN;
     private Time timeOut;
     private String status;
+    private String department_id;
 
     public TimekeepingDTO() {
     }
 
-    public TimekeepingDTO(String employee_id, String employee_name, Date date, Time timekiN, Time timeOut, String status) {
+    public TimekeepingDTO(String employee_id, String employee_name, Date date, Time timekiN, Time timeOut, String status, String department_id) {
         this.employee_id = employee_id;
         this.employee_name = employee_name;
         this.date = date;
         this.timekiN = timekiN;
         this.timeOut = timeOut;
         this.status = status;
+        this.department_id = department_id;
     }
+    
 
     /**
      * @return the employee_id
@@ -114,6 +117,20 @@ public class TimekeepingDTO {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the department_id
+     */
+    public String getDepartment_id() {
+        return department_id;
+    }
+
+    /**
+     * @param department_id the department_id to set
+     */
+    public void setDepartment_id(String department_id) {
+        this.department_id = department_id;
     }
     
 }

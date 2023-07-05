@@ -38,7 +38,7 @@ public class SalaryDetailServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "HR/SalaryDetail.jsp";
-        int application_id= Integer.parseInt(request.getParameter("application_id"));
+        int application_id= Integer.parseInt(request.getParameter("report_id"));
 
         try {
             SalaryDao dao = new SalaryDao();

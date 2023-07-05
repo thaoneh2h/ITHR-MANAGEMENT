@@ -25,7 +25,13 @@
                     </div>
                     <p class="text-2xl text-white font-bold text-center w-full my-2 mb-4">
                         Create Application
-                    </p>
+                    </p>                      
+
+                    <c:set var="error1" value="${requestScope.CREATE_DAY_LEAVE_ERROR}"/>
+                    <c:if test="${not empty error1}">
+                        ${error1}
+                    </c:if>
+
                     <div class="w-full items-center flex  flex-col rounded-xl p-5 overflow-hidden relative">
 
                         <div class="w-full">
@@ -37,13 +43,20 @@
                                            class=" border text-sm rounded-lg block w-full p-2.5  border-gray-600 placeholder-gray-400  ring-blue-500 focus:border-blue-500"
                                            id="txtType" name="txtTitle" placeholder="Enter your title" />
                                 </div>
-                                <div class="mb-3">
-                                    <label for="lang-select"
-                                           class="block mb-2 text-sm font-medium ">Type</label>
-                                    <select name="txtType" id="lang-select"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                                        <option selected value="dayleave">Day leave</option>
-                                    </select>
+                                <!--                                <div class="mb-3">
+                                                                    <label for="lang-select"
+                                                                           class="block mb-2 text-sm font-medium ">Type</label>
+                                                                    <select name="txtType" id="lang-select"
+                                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                                                                        <option selected value="dayleave">Day leave</option>
+                                                                    </select>
+                                                                </div>-->
+                                <label for="txtDate" class="block mb-2 text-sm font-medium ">
+                                    Date off</label>
+                                <div class="relative max-w-sm">
+                                    <input name="date" type="date"  id="datepickerId" 
+                                           data-date="${param.date}" value="" 
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Select date"/>
                                 </div>
                                 <div class="mb-3">
                                     <label for="txtDescr" class="block mb-2 text-sm font-medium ">
@@ -54,16 +67,29 @@
                                               placeholder="Enter your description"></textarea>
                                 </div>
                                 <input class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                                    type="submit" name="btnAction" value="Create" />
+                                       type="submit" name="btnAction" value="Create" />
                             </form>
-                        </div>
+                        </div>                      
 
                     </div>
                 </div>
 
                 <c:out value="${message}"></c:out>
-                </div>
-            </section>
+                <c:set var="error" value="${requestScope.DATE_ERROR_MESSAGE}"/>
+                <c:if test="${not empty error}">
+                    ${error}
+                </c:if>
+                <c:set var="error1" value="${requestScope.EMPTY_ERROR}"/>
+                <c:if test="${not empty error1}">
+                    ${error1}
+                </c:if>
+                <c:set var="message" value="${requestScope.CREATE_DAY_LEAVE}"/>
+                <c:if test="${not empty message}">
+                    ${message}
+                </c:if>
+
+            </div>
+        </section>
 
         <%@include file="../Layout/TailwindFooter.jsp" %>
         <div id="additional-fields" style="display: none;">

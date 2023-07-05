@@ -7,12 +7,16 @@ package controlller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.DAO.HRDao;
+import model.DTO.EmployeeDto;
+import model.DTO.UserDto;
 
 /**
  *
@@ -35,14 +39,36 @@ public class UpdateRejectServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = DAY_LEAVE_PAGE;
-        String id = request.getParameter("dayLeaveId");
+        int id = Integer.parseInt(request.getParameter("dayLeaveId"));
+        HttpSession session = request.getSession();
+        UserDto userDto = (UserDto) session.getAttribute("user");
+        String username = userDto.getUsername();
+        String roleName = userDto.getRoleName();
+        HRDao dao = new HRDao();
         try {
-            HRDao dao = new HRDao();
-            boolean check = dao.updateStatus(id, false);
-            if (check) {
-                url = "DispatchServlet"
-                        + "?btnAction=Pending";
+
+            switch (roleName) {
+                case "LEADER":
+                    boolean check = dao.updateStatus(id, false);
+                    // update sau khi tạo timekeeping
+                    dao.updateDayLeaveIdInTimekeeping(id, "absent without permission");
+                    if (check) {
+                        url = "DispatchServlet"
+                                + "?btnAction=Pending";
+                    }
+                    break;
+
+                case "HRM":
+                    boolean check1 = dao.updateStatus(id, false);
+                    // update sau khi tạo timekeeping
+                    dao.updateDayLeaveIdInTimekeeping(id, "absent without permission");
+                    if (check1) {
+                        url = "HRMainController"
+                                + "?btnAction=Pending";
+                    }
+                    break;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

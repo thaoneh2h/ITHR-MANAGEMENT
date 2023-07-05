@@ -35,101 +35,145 @@
                             <option value="Rejected"  ${action=="Rejected" ? "selected" : ""}>Rejected</option>  
                         </select>
                     </form>
-                    <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">
-                        <thead class="">
-                            <tr class="text-[#464646] text-lg font-semibold">
-                                <th class="px-3 py-2 text-start">Name</th>
-                                <th class="px-3 py-2 text-start">Title</th>
-                                <th class="px-3 py-2 text-start">Description</th>
-                                <th class="px-3 py-2 text-start">Create at</th>
-                                <th class="px-3 py-2 text-start">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Approve list  -->
-                            <c:set var="resultApprove" value="${requestScope.APPROVE_LIST}" />
-                            <c:if test="${not empty resultApprove}">
-                                <c:forEach var="dto" items="${resultApprove}" varStatus="loop">
-                                    <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
-                                        <td class="px-3 py-3">
-                                            ${dto.employeeName}
-                                        </td>
-                                        <td class="px-3 py-3">
-                                            ${dto.title}
-                                        </td>
-                                        <td class="px-3 py-3">
-                                            ${dto.description}
-                                        </td>   
-                                        <td class="px-3 py-3">
-                                            ${dto.dateCreate}
-                                        </td>  
+                    <!-- Pending list  -->
+                    <c:set var="resultPending" value="${requestScope.PENDING_LIST}" />
+                    <c:if test="${not empty resultPending}">
 
-                                        <td class="px-3 py-3">
-                                         
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
-                            <!-- Pending list  -->
-                            <c:set var="resultPending" value="${requestScope.PENDING_LIST}" />
-                            <c:if test="${not empty resultPending}">
-                                <c:forEach var="dto" items="${resultPending}" varStatus="loop">
+                        <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">
+                            <thead class="">
+                                <tr class="text-[#464646] text-lg font-semibold">
+                                    <th class="px-3 py-2 text-start">No.</th>
+                                    <th class="px-3 py-2 text-start">Name</th>
+                                    <th class="px-3 py-2 text-start">Title</th>
+                                    <th class="px-3 py-2 text-start">Description</th>
+                                    <th class="px-3 py-2 text-start">Create at</th>
+                                    <th class="px-3 py-2 text-start">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:set var="error1" value="${requestScope.APPROVE_DAY_LEAVE_ERROR}"/>
+                                <c:if test="${not empty error1}">
+                                    ${error1}
+                                </c:if>
+
+                                <c:forEach var="dto" items="${resultPending}" varStatus="counter">
+                                <form action="DispatchServlet" method="POST">
                                     <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
-                                       <td class="px-3 py-3">
+                                        <td class="px-3 py-3">
+                                            ${counter.count}.
+                                        </td>
+                                        <td class="px-3 py-3">
                                             ${dto.employeeName}
                                         </td>
                                         <td class="px-3 py-3">
-                                            ${dto.title}
+                                            ${dto.dayleave_title}
                                         </td>
                                         <td class="px-3 py-3">
-                                            ${dto.description}
-                                        </td>   
+                                            ${dto.dayleave_description}
+                                        </td>
                                         <td class="px-3 py-3">
-                                            ${dto.dateCreate}
+                                            ${dto.date_created}
                                         </td>  
 
                                         <td class="px-2 py-3 rounded-r-[0.25rem]">
-                                            <form action="DispatchServlet" method="POST">
-                                                <input type="hidden" name="dayLeaveId" value="${dto.id}">
-                                                <button type="submit" name="btnAction" value="Reject">Reject</button>
-                                                <button type="submit" name="btnAction" value="Approve">Approve</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
-                            <!-- Reject list list  -->
-                            <c:set var="resultReject" value="${requestScope.REJECT_LIST}" />
-                            <c:if test="${not empty resultReject}">
-                                <c:forEach var="dto" items="${resultReject}" varStatus="loop">
-                                    <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
-                                          <td class="px-3 py-3">
-                                            ${dto.employeeName}
-                                        </td>
-                                        <td class="px-3 py-3">
-                                            ${dto.title}
-                                        </td>
-                                        <td class="px-3 py-3">
-                                            ${dto.description}
-                                        </td>   
-                                        <td class="px-3 py-3">
-                                            ${dto.dateCreate}
-                                        </td>  
+                                            <input type="hidden" name="dayLeaveId" value="${dto.dayleave_id}">
+                                            <input type="hidden" name="dayLeaveDate" value="${dto.date_created}">
 
-                                        <td class="px-2 py-3 rounded-r-[0.25rem]">
-                                     
+                                            <button>
+                                                <input type="submit" name="btnAction" value="Reject" />
+                                            </button>
+
+                                            <button>
+                                                <input type="submit" name="btnAction" value="Approve" class="text-white bg-red-700 rounded-md px-2 py-1 cursor-pointer hover:text-red-700 hover:bg-red-100 border-2 border-red-700 transition-all font-medium" />
+                                            </button>
                                         </td>
                                     </tr>
-                                </c:forEach>
-                            </c:if>
+                                </form>
+                            </c:forEach>
+                        </c:if>
 
                         </tbody>
                     </table>
-                    <c:if test="${ empty resultApprove &&  empty resultPending && empty resultRejected}">
-                          <div class="text-red-400 mx-auto justify-center items-center flex flex-col pt-10">
+                    <c:if test="${empty resultPending}">
+                        <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">
+                            <thead class="">
+                                <tr class="text-[#464646] text-lg font-semibold">
+                                    <th class="px-3 py-2 text-start">No.</th>
+                                    <th class="px-3 py-2 text-start">Name</th>
+                                    <th class="px-3 py-2 text-start">Title</th>
+                                    <th class="px-3 py-2 text-start">Description</th>
+                                    <th class="px-3 py-2 text-start">Create at</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:set var="error1" value="${requestScope.APPROVE_DAY_LEAVE_ERROR}"/>
+                                <c:if test="${not empty error1}">
+                                    ${error1}
+                                </c:if>
+
+                                <!-- Approve list  -->
+                                <c:set var="resultApprove" value="${requestScope.APPROVE_LIST}" />
+                                <c:if test="${not empty resultApprove}">
+                                    <c:forEach var="dto" items="${resultApprove}" varStatus="counter">
+                                        <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
+                                            <td class="px-3 py-3">
+                                                ${counter.count}.
+                                            </td>
+                                            <td class="px-3 py-3">
+                                                ${dto.employeeName}
+                                            </td>
+                                            <td class="px-3 py-3">
+                                                ${dto.dayleave_title}
+                                            </td>
+                                            <td class="px-3 py-3">
+                                                ${dto.dayleave_description}
+                                            </td>   
+                                            <td class="px-3 py-3">
+                                                ${dto.date_created}
+                                            </td>   
+
+                                            <td class="px-3 py-3">
+
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:if>
+                                <!-- Reject list list  -->
+                                <c:set var="resultReject" value="${requestScope.REJECT_LIST}" />
+                                <c:if test="${not empty resultReject}">
+                                    <c:forEach var="dto" items="${resultReject}" varStatus="counter">
+                                        <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
+                                            <td class="px-3 py-3">
+                                                ${counter.count}
+                                            </td>
+                                            <td class="px-3 py-3">
+                                                ${dto.employeeName}
+                                            </td>
+                                            <td class="px-3 py-3">
+                                                ${dto.dayleave_title}
+                                            </td>
+                                            <td class="px-3 py-3">
+                                                ${dto.dayleave_description}
+                                            </td>
+                                            <td class="px-3 py-3">
+                                                ${dto.date_created}
+                                            </td>  
+
+                                            <td class="px-2 py-3 rounded-r-[0.25rem]">
+
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:if>
+
+                            </tbody>
+                        </table>
+                    </c:if>
+                    <c:if test="${ empty resultApprove &&  empty resultPending && empty resultReject}">
+                        <div class="text-red-400 mx-auto justify-center items-center flex flex-col pt-10">
                             <p class="text-lg">Empty list</p>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H6.911a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H6.911a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661z" />
                             </svg>
                         </div> 
                     </c:if>     
@@ -159,7 +203,6 @@
                 }
             }
         </script>
-
 
     </body>
 </html>
