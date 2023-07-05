@@ -199,13 +199,12 @@ public class UserDao {
         return dto;
     }
 
-    
     private List<EmployeeDto> userInfoList;
 
     public List<EmployeeDto> getUserInfoList() {
         return userInfoList;
     }
-    
+
     public void getUserInfo(String username) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
@@ -236,8 +235,8 @@ public class UserDao {
                     String contractID = rs.getString("employee_contractId");
                     String email = rs.getString("employee_email");
                     username = rs.getString("username");
-                    dto = new EmployeeDto(employeeId, "", employeeName, birthday, phoneNumer, dateJoin, contractID, 
-                            0, gender, "", email, address, null, departmentName, role, username,"" ,
+                    dto = new EmployeeDto(employeeId, "", employeeName, birthday, phoneNumer, dateJoin, contractID,
+                            0, gender, "", email, address, null, departmentName, role, username, "",
                             "", false);
                     if (this.userInfoList == null) {
                         this.userInfoList = new ArrayList<>();
@@ -259,7 +258,7 @@ public class UserDao {
             }
         }
     }
-    
+
     public boolean UpdateUserInfo(int phone, String email, String address, String id) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
@@ -297,6 +296,49 @@ public class UserDao {
             }
         }
         return result;
+    }
+
+    public String getUserID(String username) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        EmployeeDto dto = null;
+        String employeeId = "";
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT u.employee_id "
+                        + "FROM [User] u "
+                        + "WHERE username = ? ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, username);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    employeeId = rs.getString("employee_id");
+                    username = rs.getString("username");
+                    dto = new EmployeeDto(employeeId, "", "", null, 0, null, "",
+                            0, false, "", "", "", null, "", "", username, "",
+                            "", false);
+                    if (this.userInfoList == null) {
+                        this.userInfoList = new ArrayList<>();
+                    }//end account List had NOT existed
+                    this.userInfoList.add(dto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return employeeId;
     }
 
 }

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.DAO.ContractDAO;
+import model.DAO.UserDao;
 import model.DTO.ContractDTO;
 import model.DTO.UserDto;
 
@@ -41,15 +42,15 @@ public class UserContractServlet extends HttpServlet {
         String url = USER_CONTRACT_PAGE;
         HttpSession session = request.getSession();
         UserDto userDTO = (UserDto) session.getAttribute("user");
-        String employeeID = userDTO.getEmployeeId();
-        
+        String username = userDTO.getUsername();
         try{
+            UserDao userDao = new UserDao();
+            String employeeID = userDao.getUserID(username);
             ContractDAO dao = new ContractDAO();
-            List<ContractDTO> userContract = dao.userContractDetail(employeeID);
-            if(userContract != null){
-                request.setAttribute("USER_CONTRACT", userContract);
-            }
-
+            dao.userContractDetail(employeeID);
+            List<ContractDTO> userContract = dao.getContractList();
+            request.setAttribute("USER_CONTRACT", userContract);
+            
         } catch (Exception e){
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);

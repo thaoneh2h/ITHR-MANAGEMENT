@@ -21,7 +21,7 @@ import utils.DBHelper;
  */
 public class ContractDAO {
     
-        private List<ContractDTO> ContractList;
+     private List<ContractDTO> ContractList;
 
     public List<ContractDTO> getContractList() {
         return ContractList;
@@ -166,28 +166,26 @@ public class ContractDAO {
         }
     }
         
-    public List<ContractDTO> userContractDetail (String emp_ID) throws SQLException {
-        List<ContractDTO> userContract = null;
+    public void userContractDetail(String emp_ID) throws SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
         ContractDTO contractDTO = null;
-        
-        try{
+
+        try {
             con = DBHelper.makeConnection();
-            if (con != null){
+            if (con != null) {
                 String sql = "SELECT contract_img "
-                            +"FROM [dbo].[contract] "
-                            +"WHERE employee_id = ? ";
+                        + "FROM [dbo].[contract] "
+                        + "WHERE employee_id = ? ";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, emp_ID);
                 rs = stm.executeQuery();
                 while (rs.next()) {
-//                    String employeeID = rs.getString("employee_id");
                     String photo = rs.getString("contract_img");
 
                     contractDTO = new ContractDTO(0, null, null, sql, null, null, null, 0, 0, 0, 0, 0, 0, 0, photo);
-                    
+
                     if (ContractList == null) {
                         ContractList = new ArrayList<>();
                     }//
@@ -195,8 +193,8 @@ public class ContractDAO {
 
                 }
             }
-        
-        } catch (Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (rs != null) {
@@ -209,7 +207,6 @@ public class ContractDAO {
                 con.close();
             }
         }
-        return userContract;
     }
 
 }
