@@ -44,7 +44,7 @@
                                     <th class="px-3 py-2 text-start">Gender</th>
                                     <th class="px-3 py-2 text-start">Email</th>
                                     <th class="px-3 py-2 text-start">Phone</th>
-                                    <th class="px-3 py-2 text-start">Department</th>
+                                    <th class="px-3 py-2 text-start">Position</th>
                                     <th class="px-3 py-2 text-start">Interview Date</th>
                                     <th class="px-3 py-2 text-start">Action</th>
                                 </tr>
@@ -92,7 +92,7 @@
                                         <th class="px-3 py-2 text-start">Gender</th> 
                                         <th class="px-3 py-2 text-start">Email</th>
                                         <th class="px-3 py-2 text-start">Phone</th>
-                                        <th class="px-3 py-2 text-start">Department</th>
+                                        <th class="px-3 py-2 text-start">Position</th>
                                         <th class="px-3 py-2 text-start">Interview Date</th>
 
                                     </tr>
@@ -134,7 +134,7 @@
                                             <th class="px-3 py-2 text-start">Gender</th>
                                             <th class="px-3 py-2 text-start">Email</th>
                                             <th class="px-3 py-2 text-start">Phone</th>
-                                            <th class="px-3 py-2 text-start">Department</th>
+                                            <th class="px-3 py-2 text-start">Position</th>
                                             <th class="px-3 py-2 text-start">Interview Date</th>
 
                                         </tr>
