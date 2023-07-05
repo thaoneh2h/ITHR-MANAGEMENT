@@ -367,6 +367,8 @@
     <servlet-mapping>
         <servlet-name>UserContractServlet</servlet-name>
         <url-pattern>/UserContractServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UpdateApplicantServlet</servlet-name>
         <url-pattern>/UpdateApplicantServlet</url-pattern>
     </servlet-mapping>
