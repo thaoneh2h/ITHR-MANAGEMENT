@@ -298,7 +298,7 @@
                 <input class="btn btn-primary" type="submit" name="btnAction" value="Apply">
             </div>
         </form>
-        <c:set var="message" value="${requestScope.MESSAGE_SUCCESS}"/>
+            <c:set var="message" value="${requestScope.MESSAGE_SUCCESS}"/>
         <c:if test="${not empty message}">
             ${message}
         </c:if>

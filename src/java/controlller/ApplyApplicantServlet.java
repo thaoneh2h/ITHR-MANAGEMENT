@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -20,6 +23,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import model.DAO.GuessDao;
 
@@ -56,9 +60,17 @@ public class ApplyApplicantServlet extends HttpServlet {
         boolean gender = Boolean.parseBoolean(request.getParameter("txtSex"));
         String email = request.getParameter("txtEmail");
         String address = request.getParameter("txtAdress");
-        String dob = request.getParameter("date");
         String deparmentID = request.getParameter("position");
         Part part = request.getPart("cv");
+
+        String dob = request.getParameter("date");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate birthDate = LocalDate.parse(dob, dateFormatter);
+        // Ngày hiện tại
+        LocalDate currDate = LocalDate.now();
+        // Tính số tuổi
+        Period period = Period.between(birthDate, currDate);
+        int age = period.getYears();
 
         Calendar calendar = Calendar.getInstance();
         Date currentDate = calendar.getTime();
@@ -75,16 +87,17 @@ public class ApplyApplicantServlet extends HttpServlet {
         String interviewDate = dateFormat.format(randomDate);
 
         try {
-            
+
             String filename = part.getSubmittedFileName();
 
             String path = getServletContext().getRealPath("/" + "files" + File.separator + filename);
             // Tiếp tục xử lý tập tin
             InputStream is = part.getInputStream();
             boolean sucs = uploadFile(is, path);
-            boolean check = GuessDao.insertApplicant(id, name, phone, email, gender, deparmentID, interviewDate, address, dob);
+            boolean check = GuessDao.insertApplicant(id, name, phone, email, gender, deparmentID, interviewDate, address, dob, age);
 
-            url = "ApplyPage.jsp?id=" + idValue;
+            url = "ApplyPage.jsp"
+                    + "?id=" + idValue;
             request.setAttribute("MESSAGE_SUCCESS", "You will receive an email to schedule an interview soon");
 
         } catch (Exception e) {
