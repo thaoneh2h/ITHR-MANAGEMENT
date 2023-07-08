@@ -18,12 +18,12 @@
             <div class="w-full flex justify-center ">
                 <div class="w-1/3 items-center flex flex-col rounded-xl p-5 overflow-hidden relative"
                      style="box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;">
-                    <img src="https://kiranworkspace.com/demo/projects/code-snippets/card/profile-card/img/banner.jpg"
+                    <img src="assets/reportCard.jpg"
                          class="w-full h-28 absolute top-0 left-0 -z-[1] -z-[1]" alt="background profile" />
                     <div class=" mt-10 rounded-full">
 
                     </div>
-                    <p class="text-2xl text-white font-bold text-center w-full my-2 mb-4">
+                    <p class="text-2xl text-black font-bold text-center w-full my-2 mb-4">
                         Create Report
                     </p>                      
 
@@ -35,13 +35,13 @@
                                     <label for="txtType" class="block mb-2 text-sm font-medium ">
                                         Title</label>
                                     <input type="text"
-                                           class=" border text-sm rounded-lg block w-full p-2.5  border-gray-600 placeholder-gray-400  ring-blue-500 focus:border-blue-500"
+                                           class=" border text-sm rounded-lg block w-full p-2.5  border-gray-600 placeholder-gray-400 ring-blue-500 focus:border-blue-500"
                                            id="txtType" name="txtTitle" placeholder="Enter your title" />
                                 </div>
                                 <label for="txtId" class="block mb-2 text-sm font-medium ">
                                     Report for</label>
-                                <div class="relative max-w-sm">
-                                    <select name="txtEmployeeID">
+                                <div class="relative mb-3 w-full">
+                                    <select name="txtEmployeeID" class="w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 ">
                                         <c:if test="${not empty LIST_DEPARTMENT_EMPLOYEE}">
                                             <c:forEach var="dto" items="${requestScope.LIST_DEPARTMENT_EMPLOYEE}">
                                                 <option value="${dto.employee_id}">${dto.employee_name}-${dto.employee_id}</option>
@@ -56,12 +56,12 @@
                                     </select>
                                 </div>
 
-                                <label for="txtDate" class="block mb-2 text-sm font-medium ">
+                                <label for="txtDate" class="block text-sm font-medium mb-3">
                                     Date</label>
-                                <div class="relative max-w-sm">
+                                <div class="relative max-w-fit mb-3">
                                     <input name="date" type="month"  id="datepickerId" 
                                            data-date="${param.date}" value="" 
-                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Select date"/>
+                                           class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 " placeholder="Select date"/>
                                 </div>
 
                                 <div class="mb-3">
@@ -84,6 +84,10 @@
                 <c:set var="error" value="${requestScope.DATE_ERROR_MESSAGE}"/>
                 <c:if test="${not empty error}">
                     ${error}
+                </c:if>
+                <c:set var="message" value="${requestScope.CREATE_REPORT}"/>
+                <c:if test="${not empty message}">
+                    ${message}
                 </c:if>
 
             </div>

@@ -28,15 +28,27 @@
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Select date"/>
                         </div>
                     </form>
-                    <form action="/HRManagement/HRMainController">
-                        <input type="text" name="txtSearch" value="${param.txtSearch}" placeholder="Enter employee's name"/>
+                    <form action="/HRManagement/HRMainController" class="mt-3">
+                        <input 
+                            type="text" 
+                            name="txtSearch" 
+                            value="${param.txtSearch}" 
+                            placeholder="Enter employee's name"
+                            class="rounded-md border-slate-400"
+                        />
                         <input type="hidden" name="date" value="${param.date}"/>
-                        <input type="submit" name="btnAction" value="Search"/>
+                        <input 
+                            type="submit" 
+                            name="btnAction" 
+                            value="Search" 
+                            class="rounded-md bg-[#0d6efd] px-3 py-[7px] box-border text-white cursor-pointer font-bold border-2 border-[#0d6efd] hover:text-[#0d6efd] hover:bg-[#0d6efd20] transition-all"
+                        />
                     </form>
                     <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">
                         <thead class="">
                             <tr class="text-[#464646] text-lg font-semibold">
                                 <th class="px-3 py-2 text-start">No.</th>
+                                <th class="px-3 py-2 text-start">Employee ID</th>
                                 <th class="px-3 py-2 text-start">Employee</th>
                                 <th class="px-3 py-2 text-start">Title</th>
                                 <th class="px-3 py-2 text-start">Department</th>
@@ -59,6 +71,9 @@
                                             ${counter.count}.
                                         </td>
                                         <td class="px-3 py-3">
+                                            ${dto.employeeID}
+                                        </td>
+                                        <td class="px-3 py-3">
                                             ${dto.employeeName}
                                         </td>
                                         <td class="px-3 py-3">
@@ -68,7 +83,10 @@
                                             ${dto.department}
                                         </td>   
                                         <td class="px-3 py-3">
-                                            <a href="DispatchServlet?btnAction=ViewReport&txtEmployeeName=${dto.employeeName}&txtMonth=${param.date}">
+                                            <a 
+                                                href="DispatchServlet?btnAction=ViewReport&txtEmployeeName=${dto.employeeName}&txtMonth=${param.date}"
+                                                class="rounded-md bg-[#0d6efd] px-3 py-1 box-border text-white cursor-pointer font-semibold border-2 border-[#0d6efd] hover:text-[#0d6efd] hover:bg-[#0d6efd20] transition-all"
+                                            >
                                                 View
                                             </a> 
                                         </td>
@@ -85,6 +103,9 @@
                                             ${counter.count}.
                                         </td>
                                         <td class="px-3 py-3">
+                                            ${dto.employeeID}
+                                        </td>
+                                        <td class="px-3 py-3">
                                             ${dto.employeeName}
                                         </td>
                                         <td class="px-3 py-3">
@@ -94,7 +115,10 @@
                                             ${dto.department}
                                         </td>   
                                         <td class="px-3 py-3">
-                                            <a href="DispatchServlet?btnAction=ViewReport&txtEmployeeName=${dto.employeeName}&txtMonth=${param.date}"">
+                                            <a 
+                                                href="DispatchServlet?btnAction=ViewReport&txtEmployeeName=${dto.employeeName}&txtMonth=${param.date}"
+                                                class="rounded-md bg-[#0d6efd] px-3 py-1 box-border text-white cursor-pointer font-semibold border-2 border-[#0d6efd] hover:text-[#0d6efd] hover:bg-[#0d6efd20] transition-all"
+                                            >
                                                 View
                                             </a> 
                                         </td>

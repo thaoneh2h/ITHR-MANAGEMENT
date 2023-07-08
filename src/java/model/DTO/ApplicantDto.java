@@ -14,7 +14,7 @@ import java.util.Date;
 public class ApplicantDto {
     private int applicantID;
     private String name;
-    private int phoneNumber;
+    private String phoneNumber;
     private String email;
     private String CV;
     private boolean gender;
@@ -27,7 +27,7 @@ public class ApplicantDto {
     public ApplicantDto() {
     }
 
-    public ApplicantDto(int applicantID, String name, int phoneNumber, String email, String CV, boolean gender, boolean status, Date interviewDate, int jobOfferingID, String employeeID, String departmentName) {
+    public ApplicantDto(int applicantID, String name, String phoneNumber, String email, String CV, boolean gender, boolean status, Date interviewDate, int jobOfferingID, String employeeID, String departmentName) {
         this.applicantID = applicantID;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -57,11 +57,11 @@ public class ApplicantDto {
         this.name = name;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -81,13 +81,13 @@ public class ApplicantDto {
         this.CV = CV;
     }
 
-    public boolean isGender() {
+    public boolean getGender() {
         return gender;
     }
 
     public void setGender(boolean gender) {
         this.gender = gender;
-    }
+    }   
 
     public boolean isStatus() {
         return status;

@@ -38,7 +38,7 @@ public class ContractDetailServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         String url = CONTRACT_DETAIL;      
-        String contractID = request.getParameter("employee_contractID");
+        String contractID = request.getParameter("employeeID");
         
         try  {
             ContractDAO dao = new ContractDAO();

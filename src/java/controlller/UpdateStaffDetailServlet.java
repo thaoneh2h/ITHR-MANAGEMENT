@@ -55,7 +55,7 @@ public class UpdateStaffDetailServlet extends HttpServlet {
         String employeeId = request.getParameter("txtEmployeeId");
         String employeeName = request.getParameter("txtEmployeeName");
         //Date employeedob = sdf.parse(dateString);
-        int phoneNumer = Integer.parseInt(request.getParameter("txtEmployeePhone"));
+        String phoneNumer = request.getParameter("txtEmployeePhone");
         String employeeEmail = request.getParameter("txtEmployeeEmail");
         String address = request.getParameter("txtEmployeeAddress");
         // String roleName = request.getParameter("txtEmployeeRole");
