@@ -58,7 +58,7 @@ public class RetrieveLateTimeServlet extends HttpServlet {
                 if (conn != null) {
                     String sql = "SELECT Report.late_day, contract.late_day_penalty, (Report.late_day * contract.late_day_penalty) AS total_penalty "
                             + "FROM employee \n"
-                            + "LEFT JOIN contract ON contract.employee_contractId = employee.employee_contractId  \n"
+                            + "LEFT JOIN contract ON contract.employee_id = employee.employee_id  \n"
                             + "LEFT JOIN salary ON employee.employee_id = salary.employee_id \n"
                             + "INNER JOIN Report ON Report.report_id = salary.report_id \n"
                             + "WHERE salary.report_id = ?";

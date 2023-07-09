@@ -48,9 +48,17 @@
 
                             </div>
                             <ul class="py-1" role="none">
+                                <li>
+                                    <a href="DispatchServlet?btnAction=UserInfo"
+                                       class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white"
+                                       role="menuitem">
+                                        User Info
+                                    </a>
+                                </li>
+
 
                                 <li>
-                                    <a href="/HRManagement/DispatchServlet?btnAction=newPassword"
+                                    <a href="/HRManagement/ChangePassword.jsp"
                                        class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white"
                                        role="menuitem">
                                         Change Password
@@ -76,7 +84,7 @@
                                    class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white"
                                    role="menuitem">Sign out</a>
                             </li>
-                            <li class="nav-item ">
+                            <!-- <li class="nav-item ">
                                 <a href="DispatchServlet?btnAction=UserInfo"
                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
                                     <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
@@ -92,7 +100,7 @@
 
                                     <span class="ml-3">User Info</span>
                                 </a>
-                            </li>
+                            </li> -->
 
 
                             <c:if test="${user!=null}">  
@@ -239,16 +247,7 @@
                     </a>
                 </li>                        
 
-                <li class="nav-item ">
-                    <a href="/HRManagement/MainController?btnAction=Pending"
-                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
-                        <svg  class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
-                        </svg>
-
-                        <span class="ml-3">Applicant</span>
-                    </a>
-                </li>
+                
 
                 <li class="nav-item">
                     <a href="UserSalaryServlet"
@@ -264,7 +263,24 @@
                     </a>
                 </li>
 
+                <li class="nav-item ">
 
+                    <a href="DispatchServlet?btnAction=UserContract"
+                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
+                        <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
+                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                             aria-hidden="true">
+                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                  d="M3 4.25A2.25 2.25 0 015.25 2h5.5A2.25 2.25 0 0113 4.25v2a.75.75 0 01-1.5 0v-2a.75.75 0 00-.75-.75h-5.5a.75.75 0 00-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 00.75-.75v-2a.75.75 0 011.5 0v2A2.25 2.25 0 0110.75 18h-5.5A2.25 2.25 0 013 15.75V4.25z">
+                            </path>
+                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                  d="M6 10a.75.75 0 01.75-.75h9.546l-1.048-.943a.75.75 0 111.004-1.114l2.5 2.25a.75.75 0 010 1.114l-2.5 2.25a.75.75 0 11-1.004-1.114l1.048-.943H6.75A.75.75 0 016 10z">
+                            </path>
+                        </svg>
+
+                        <span class="ml-3">Show My Contract</span>
+                    </a>
+                </li>
 
                 <!-- END LEADER -->
 
@@ -404,7 +420,7 @@
                 </li>                        
 
                 <li class="nav-item ">
-                    <a href="MainController?btnAction=Pending"
+                    <a href="/HRManagement/MainController?btnAction=Pending"
                        class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
                         <svg  class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
@@ -438,7 +454,25 @@
                     </a>
                 </li>
 
+                <li class="nav-item ">
 
+                    <a href="/HRManagement/DispatchServlet?btnAction=UserContract"
+                       class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
+                        <svg class="w-6 h-6 transition duration-75 text-gray-400 group-hover:text-white"
+                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                             aria-hidden="true">
+                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                  d="M3 4.25A2.25 2.25 0 015.25 2h5.5A2.25 2.25 0 0113 4.25v2a.75.75 0 01-1.5 0v-2a.75.75 0 00-.75-.75h-5.5a.75.75 0 00-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 00.75-.75v-2a.75.75 0 011.5 0v2A2.25 2.25 0 0110.75 18h-5.5A2.25 2.25 0 013 15.75V4.25z">
+                            </path>
+                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                  d="M6 10a.75.75 0 01.75-.75h9.546l-1.048-.943a.75.75 0 111.004-1.114l2.5 2.25a.75.75 0 010 1.114l-2.5 2.25a.75.75 0 11-1.004-1.114l1.048-.943H6.75A.75.75 0 016 10z">
+                            </path>
+                        </svg>
+
+                        <span class="ml-3">Show My Contract</span>
+                    </a>
+                </li>
+                
                 <li class="nav-item">
                     <a href="UserSalaryServlet"
                        class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
@@ -452,8 +486,10 @@
                         <span class="ml-3"> Your Salaries</span>
                     </a>
                 </li>
-            </c:if>
-                  <li class="nav-item ">
+                
+                
+                
+                <li class="nav-item ">
                     <a href="CreateDayLeave.jsp"
                        class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 active:bg-gray-100">
 
@@ -474,7 +510,9 @@
 
                         <span class="ml-3">Sent</span>
                     </a>
-                </li>
+                </li> 
+            </c:if>
+
 
 
             <!--                    role HR_PM-->

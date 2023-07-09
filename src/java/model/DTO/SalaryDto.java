@@ -178,7 +178,7 @@ public class SalaryDto {
         int medicalInsuranceValue = parseCurrencyValue(this.getMedicalInsurance());
         int socialAssuranceValue = parseCurrencyValue(this.getSocialAssurance());
         int taxValue = parseCurrencyValue(this.getTax());
-        int totalDeductions = this.penalty + accidentalInsuranceValue + medicalInsuranceValue + socialAssuranceValue + taxValue - this.bonus;
+        int totalDeductions =( this.penalty + accidentalInsuranceValue + medicalInsuranceValue + socialAssuranceValue + taxValue) - this.bonus;
         int lastReceiverValue = this.salaryBase - totalDeductions;
         this.setLastReceiver(lastReceiverValue);
         return formatCurrency(lastReceiverValue);

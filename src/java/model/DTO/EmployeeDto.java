@@ -16,7 +16,7 @@ public class EmployeeDto {
     private String department_id;
     private String employee_name;
     private Date employee_dob;
-    private int employee_phone;
+    private String employee_phone;
     private Date datejoin;
     private String employee_contractId;
     private int age;
@@ -37,7 +37,7 @@ public class EmployeeDto {
 
     
     
-    public EmployeeDto(String employee_id, String department_id, String employee_name, Date employee_dob, int employee_phone, Date datejoin, String employee_contractId, int age, boolean gender, String supervision_id, 
+    public EmployeeDto(String employee_id, String department_id, String employee_name, Date employee_dob, String employee_phone, Date datejoin, String employee_contractId, int age, boolean gender, String supervision_id, 
             String employee_email, String employee_address, String employee_leaveDay, String departmentName, String role, String username, String password, String photo, boolean status) {
         this.employee_id = employee_id;
         this.department_id = department_id;
@@ -92,11 +92,11 @@ public class EmployeeDto {
         this.employee_dob = employee_dob;
     }
 
-    public int getEmployee_phone() {
+    public String getEmployee_phone() {
         return employee_phone;
     }
 
-    public void setEmployee_phone(int employee_phone) {
+    public void setEmployee_phone(String employee_phone) {
         this.employee_phone = employee_phone;
     }
 

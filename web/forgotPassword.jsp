@@ -20,7 +20,7 @@
                                         to secure your password!</p>
                                     <ol class="">
                                         <li><span>1. </span>Enter
-                                            your email address below.</li>
+                                            your registed account email address below.</li>
                                         <li><span>2. </span>Our
                                             system will send you an OTP to your email</li>
                                         <li><span>3. </span>Enter the OTP on the
@@ -30,7 +30,7 @@
                                 <form class="position-relative row" action="DispatchServlet" method="post">
 
                                     <div class="mb-3 col-6">
-                                        <label for="txtEmail" class="form-label">Username</label>
+                                        <label for="txtEmail" class="form-label">Email:</label>
                                         <input type="email" class="form-control" id="txtEmail" name="email"
                                             placeholder="example@gmail.com">
                                     </div>

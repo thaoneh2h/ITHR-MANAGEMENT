@@ -176,6 +176,18 @@
         <servlet-name>SearchNameContractServlet</servlet-name>
         <servlet-class>controlller.SearchNameContractServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserContractServlet</servlet-name>
+        <servlet-class>controlller.UserContractServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateApplicantServlet</servlet-name>
+        <servlet-class>controlller.UpdateApplicantServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchStaffServlet</servlet-name>
+        <servlet-class>controlller.SearchStaffServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DispatchServlet</servlet-name>
         <url-pattern>/DispatchServlet</url-pattern>
@@ -351,6 +363,18 @@
     <servlet-mapping>
         <servlet-name>SearchNameContractServlet</servlet-name>
         <url-pattern>/SearchNameContractServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserContractServlet</servlet-name>
+        <url-pattern>/UserContractServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateApplicantServlet</servlet-name>
+        <url-pattern>/UpdateApplicantServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchStaffServlet</servlet-name>
+        <url-pattern>/SearchStaffServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

@@ -30,19 +30,13 @@
                     <c:set var="result" value="${requestScope.LIST_CONTRACT}"/>
                     <c:if test="${not empty result}">   
                         
-                        <!-- ĐÂY LÀ PHẦN SEARCH CONTRACT THEO EMPLOYEE'S NAME -->
-                        <!-- PHẦN NÀY CHƯA HOÀN THIỆN -->
-                                    <!--  <form action="DispatchServlet">
-                                    Search Contract by name <input type="text" name="txtSearchValue" value="" /> <br>
-                                    <input type="submit" name = "bntAction" value="Search Contract Name" />
-                                    </form> <br>-->
                                     
                                     
                         <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">
                             <thead>
                                 <tr class="text-[#464646] text-lg font-semibold">
                                     <th class="px-3 py-2 text-start">No</th>
-                                    <th class="px-3 py-2 text-start">Employee's Contract ID</th>
+                                    <th class="px-3 py-2 text-start">Employee ID</th>
                                     <th class="px-3 py-2 text-start">Employee Name</th>
             <!--                        <th class="px-3 py-2 text-start">Salary ID</th>
                                     <th class="px-3 py-2 text-start">Welfare ID</th>-->
@@ -66,9 +60,9 @@
                                         <td class="px-3 py-3">
                                             <c:url var="ContractDetail" value="DispatchServlet">
                                             <c:param name="btnAction" value="ContractDetail" />
-                                            <c:param name="employee_contractID" value="${dto.employee_contractID}"/>
+                                            <c:param name="employeeID" value="${dto.employeeID}"/>
                                             </c:url>
-                                            <a href="${ContractDetail}" class="border-black hover:border-b-2 text-black"> ${dto.employee_contractID}</a>
+                                            <a href="${ContractDetail}" class="border-black hover:border-b-2 text-black"> ${dto.employeeID}</a>
                                         </td>
                                         <td class="px-3 py-3">
                                             ${dto.employee_name}
