@@ -12,22 +12,7 @@
         <title>IT HRMS</title>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body>
-        
-        <c:set var="error" value="${sessionScope.CONTRACT_DETAIL_ERROR}" />
-        <c:if test="${not empty error}">
-            <c:out value="${error}"/>
-        </c:if>
-        
-        <c:set var="result" value="${requestScope.CONTRACT_DETAIL}"/>
-        <c:if test="${not empty result}">
-            <c:forEach var="dto" items="${result}">
-                <img 
-                    src="${dto.photo}" alt="mycontract" style="width: 100%; height: 100% "
-                />
-            </c:forEach>
-        </c:if>
-        
+    <body>        
         <% 
             Object user=session.getAttribute("user");
             if (user==null) {
@@ -51,7 +36,7 @@
                     </svg>
                     Back
                 </button>
-                <div class="m-5 rounded-lg bg-[#82cfef10] w-fit overflow-hidden ml-96"
+                <div class="m-5 rounded-lg bg-[#82cfef10] w-fit overflow-hidden ml-64"
                     style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;"
                 >             
                     <c:set var="error" value="${sessionScope.CONTRACT_DETAIL_ERROR}" />
@@ -62,14 +47,15 @@
                     <c:set var="result" value="${requestScope.CONTRACT_DETAIL}"/>
                     <c:if test="${not empty result}">
                         <c:forEach var="dto" items="${result}">
-                            <img 
-                                src="${dto.photo}" alt="contract" style="width: auto; height: calc(100vh - 140px);"
-                            />
+                            <div class="overflow-y-scroll" style="width: 800px; height: calc(100vh - 140px);">
+                                <image src="${dto.photo}" alt="contract" class="w-full h-auto" />
+                            </div>                            
                         </c:forEach>
                         <img src="./assets/cv-deco.gif" alt="cv decoration" class="absolute bottom-5 right-0" />
                     </c:if>
                 </div>
             </div>
-        </section>        
+        </section>  
+        <%@include file="/Layout/TailwindFooter.jsp" %>      
     </body>
 </html>

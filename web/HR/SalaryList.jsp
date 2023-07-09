@@ -70,6 +70,7 @@
                     </c:if>
             </div>
         </section>
+        <%@include file="/Layout/TailwindFooter.jsp" %>
         <script>
 
             function submitForm() {

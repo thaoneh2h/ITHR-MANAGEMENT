@@ -146,7 +146,7 @@
                                 <a 
                                     href="UpdateUserInfo.jsp" 
                                     class="bg-[#0d6efd] rounded-md px-16 py-2 col-span-2 font-bold text-xl text-white mx-36 my-2
-                                    border-2 box-border border-[#0d6efd] hover:bg-white hover:text-[#0d6efd] transition-all"
+                                    border-2 box-border border-[#0d6efd] hover:bg-[#0d6efd20] hover:text-[#0d6efd] transition-all"
                                 >Edit</a>
                                 
                             </div>
