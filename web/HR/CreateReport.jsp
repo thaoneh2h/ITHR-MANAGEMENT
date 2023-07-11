@@ -116,7 +116,10 @@ pageEncoding="UTF-8" %>
 									value="Create"
 								/>
 							</form>
-							<c:out value="${message}"></c:out>
+							<p class="text-red-500 h-4" >
+							<c:out value="${message}">
+								</c:out>
+							</p>
 							<c:set var="error" value="${requestScope.DATE_ERROR_MESSAGE}" />
 							<c:if test="${not empty error}">
 								<p class="text-red-500 h-4">${error}</p>

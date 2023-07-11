@@ -91,36 +91,7 @@
                                 </form>
                             </c:forEach>
                         </c:if>
-                        <!-- Reject list list  -->
-                        <c:set var="resultReject" value="${requestScope.REJECT_LIST}" />
-                        <c:if test="${not empty resultReject}">
-                            <c:forEach var="dto" items="${resultReject}" varStatus="counter">
-                                <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
-                                    <td class="px-3 py-3">
-                                        ${counter.count}
-                                    </td>
-                                    <td class="px-3 py-3">
-                                        ${dto.employeeName}
-                                    </td>
-                                    <td class="px-3 py-3">
-                                        ${dto.dayleave_title}
-                                    </td>
-                                    <td class="px-3 py-3">
-                                        ${dto.dayleave_description}
-                                    </td>
-                                    <td class="px-3 py-3">
-                                        ${dto.date_created}
-                                    </td>  
-
-                                    <td class="px-2 py-3 rounded-r-[0.25rem]">
-
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </c:if>
-
-                        </tbody>
-                    </table>
+                   
 
                     <c:if test="${empty resultPending}">
                         <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">
