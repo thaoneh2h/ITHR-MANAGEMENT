@@ -84,15 +84,14 @@
                                                 </button>
 
                                                 <button>
-                                                    <input type="submit" name="btnAction" value="Approve" class="text-white bg-[#0d6efd] rounded-md px-2 py-1 cursor-pointer hover:text-[#0d6efd] hover:bg-[#dce7f9] border-2 border-[#0d6efd] transition-all font-medium"/>
+                                                    <input type="submit" name="btnAction" value="Approve" class="text-white bg-[#0d6efd] rounded-md pqx-2 py-1 cursor-pointer hover:text-[#0d6efd] hover:bg-[#dce7f9] border-2 border-[#0d6efd] transition-all font-medium"/>
                                                 </button>
                                         </td>
                                     </tr>
                                 </form>
                             </c:forEach>
                         </c:if>
-                        </tbody>
-                    </table>
+                   
 
                     <c:if test="${empty resultPending}">
                         <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">

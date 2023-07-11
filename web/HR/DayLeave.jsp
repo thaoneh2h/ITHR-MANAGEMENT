@@ -79,13 +79,14 @@
                                             <input type="hidden" name="dayLeaveId" value="${dto.dayleave_id}">
                                             <input type="hidden" name="dayLeaveDate" value="${dto.date_created}">
 
+                                          
                                             <button>
-                                                <input type="submit" name="btnAction" value="Reject" />
+                                                <input type="submit" name="btnAction" value="Approve" class="text-white bg-green-700 rounded-md px-2 py-1 cursor-pointer hover:text-green-700 hover:bg-green-100 border-2 border-green-700 transition-all font-medium" />
+                                            </button>
+                                              <button>
+                                                <input type="submit" name="btnAction" value="Reject" class="text-white bg-red-700 rounded-md px-2 py-1 cursor-pointer hover:text-red-700 hover:bg-red-100 border-2 border-red-700 transition-all font-medium" />
                                             </button>
 
-                                            <button>
-                                                <input type="submit" name="btnAction" value="Approve" class="text-white bg-red-700 rounded-md px-2 py-1 cursor-pointer hover:text-red-700 hover:bg-red-100 border-2 border-red-700 transition-all font-medium" />
-                                            </button>
                                         </td>
                                     </tr>
                                 </form>

@@ -21,7 +21,7 @@
                 <c:if test="${not empty error}">
                     <c:out value="${error}"/>
                 </c:if>
-
+                
                 <button onclick="history.back()" class="flex gap-2 items-center py-1 px-3 m-10 text-red-500
                     hover:scale-105 hover:bg-[#dc354530] transition-all rounded-lg"
                 >
