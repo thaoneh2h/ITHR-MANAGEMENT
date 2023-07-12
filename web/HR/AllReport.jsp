@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Report Page</title>
+        <title>IT HRMS</title>
         <%@include file="../Layout/TailwindHead.jsp" %>
     </head>
     <body>

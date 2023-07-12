@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Welfare List</title>
+        <title>IT HRMS</title>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body>

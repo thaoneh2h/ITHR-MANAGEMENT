@@ -22,6 +22,7 @@ import model.DAO.HRDao;
 public class CreateReporServlet extends HttpServlet {
 
     private static final String CREATE_REPORT_PAGE = "HR/CreateReport.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,7 +35,7 @@ public class CreateReporServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         String url = CREATE_REPORT_PAGE;
+        String url = CREATE_REPORT_PAGE;
         String title = request.getParameter("txtTitle");
         String id = request.getParameter("txtEmployeeID");
         String descr = request.getParameter("txtDescr");
@@ -55,7 +56,7 @@ public class CreateReporServlet extends HttpServlet {
 
                         boolean check = dao.insertReport(ranID, title, id, month, year);
                         if (check) {
-                            url = CREATE_REPORT_PAGE;
+                            url = "DispatchServlet?btnAction=CreateReport";
                             request.setAttribute("CREATE_REPORT", "Sucessful");
                         }
                     }
@@ -63,6 +64,7 @@ public class CreateReporServlet extends HttpServlet {
                     e.printStackTrace();
                 }
             } else {
+                url = "DispatchServlet?btnAction=CreateReport";
                 request.setAttribute("message", "Please choose month first");
             }
         } catch (Exception e) {

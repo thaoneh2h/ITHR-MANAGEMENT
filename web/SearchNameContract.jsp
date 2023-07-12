@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Contract</title>
+        <title>IT HRMS</title>
     </head>
     <body>
         <h1>Contract List</h1>

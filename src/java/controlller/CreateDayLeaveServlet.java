@@ -75,7 +75,7 @@ public class CreateDayLeaveServlet extends HttpServlet {
                 // Get number of execuse day in contract  
                 int number = dao.getNumberOfExecuseDayOff(employeeID);
                 if (number > 0) {
-                    if (((!title.isEmpty()) || (!description.isEmpty()) )) {
+                    if (((!title.isEmpty()) && (!date.isEmpty()) )) {
                         boolean check = dao.insertLeaveReport(ranID, title, description, date, username, employeeID);
                         if (check) {
                             url = CREATE_LEAVE_DAY_PAGE;
