@@ -37,7 +37,8 @@ public class SearchNameContractServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String searchValue = request.getParameter("txtSearchValue");
         String url = CONTRACT_LIST;
-        
+        String button = request.getParameter("btnAction");
+        if(button.equals("Search")){
         try {
             if(!searchValue.trim().isEmpty()){
                 ContractDAO dao = new ContractDAO();
@@ -45,8 +46,8 @@ public class SearchNameContractServlet extends HttpServlet {
                 dao.searchContractbyName(searchValue);
                 
                 List<ContractDTO> result = dao.getContractList();
-                request.setAttribute("SEARCH_RESULT_CONTRACT", result);
-                url = RESULT_NAME_CONTRACT;
+                request.setAttribute("LIST_CONTRACT", result);
+                url = "ContractList.jsp";
             }
 
         }catch (Exception e){
@@ -54,6 +55,7 @@ public class SearchNameContractServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
 
+        }
         }
     }
 

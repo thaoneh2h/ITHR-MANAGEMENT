@@ -65,9 +65,11 @@ public class UserDao {
             conn = DBHelper.makeConnection();
             if (conn != null) {
                 //2.Write SQL
-                String sql = "UPDATE [User] "
-                        + "SET [password] = ? "
-                        + "WHERE [email] = ?";
+                String sql = "UPDATE [User] \n"
+                        + "set password= ?\n"
+                        + "FROM [User] u\n"
+                        + "left join employee e on u.employee_id=e.employee_id\n"
+                        + "where e.employee_email= ? ";
                 //3.Tạo Statement obj
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, password);
@@ -143,7 +145,7 @@ public class UserDao {
                 stm.setString(1, username);
                 stm.setString(2, password);
                 rs = stm.executeQuery();
-                 if (rs.next()) {
+                if (rs.next()) {
                     String roleName = rs.getString("roleName");
 
                     String employeeID = rs.getString("employee_id");
@@ -177,9 +179,10 @@ public class UserDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT [username] [password]"
-                        + " FROM [User]"
-                        + " WHERE [email] = ? ";
+                String sql = "SELECT [username], [password]"
+                        + " FROM [User] u"
+                        + " left join employee e on e.employee_id=u.employee_id"
+                        + " WHERE e.employee_email = ? ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, email);
 
@@ -331,7 +334,7 @@ public class UserDao {
                     this.userInfoList.add(dto);
                 }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (rs != null) {

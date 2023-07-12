@@ -103,7 +103,6 @@ public class ChangePasswordController extends HttpServlet {
                 request.setAttribute("CREATE_ERROR", error);
                 session.setAttribute("USER", check);
             } else {
-//                dao.getUserPhoto(username);
 //                List<EmployeeDto> userInfo = dao.getUserInfoList();
 //                session.setAttribute("USER_PHOTO", userInfo);
 

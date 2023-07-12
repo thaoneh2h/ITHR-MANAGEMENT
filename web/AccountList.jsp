@@ -15,101 +15,106 @@
     </head>
     <body>
         <%@include file="/Layout/Sidebar.jsp" %>
-            <section class="pt-5 pl-1 sm:ml-64">
-                <div class="mt-14 rounded-lg overflow-hidden">
-                    <div class="m-10 p-10 rounded-lg bg-[#82cfef10]"
-                        style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
-                        <p class="text-center text-3xl font-bold mb-10">All List Of Accounts</p>
-                        <br>
-                        <c:set var="result" value="${requestScope.LIST_ACCOUNT}" />
-                        <c:if test="${not empty result}">
-                            <table class="w-full"
-                                style="border-collapse: separate !important; border-spacing: 0 10px;">
-                                <thead class="">
-                                    <tr class="text-[#464646] text-lg font-semibold">
-                                        <th class="px-3 py-2 text-start">No.</th>
-                                        <th class="px-3 py-2 text-start">Employee ID</th>
-                                        <th class="px-3 py-2 text-start">Employee Name</th>
-                                        <th class="px-3 py-2 text-start">Department ID</th>
-                                        <th class="px-3 py-2 text-start">Employee Email</th>
+        <section class="pt-5 pl-1 sm:ml-64">
+            <div class="mt-14 rounded-lg overflow-hidden">
+                <div class="m-10 p-10 rounded-lg bg-[#82cfef10]"
+                     style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+                    <p class="text-center text-3xl font-bold mb-10">All List Of Accounts</p>
+                    <br>
+                    <form action="SearchStaffServlet">
+                        <input type="text" name="txtSearch" value="${param.txtSearch}" placeholder="Enter employee's name" class="rounded-md border-slate-400"/>
+                        <input type="submit" name="btnAction" value="Search"
+                               class="rounded-md bg-[#0d6efd] px-3 py-[7px] box-border text-white cursor-pointer font-bold border-2 border-[#0d6efd] hover:text-[#0d6efd] hover:bg-[#0d6efd20] transition-all"/>
+                    </form>
+                    <c:set var="result" value="${requestScope.LIST_ACCOUNT}" />
+                    <c:if test="${not empty result}">
+                        <table class="w-full"
+                               style="border-collapse: separate !important; border-spacing: 0 10px;">
+                            <thead class="">
+                                <tr class="text-[#464646] text-lg font-semibold">
+                                    <th class="px-3 py-2 text-start">No.</th>
+                                    <th class="px-3 py-2 text-start">Employee ID</th>
+                                    <th class="px-3 py-2 text-start">Employee Name</th>
+                                    <th class="px-3 py-2 text-start">Department ID</th>
+                                    <th class="px-3 py-2 text-start">Employee Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="dto" items="${result}" varStatus="loop">
+                                    <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
+                                        <td class="px-3 py-3 rounded-l-[0.25rem]">
+                                            ${loop.count}
+                                        </td>
+                                        <td class="px-3 py-3">
+                                            ${dto.employee_id}
+                                        </td>
+                                        <td class="px-3 py-3">
+                                            <c:url var="AccDetail" value="DispatchServlet">
+                                                <c:param name="btnAction" value="AccDetail" />
+                                                <c:param name="employee_name"
+                                                         value="${dto.employee_name}" />
+                                            </c:url>
+                                            <a href="${AccDetail}"
+                                               class="border-black hover:border-b-2 text-black">
+                                                ${dto.employee_name}</a>
+                                        </td>
+                                        <td class="px-3 py-3">
+                                            ${dto.department_id}
+                                        </td>
+                                        <td class="px-3 py-3 rounded-r-[0.25rem]">
+                                            ${dto.employee_email}
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="dto" items="${result}" varStatus="loop">
-                                        <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
-                                            <td class="px-3 py-3 rounded-l-[0.25rem]">
-                                                ${loop.count}
-                                            </td>
-                                            <td class="px-3 py-3">
-                                                ${dto.employee_id}
-                                            </td>
-                                            <td class="px-3 py-3">
-                                                <c:url var="AccDetail" value="DispatchServlet">
-                                                    <c:param name="btnAction" value="AccDetail" />
-                                                    <c:param name="employee_name"
-                                                        value="${dto.employee_name}" />
-                                                </c:url>
-                                                <a href="${AccDetail}"
-                                                    class="border-black hover:border-b-2 text-black">
-                                                    ${dto.employee_name}</a>
-                                            </td>
-                                            <td class="px-3 py-3">
-                                                ${dto.department_id}
-                                            </td>
-                                            <td class="px-3 py-3 rounded-r-[0.25rem]">
-                                                ${dto.employee_email}
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </c:if>
-                        <c:set var="result" value="${requestScope.LIST_ACCOUNT_BY_DEPARTMENT}" />
-                        <c:if test="${not empty result}">
-                            <table class="w-full"
-                                style="border-collapse: separate !important; border-spacing: 0 10px;">
-                                <thead class="">
-                                    <tr class="text-[#464646] text-lg font-semibold">
-                                        <th class="px-3 py-2 text-start">No.</th>
-                                        <th class="px-3 py-2 text-start">Employee ID</th>
-                                        <th class="px-3 py-2 text-start">Employee Name</th>
-                                        <th class="px-3 py-2 text-start">Department ID</th>
-                                        <th class="px-3 py-2 text-start">Employee Email</th>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </c:if>
+                    <c:set var="result" value="${requestScope.LIST_ACCOUNT_BY_DEPARTMENT}" />
+                    <c:if test="${not empty result}">
+                        <table class="w-full"
+                               style="border-collapse: separate !important; border-spacing: 0 10px;">
+                            <thead class="">
+                                <tr class="text-[#464646] text-lg font-semibold">
+                                    <th class="px-3 py-2 text-start">No.</th>
+                                    <th class="px-3 py-2 text-start">Employee ID</th>
+                                    <th class="px-3 py-2 text-start">Employee Name</th>
+                                    <th class="px-3 py-2 text-start">Department ID</th>
+                                    <th class="px-3 py-2 text-start">Employee Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="dto" items="${result}" varStatus="loop">
+                                    <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
+                                        <td class="px-3 py-3 rounded-l-[0.25rem]">
+                                            ${loop.count}
+                                        </td>
+                                        <td class="px-3 py-3">
+                                            ${dto.employee_id}
+                                        </td>
+                                        <td class="px-3 py-3">
+                                            <c:url var="AccDetail" value="DispatchServlet">
+                                                <c:param name="btnAction" value="AccDetail" />
+                                                <c:param name="employee_name"
+                                                         value="${dto.employee_name}" />
+                                            </c:url>
+                                            <a href="${AccDetail}"
+                                               class="border-black hover:border-b-2 text-black">
+                                                ${dto.employee_name}</a>
+                                        </td>
+                                        <td class="px-3 py-3">
+                                            ${dto.department_id}
+                                        </td>
+                                        <td class="px-3 py-3 rounded-r-[0.25rem]">
+                                            ${dto.employee_email}
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="dto" items="${result}" varStatus="loop">
-                                        <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
-                                            <td class="px-3 py-3 rounded-l-[0.25rem]">
-                                                ${loop.count}
-                                            </td>
-                                            <td class="px-3 py-3">
-                                                ${dto.employee_id}
-                                            </td>
-                                            <td class="px-3 py-3">
-                                                <c:url var="AccDetail" value="DispatchServlet">
-                                                    <c:param name="btnAction" value="AccDetail" />
-                                                    <c:param name="employee_name"
-                                                        value="${dto.employee_name}" />
-                                                </c:url>
-                                                <a href="${AccDetail}"
-                                                    class="border-black hover:border-b-2 text-black">
-                                                    ${dto.employee_name}</a>
-                                            </td>
-                                            <td class="px-3 py-3">
-                                                ${dto.department_id}
-                                            </td>
-                                            <td class="px-3 py-3 rounded-r-[0.25rem]">
-                                                ${dto.employee_email}
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </c:if>
-                    </div>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </c:if>
                 </div>
-            </section>
-            <%@include file="/Layout/TailwindFooter.jsp" %>
+            </div>
+        </section>
+        <%@include file="/Layout/TailwindFooter.jsp" %>
     </body>
 </html>

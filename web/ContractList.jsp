@@ -28,9 +28,14 @@
                 >
                     <h1 class="text-center text-3xl font-bold mb-10">List of Employee's Contract</h1>
                     <c:set var="result" value="${requestScope.LIST_CONTRACT}"/>
+                     <form action="SearchNameContractServlet">
+                        <input type="text" name="txtSearchValue" value="${param.txtSearch}" placeholder="Enter employee's name" class="rounded-md border-slate-400"/>
+                        <input type="submit" name="btnAction" value="Search"
+                               class="rounded-md bg-[#0d6efd] px-3 py-[7px] box-border text-white cursor-pointer font-bold border-2 border-[#0d6efd] hover:text-[#0d6efd] hover:bg-[#0d6efd20] transition-all"/>
+                    </form>
                     <c:if test="${not empty result}">   
                         
-                                    
+                       
                                     
                         <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">
                             <thead>

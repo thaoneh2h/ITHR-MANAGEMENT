@@ -127,23 +127,22 @@ public class ContractDAO {
                 conn = DBHelper.makeConnection();
                 if (conn != null) {
                     
-                String sql = "SELECT c.employee_contractId, e.employee_id, e.employee_name, signDate, expDate, inspireDate "  
+                String sql = "SELECT e.employee_id, e.employee_name, signDate, expDate, inspireDate "  
                             + "FROM contract c "
-                            + "JOIN employee e On e.employee_contractId = c.employee_contractId "
-                            + "WHERE e.employee_name LIKE ? ";
+                            + "JOIN employee e On e.employee_id = c.employee_id "
+                            + "WHERE e.employee_name LIKE N'%' + ? + '%' ";
                 stm = conn.prepareStatement(sql);
-                stm.setString(1, "%" + keyword + "%");
+                stm.setString(1, keyword);
                 
                 rs = stm.executeQuery();
                 while (rs.next()) {
 
-                    int employee_contractID = rs.getInt("employee_contractId");
                     String employeeID = rs.getString("employee_id");
                     String employee_name = rs.getString("employee_name");
                     Date signDate = rs.getDate("signDate");
                     Date expDate = rs.getDate("expDate");
                     Date inspireDate = rs.getDate("inspireDate");                  
-                    contractDTO = new ContractDTO(employee_contractID, employeeID, employee_name, null, signDate, expDate, inspireDate, 0, 0, 0, 0, 0, 0, 0, null);
+                    contractDTO = new ContractDTO(0, employeeID, employee_name, null, signDate, expDate, inspireDate, 0, 0, 0, 0, 0, 0, 0, null);
                     
                     if (ContractList == null) {
                         ContractList = new ArrayList<>();
