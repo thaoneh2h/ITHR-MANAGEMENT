@@ -31,8 +31,9 @@
                     <p class="text-center text-3xl font-bold">List of staff</p>
 
                     <form action="SearchStaffServlet">
-                        <input type="text" name="txtSearch" value="${param.txtSearch}" placeholder="Enter employee's name"/>
-                        <input type="submit" name="btnAction" value="Search"/>
+                        <input type="text" name="txtSearch" value="${param.txtSearch}" placeholder="Enter employee's name" class="rounded-md border-slate-400"/>
+                        <input type="submit" name="btnAction" value="Search"
+                        class="rounded-md bg-[#0d6efd] px-3 py-[7px] box-border text-white cursor-pointer font-bold border-2 border-[#0d6efd] hover:text-[#0d6efd] hover:bg-[#0d6efd20] transition-all"/>
                     </form>
 
                     <br>

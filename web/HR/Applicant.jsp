@@ -74,8 +74,14 @@
                                         </td>
                                         <td class="px-3 py-3 rounded-r-[0.25rem]">
                                             <input type="hidden" name="applicantID" value="${dto.applicantID}">
-                                            <input type="submit" name="btnAction" value="Reject">
-                                            <input type="submit" name="btnAction" value="Approve">
+                                            <button>
+                                         <input type="submit" name="btnAction" value="Reject" class="text-white bg-red-700 rounded-md px-2 py-1 cursor-pointer hover:text-red-700 hover:bg-red-100 border-2 border-red-700 transition-all font-medium" >
+
+                                            </button>
+                                            <button>
+                                            <input type="submit" name="btnAction" value="Approve" class="text-white bg-[#0d6efd] rounded-md pqx-2 py-1 cursor-pointer hover:text-[#0d6efd] hover:bg-[#dce7f9] p-2 border-2 border-[#0d6efd] transition-all font-medium">
+
+                                            </button>
                                         </td> 
                                     </tr>
                                 </form>

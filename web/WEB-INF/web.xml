@@ -177,6 +177,10 @@
         <servlet-class>controlller.SearchNameContractServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UserContractServlet</servlet-name>
+        <servlet-class>controlller.UserContractServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UpdateApplicantServlet</servlet-name>
         <servlet-class>controlller.UpdateApplicantServlet</servlet-class>
     </servlet>
@@ -359,6 +363,10 @@
     <servlet-mapping>
         <servlet-name>SearchNameContractServlet</servlet-name>
         <url-pattern>/SearchNameContractServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserContractServlet</servlet-name>
+        <url-pattern>/UserContractServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateApplicantServlet</servlet-name>

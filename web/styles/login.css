@@ -9,25 +9,69 @@ input::-webkit-inner-spin-button {
   height: calc(100vh - 75px);
 }
 
+.apply-page {
+  background-image: url("../assets/background2.jpg");
+  padding: 8rem;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .login-form-bg {
   position: absolute;
   z-index: 1;
 }
 
+.apply-card {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
+  position: relative;
+  padding: 2rem;
+  box-shadow: 1px 2px 4px 4px rgba(0, 0, 0, 0.2), 2px 4px 8px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  border-radius: .5rem;
+}
+
 .login-card {
   backdrop-filter: blur(4px);
   position: relative;
+  padding: 2rem;
   box-shadow: 1px 2px 4px 4px rgba(0, 0, 0, 0.2), 2px 4px 8px 4px rgba(0, 0, 0, 0.2);
+}
+
+.apply-card .card {
+  box-shadow: 1px 2px 4px 4px rgba(0, 0, 0, 0.2), 2px 4px 4px 2px rgba(0, 0, 0, 0.2);
+  border: none !important;
+  top: 8rem;
+  height: fit-content;
+}
+
+.back-button {
+  position: absolute;
+  top: 8rem;
+  left: 40px;
+  z-index: 10;
+  border: none !important;
 }
 
 .card-container {
   width: 1300px;
   height: 600px;
 }
+
+.apply-form-container {
+  width: 480px;
+}
+
+.apply-form-container .card-body {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 .apply-card-container {
   width: 1000px;
   height: 600px;
 }
+
 .forgot-pass-card {
   width: 1000px;
   height: 650px;
@@ -50,14 +94,17 @@ input::-webkit-inner-spin-button {
   top: 180px;
   z-index: 1;
 }
+
 .apply-bg {
   width: 400px;
 }
+
 .apply-card {
   backdrop-filter: blur(4px);
   position: relative;
   box-shadow: 1px 2px 4px 4px rgba(0, 0, 0, 0.2), 2px 4px 8px 4px rgba(0, 0, 0, 0.2);
 }
+
 .slider-container:hover {
   box-shadow: 1px 2px 4px 4px rgba(0, 51, 255, 0.2), 2px 4px 8px 4px rgba(0, 51, 255, 0.3);
 }

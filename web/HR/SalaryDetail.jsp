@@ -26,7 +26,7 @@
         <%@include file="../Layout/Sidebar.jsp" %>
         <script>
             function back() {
-                window.location.href = "/HRManagement/DispatchServlet?btnAction=Salary";
+                history.back();
             }
         </script>
         <section class="w-full ml-64 pb-10 pt-20 sm:ml-32 flex justify-center">

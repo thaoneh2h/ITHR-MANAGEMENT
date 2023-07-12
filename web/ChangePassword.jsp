@@ -118,11 +118,13 @@
                                 type="submit" name="btnAction" value="newPassword">
                                 Confirm
                             </button>
+                            <c:set var="message" value="${requestScope.MESSAGE_SUCESS}" />
+							<c:if test="${not empty message}">
+								<p class="text-green-500 h-4 mt-2">${message}</p>
+							</c:if>
                         </div>
-                        <c:set var="message" value="${requestScope.MESSAGE_SUCESS}"/>
-                        <c:if test="${not empty message}">
-                            ${message}
-                        </c:if>
+                        
+						
                     </form>
                 </div>
 

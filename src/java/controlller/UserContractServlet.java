@@ -15,14 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.DAO.ContractDAO;
+import model.DAO.UserDao;
 import model.DTO.ContractDTO;
+import model.DTO.UserDto;
 
 /**
  *
  * @author 23030
  */
-public class ContractDetailServlet extends HttpServlet {
-    private static final String CONTRACT_DETAIL = "ContractDetail.jsp";
+public class UserContractServlet extends HttpServlet {
+    private static final String USER_CONTRACT_PAGE = "UserContract.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,23 +39,19 @@ public class ContractDetailServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String url = CONTRACT_DETAIL;      
-        String contractID = request.getParameter("employeeID");
-        
-        try  {
+        String url = USER_CONTRACT_PAGE;
+        HttpSession session = request.getSession();
+        UserDto userDTO = (UserDto) session.getAttribute("user");
+        String username = userDTO.getUsername();
+        try{
+            UserDao userDao = new UserDao();
+            String employeeID = userDao.getUserID(username);
             ContractDAO dao = new ContractDAO();
-            ContractDTO dto = new ContractDTO();
+            dao.userContractDetail(employeeID);
+            List<ContractDTO> userContract = dao.getContractList();
+            request.setAttribute("USER_CONTRACT", userContract);
             
-            List<ContractDTO> ContractDetail = dao.getContractDetail(contractID);
-            
-            if(ContractDetail != null)
-            {
-                request.setAttribute("CONTRACT_DETAIL", ContractDetail);
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("CONTRACT_DETAIL_ERROR", "Not found any contract");
-            }
-        } catch(Exception e){
+        } catch (Exception e){
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

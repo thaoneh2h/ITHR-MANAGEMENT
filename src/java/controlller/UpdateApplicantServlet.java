@@ -30,7 +30,7 @@ public class UpdateApplicantServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, NumberFormatException {
         response.setContentType("text/html;charset=UTF-8");
         String button = request.getParameter("btnAction");
         int applicantID = Integer.parseInt(request.getParameter("applicantID"));
