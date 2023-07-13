@@ -1,4 +1,4 @@
-<%-- Document : Head Created on : May 28, 2023, 12:34:22 PM Author : trong --%>
+
 
     <head>
         <meta charset="UTF-8">
