@@ -1,4 +1,3 @@
-<%-- Document : footer Created on : May 25, 2023, 10:28:02 PM Author : trong --%>
 
     <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
