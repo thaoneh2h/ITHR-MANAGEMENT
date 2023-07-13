@@ -1,4 +1,4 @@
-<%-- Document : tailwindHead Created on : Jun 3, 2023, 3:37:19 PM Author : trong --%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
