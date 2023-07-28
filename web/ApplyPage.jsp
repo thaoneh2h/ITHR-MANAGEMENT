@@ -289,7 +289,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="txtEmail" class="form-label">Email</label>
-                                    <input  type="email" class="form-control" id="txtEmail" name="txtEmail"
+                                    <input required type="email" class="form-control" id="txtEmail" name="txtEmail"
                                            placeholder="Email">
                                 </div>
                                 <div class="mb-3">
@@ -301,7 +301,7 @@
                                     <label for="txtDate" class="block mb-2 text-sm font-medium ">
                                         Date of birth</label>
                                     <div class="relative max-w-sm">
-                                        <input name="date" type="date"  id="datepickerId"
+                                        <input required name="date" type="date"  id="datepickerId"
                                                data-date="${param.date}" value="" 
                                                class="bg-gray-50 form-control border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Select date"/>
                                     </div>
