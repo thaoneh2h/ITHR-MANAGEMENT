@@ -5,10 +5,22 @@
 <head>
     <title>Change password</title>
     <%@include file="Layout/TailwindHead.jsp" %>
+    
+     <style>
+        .form-container {
+            position: relative;
+            left: -3cm;
+            top: 30px;
+        }
+        
+        body {
+           background: url("assets/banner-bg.png") no-repeat;
+        }
+    </style>
 </head>
 
-<body>
-    <%@include file="Layout/Sidebar.jsp" %>
+<body>   
+    <%--<%@include file="Layout/Sidebar.jsp" %>--%>
     <section class="pt-16 sm:ml-64">
         <button onclick="history.back()" class="flex gap-2 items-center py-1 px-3 m-10 text-red-500
             hover:scale-105 hover:bg-[#dc354530] transition-all rounded-lg">
@@ -21,7 +33,7 @@
         </button>
         <div class="p-10 rounded-lg flex justify-center">
             <!-- new UI -->
-            <div class="w-1/3 items-center flex  flex-col rounded-xl p-5 overflow-hidden relative"
+            <div class="w-1/3 items-center flex  flex-col rounded-xl p-5 overflow-hidden relative form-container"
                 style="box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;">
                 <img src="https://kiranworkspace.com/demo/projects/code-snippets/card/profile-card/img/banner.jpg"
                     class="w-full h-28 absolute top-0 left-0 -z-[1] -z-[1]" alt="background profile" />
@@ -66,7 +78,9 @@
                         </button>
                     </div>
                 </form>
+                    
             </div>
+            <!--<img src="./assets/cv-deco.gif" alt="cv decoration" class="absolute bottom-5 right-0 cv-decoration" />-->
             <!-- UI -->
         </div>
     </section>
@@ -95,6 +109,7 @@
             }
         }
     </script>
+
 </body>
 
 </html>
