@@ -30,7 +30,7 @@
                          class="w-full h-28 absolute top-0 left-0 -z-[1] -z-[1]" alt="background profile" />
 
                         <div class="p-1 bg-white mt-10 rounded-full">
-                            <img src="https://icons.veryicon.com/png/o/miscellaneous/icon-8/my-account-5.png" alt="avatar" class="w-28 h-28 rounded-full"
+                            <img src="https://t3.ftcdn.net/jpg/05/26/72/48/360_F_526724825_fEKkOFrsAnTBW3G5Qc9VCZxArl3zWEdT.jpg" alt="avatar" class="w-28 h-28 rounded-full"
                                  style="box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;" />
                         </div>
 
