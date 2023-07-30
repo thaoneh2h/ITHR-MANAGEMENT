@@ -130,7 +130,19 @@
                                             </td> 
                                             <td class="px-3 py-3">${dto.email}</td>
                                             <td class="px-3 py-3">${dto.phoneNumber}</td>
-                                            <td class="px-3 py-3">${dto.departmentName}</td>
+                                            <td class="px-3 py-3">
+                                                <c:choose>
+                                                    <c:when test="${dto.departmentName eq 'User Interface'}">
+                                                        Front-end
+                                                    </c:when>
+                                                    <c:when test="${dto.departmentName eq 'Software Development'}">
+                                                        Back-end
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        ${dto.departmentName}
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                             <td class="px-3 py-3">
                                                 ${dto.interviewDate}
                                                 <c:if test="${empty dto.interviewDate}">
@@ -172,7 +184,19 @@
                                                 </td>
                                                 <td class="px-3 py-3">${dto.email}</td>
                                                 <td class="px-3 py-3">${dto.phoneNumber}</td>
-                                                <td class="px-3 py-3">${dto.departmentName}</td>
+                                                <td class="px-3 py-3">
+                                                    <c:choose>
+                                                        <c:when test="${dto.departmentName eq 'User Interface'}">
+                                                            Front-end
+                                                        </c:when>
+                                                        <c:when test="${dto.departmentName eq 'Software Development'}">
+                                                            Back-end
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${dto.departmentName}
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
                                                 <td class="px-3 py-3">
                                                     ${dto.interviewDate}
                                                     <c:if test="${empty dto.interviewDate}">
