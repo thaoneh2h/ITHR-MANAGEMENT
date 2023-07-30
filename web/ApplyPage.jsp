@@ -50,11 +50,11 @@
         <%@include file="/Layout/Header.jsp" %>
         <button onclick="history.back()" class="btn btn-outline-danger border-none back-button"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
-                    </svg>
-                    Back
-                </button>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
+            </svg>
+            Back
+        </button>
         <div
             class="d-flex flex-column justify-content-center align-items-center apply-page">
             <!--Hiển thị thông tin vị trí back-end-->
@@ -274,7 +274,7 @@
                                 <div class="mb-3">
                                     <label for="txtPhone" class="form-label">Phone</label>
                                     <input required type="tel" class="form-control" id="txtPhone" name="txtPhone"
-                                           placeholder="Phone">
+                                           placeholder="Phone" size="10" pattern="[0-9]{10}" title="Please enter 10 digits only">
                                 </div>
                                 <div class="mb-3">
                                     <label for="txtSex" class="form-label">Gender</label>
@@ -307,10 +307,10 @@
                                     </div>
                                 </div>
                                 <div>
-                                       <label for="txtDate" class="block mb-2 text-sm font-medium ">
-                                           CV
-                                        </label>
-                                  <input class="form-control"  id="formFile" type="file" name="cv" value=""/> <br/>
+                                    <label for="txtDate" class="block mb-2 text-sm font-medium ">
+                                        CV
+                                    </label>
+                                    <input class="form-control"  id="formFile" type="file" name="cv" value=""/> <br/>
                                 </div>
                                 <p class="text-danger">${message}</p>
                                 <div class="mb-3">
