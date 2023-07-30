@@ -46,7 +46,8 @@
         </script>
         <%@include file="Layout/Head.jsp" %>
     </head>
-    <body>
+    <body>      
+
         <%@include file="/Layout/Header.jsp" %>
         <button onclick="history.back()" class="btn btn-outline-danger border-none back-button"
                 >
@@ -264,7 +265,7 @@
                         <div class="card-header">
                             <h2>Apply for this job</h2>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body">                       
                             <form action="ApplyApplicantServlet" method="POST" enctype="multipart/form-data" id="form">
                                 <div class="mb-3">
                                     <label for="txtName" class="form-label">Full name</label>
@@ -316,8 +317,9 @@
                                 <div class="mb-3">
                                     <input type="hidden" name="position" id="positionInput">
                                     <input type="hidden" name="idValue" id="idValue">
-                                    <input class="btn btn-primary" type="submit" name="btnAction" value="Apply">
+                                    <input class="btn btn-primary" type="submit" name="btnAction" value="Apply"  onclick="showMessage()">                              
                                 </div>
+                                <div id="messageBox" class="message-box"></div>
                             </form>
                             <c:set var="message" value="${requestScope.MESSAGE_SUCCESS}"/>
                             <c:if test="${not empty message}">
@@ -329,6 +331,90 @@
             </div>
 
         </div>
+
+        <style>
+            .message-box {
+                display: none;
+                position: absolute;
+                top: 700px;
+                right: 20px;
+                padding: 10px 20px;
+                background-color: #228B22;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                font-size: 16px;
+                font-weight: bold;
+                color: #FFFFFF;
+                z-index: 9999;
+            }
+        </style>
+
+
+
+        <script>
+            var isValid = false;
+
+            function checkValidity() {
+                var txtName = document.getElementById("txtName").value;
+                var txtPhone = document.getElementById("txtPhone").value;
+                var txtEmail = document.getElementById("txtEmail").value;
+                var txtAdress = document.getElementById("txtAdress").value;
+                var datepickerId = document.getElementById("datepickerId").value;
+
+                // Kiểm tra số điện thoại phải chứa đúng 10 chữ số và không chứa chữ
+                var phonePattern = /^\d{10}$/;
+                var isValidPhoneNumber = phonePattern.test(txtPhone);
+
+                // Kiểm tra định dạng email
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                var isValidEmail = emailPattern.test(txtEmail);
+
+                if (
+                        txtName.trim() !== "" &&
+                        isValidPhoneNumber &&
+                        isValidEmail &&
+                        txtAdress.trim() !== "" &&
+                        datepickerId.trim() !== ""
+                        ) {
+                    isValid = true;
+                } else {
+                    isValid = false;
+                }
+            }
+
+
+            function showMessage() {
+                checkValidity();
+                if (isValid) {
+                    var messageBox = document.getElementById("messageBox");
+                    messageBox.innerHTML = "Submitted successfully!";
+                    messageBox.style.display = "block";
+                    sessionStorage.setItem("successMessageShown", "true");
+
+                    setTimeout(function () {
+                        messageBox.style.display = "none";
+                    }, 2000);
+                }
+            }
+            document.addEventListener("DOMContentLoaded", function () {
+                if (sessionStorage.getItem("successMessageShown") === "true") {
+                    var messageBox = document.getElementById("messageBox");
+                    messageBox.innerHTML = "Submitted successfully!";
+                    messageBox.style.display = "block";
+
+                    // Auto-hide the message box after 3 seconds
+                    setTimeout(function () {
+                        messageBox.style.display = "none";
+                    }, 2000);
+
+                    // Clear the flag in sessionStorage so the message won't show on subsequent reloads
+                    sessionStorage.removeItem("successMessageShown");
+                }
+            });
+        </script>
+
+
 
     </body>
 </html>
