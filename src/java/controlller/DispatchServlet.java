@@ -110,9 +110,9 @@ public class DispatchServlet extends HttpServlet {
                 case "Delete_StaffDetail":
                     url = DELETE_STAFF_DETAIL_CONTROLLER;
                     break;
-//                case "Save":
-//                    url = UPDATE_STAFF_DETAIL_CONTROLLER;
-//                    break;
+                case "Save":
+                    url = UPDATE_USER_INFO_CONTROLLER;
+                    break;
                 case "ShowAccountList":
                     url = ACCOUNT_LIST;
                     break;
@@ -191,9 +191,9 @@ public class DispatchServlet extends HttpServlet {
                     url = SEARCH_CONTRACT_NAME;
                     break;    
                     
-                case "Save":
-                    url = UPDATE_USER_INFO_CONTROLLER;
-                    break;
+//                case "Save":
+//                    url = UPDATE_USER_INFO_CONTROLLER;
+//                    break;
 
                 case "Salary":
                     url = "SalaryListServlet";

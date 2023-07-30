@@ -268,7 +268,7 @@ public class UserDao {
         }
     }
 
-    public boolean UpdateUserInfo(int phone, String email, String address, String id) throws SQLException {
+    public boolean UpdateUserInfo(String phone, String email, String address, String id) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
         boolean result = false;
@@ -283,7 +283,7 @@ public class UserDao {
                         + "WHERE employee_id = ? ";
                 //3.Tạo Statement obj
                 stm = conn.prepareStatement(sql);
-                stm.setInt(1, phone);
+                stm.setString(1, phone);
                 stm.setString(2, email);
                 stm.setString(3, address);
                 stm.setString(4, id);

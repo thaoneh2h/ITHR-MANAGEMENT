@@ -36,7 +36,7 @@ public class UpdateUserInfoServlet extends HttpServlet {
         String id = request.getParameter("txtID");
         String email = request.getParameter("txtEmail");
         String address = request.getParameter("txtAddress");
-        int phone = Integer.parseInt(request.getParameter("txtPhone"));
+        String phone = request.getParameter("txtPhone");
         String url = ERROR;
         try {
             UserDao dao = new UserDao();
@@ -46,6 +46,7 @@ public class UpdateUserInfoServlet extends HttpServlet {
                         + "?btnAction=UserInfo";
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

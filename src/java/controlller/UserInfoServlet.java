@@ -41,14 +41,13 @@ public class UserInfoServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UserDto userdto = (UserDto) session.getAttribute("user");
         String username = userdto.getUsername();
-
         String url = USER_INFO_PAGE;
         try {
-            UserDao dao = new UserDao();
-            dao.getUserInfo(username);
-            List<EmployeeDto> userInfo = dao.getUserInfoList();
-            session.setAttribute("USER_INFO", userInfo);
-            url = USER_INFO_PAGE;
+                UserDao dao = new UserDao();
+                dao.getUserInfo(username);
+                List<EmployeeDto> userInfo = dao.getUserInfoList();
+                session.setAttribute("USER_INFO", userInfo);
+                url = USER_INFO_PAGE;
         } catch (Exception e) {
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
