@@ -26,7 +26,7 @@
                 >
                     <h1 class="text-center text-3xl font-bold mb-10">Your Timekeeping</h1>
                     <c:set var="result" value="${requestScope.USER_TIMEKEEPING_MONTH}"/>
-                    <form action="DispatchServlet">
+                    <!--<form action="DispatchServlet">
                         <select name="Month" onchange="toggleButton(this)" class="rounded-md p-1 cursor-pointer" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
                             <option value="" disabled selected>Select A Month</option>
                             <option value="01">January</option>
@@ -57,6 +57,11 @@
                             }
                         </script>
 
+                    </form> -->
+                       <form id="searchForm" action="DispatchServlet?btnAction=UserSearchMonth" method="post">
+                        <div class="relative max-w-sm">
+                            <input name="Month" onchange="submitForm()" type="month" id="datepickerId" data-date="${param.Month}" value="${param.Month}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Select date">
+                        </div>
                     </form>
                     <c:if test="${not empty result}">
                         <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">
@@ -112,5 +117,11 @@
             </div>
         </section>
         <%@include file="/Layout/TailwindFooter.jsp" %>
+         <script>
+
+            function submitForm() {
+                document.getElementById("searchForm").submit();
+            }
+        </script>
     </body>
 </html>
