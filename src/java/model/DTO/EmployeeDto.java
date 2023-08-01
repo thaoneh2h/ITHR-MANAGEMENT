@@ -31,6 +31,7 @@ public class EmployeeDto {
     private String password;
     private String photo;
     private boolean status;
+    private String jobTitle;
 
     public EmployeeDto() {
     }
@@ -38,7 +39,7 @@ public class EmployeeDto {
     
     
     public EmployeeDto(String employee_id, String department_id, String employee_name, Date employee_dob, String employee_phone, Date datejoin, String employee_contractId, int age, boolean gender, String supervision_id, 
-            String employee_email, String employee_address, String employee_leaveDay, String departmentName, String role, String username, String password, String photo, boolean status) {
+            String employee_email, String employee_address, String employee_leaveDay, String departmentName, String role, String username, String password, String photo, boolean status, String jobTitle) {
         this.employee_id = employee_id;
         this.department_id = department_id;
         this.employee_name = employee_name;
@@ -58,6 +59,7 @@ public class EmployeeDto {
         this.password = password;
         this.photo = photo;
         this.status = status;
+        this.jobTitle = jobTitle;
     }
 
     public String getEmployee_id() {
@@ -211,5 +213,14 @@ public class EmployeeDto {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+    
     
 }

@@ -45,12 +45,14 @@ public class HRDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT d.dayleave_id, e.employee_name, d.dayleave_title, d.dayleave_description, [date-created] "
-                        + "FROM [DayLeave] d "
-                        + "JOIN [User] u ON d.username = u.username "
-                        + "JOIN employee e ON e.employee_id = u.employee_id "
-                        + "WHERE d.status = ? AND e.department_id = ? "
-                        + " ORDER BY MONTH(d.[date-created]) desc ";
+                String sql = "SELECT d.dayleave_id, e.employee_name, d.dayleave_title, d.dayleave_description, [date-created] \n"
+                        + "FROM [DayLeave] d \n"
+                        + "JOIN [User] u ON d.username = u.username\n"
+                        + "JOIN employee e ON e.employee_id = u.employee_id \n"
+                        + "JOIN Job j ON j.JobID = e.JobID\n"
+                        + "JOIN department de ON de.department_id = j.department_id\n"
+                        + "WHERE d.status = ? AND de.department_id = ?\n"
+                        + "ORDER BY MONTH(d.[date-created]) desc  ";
                 stm = conn.prepareStatement(sql);
                 stm.setBoolean(1, status);
                 stm.setString(2, departmentId);
@@ -90,12 +92,14 @@ public class HRDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT d.dayleave_id, e.employee_name, d.dayleave_title, d.dayleave_description, [date-created] "
-                        + "FROM [DayLeave] d "
-                        + "JOIN [User] u ON d.username = u.username "
-                        + "JOIN employee e ON e.employee_id = u.employee_id "
-                        + "WHERE d.status IS NULL AND e.department_id = ? "
-                        + "ORDER BY MONTH(d.[date-created]) desc ";
+                String sql = "SELECT d.dayleave_id, e.employee_name, d.dayleave_title, d.dayleave_description, [date-created] \n"
+                        + "FROM [DayLeave] d \n"
+                        + "JOIN [User] u ON d.username = u.username\n"
+                        + "JOIN employee e ON e.employee_id = u.employee_id \n"
+                        + "JOIN Job j ON j.JobID = e.JobID\n"
+                        + "JOIN department de ON de.department_id = j.department_id\n"
+                        + "WHERE d.status IS NULL AND de.department_id = ?\n"
+                        + "ORDER BY MONTH(d.[date-created]) desc  ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, departmentId);
                 rs = stm.executeQuery();
@@ -340,7 +344,7 @@ public class HRDao {
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     id = rs.getInt("report_id");
-                    dto = new ReportDTO(id, "", "", 0, 0, 0, "", 0, 0, "");
+                    dto = new ReportDTO(id, "", "", 0, 0, 0, "", 0, 0, "", "");
                 }
             }
         } catch (Exception e) {
@@ -435,7 +439,7 @@ public class HRDao {
                     String role = rs.getString("roleName");
                     boolean status = rs.getBoolean("status");
                     employeedto = new EmployeeDto(employeeId, "", employeeName, null, phoneNumer, null,
-                            null, 0, gender, "", "", "", null, departmentName, role, "", "", "", status);
+                            null, 0, gender, "", "", "", null, departmentName, role, "", "", "", status, "");
                     if (this.employeeList == null) {
                         this.employeeList = new ArrayList<>();
                     }//end account List had NOT existed
@@ -465,9 +469,11 @@ public class HRDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.department_id "
-                        + "FROM employee e "
-                        + "JOIN [User] u On e.employee_id = u.employee_id "
+                String sql = "SELECT d.department_id \n"
+                        + "FROM employee e \n"
+                        + "JOIN Job j ON j.JobID = e.JobID\n"
+                        + "JOIN department d ON d.department_id = j.department_id\n"
+                        + "JOIN [User] u On e.employee_id = u.employee_id \n"
                         + "WHERE u.username = ? ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, username);
@@ -476,7 +482,7 @@ public class HRDao {
                     String departmentID = rs.getString("department_id");
 
                     employeedto = new EmployeeDto("", departmentID, "", null, "", null,
-                            null, 0, false, "", "", "", null, "", "", "", "", "", false);
+                            null, 0, false, "", "", "", null, "", "", "", "", "", false, "");
                 }
             }
         } catch (Exception e) {
@@ -503,18 +509,19 @@ public class HRDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.employee_name, e.employee_id "
-                        + "FROM employee e JOIN [User] u ON e.employee_id = u.employee_id "
-                        + "WHERE department_id = ? AND u.[status] = 1 ";
+                String sql = "SELECT e.employee_name, e.employee_id \n"
+                        + "FROM employee e \n"
+                        + "JOIN [User] u ON e.employee_id = u.employee_id \n"
+                        + "JOIN Job j ON j.JobID = e.JobID\n"
+                        + "JOIN department d ON d.department_id = j.department_id\n"
+                        + "WHERE d.department_id = ? AND u.[status] = 1 ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, departmentID);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String id = rs.getString("employee_id");
                     String name = rs.getString("employee_name");
-                    employeedto = new EmployeeDto(id, "", name, null, "", null, "", 0, false, "", "", "", "", "", "", "", "", "", false);
-//                    employeedto = new EmployeeDto("", "", name, null, 0, null,
-//                            0, 0, false, "", "", "", null, "", "", "", "", false);
+                    employeedto = new EmployeeDto(id, "", name, null, "", null, "", 0, false, "", "", "", "", "", "", "", "", "", false, "");
                     if (this.employeeList == null) {
                         this.employeeList = new ArrayList<>();
                     }
@@ -552,7 +559,7 @@ public class HRDao {
                 while (rs.next()) {
                     String id = rs.getString("employee_id");
                     String name = rs.getString("employee_name");
-                    employeedto = new EmployeeDto(id, "", name, null, "", null, "", 0, false, "", "", "", "", "", "", "", "", "", false);
+                    employeedto = new EmployeeDto(id, "", name, null, "", null, "", 0, false, "", "", "", "", "", "", "", "", "", false, "");
 //                    employeedto = new EmployeeDto("", "", name, null, 0, null,
 //                            0, 0, false, "", "", "", null, "", "", "", "", false);
                     if (this.employeeList == null) {
@@ -584,11 +591,12 @@ public class HRDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.employee_id, e.employee_name, r.report_title, r.report_id, d.department_name, [month] "
-                        + "FROM Report r "
-                        + "JOIN employee e ON e.employee_id = r.employee_id "
-                        + "JOIN department d ON d.department_id = e.department_id "
-                        + "WHERE e.department_id = ? AND [month] = ? AND [status] = 'completed'";
+                String sql = "SELECT e.employee_id, e.employee_name, r.report_title, r.report_id, j.JobTitle, [month] \n"
+                        + "FROM Report r \n"
+                        + "JOIN employee e ON e.employee_id = r.employee_id \n"
+                        + "JOIN Job j ON j.JobID = e.JobID\n"
+                        + "JOIN department d ON d.department_id = j.department_id \n"
+                        + "WHERE d.department_id = ? AND [month] = ? AND [status] = 'completed'";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, departmentID);
                 stm.setInt(2, month);
@@ -597,11 +605,11 @@ public class HRDao {
                     String name = rs.getString("employee_name");
                     String title = rs.getString("report_title");
                     int id = rs.getInt("report_id");
-                    String department = rs.getString("department_name");
+                    String jobTitle = rs.getString("JobTitle");
                     month = rs.getInt("month");
                     String emId = rs.getString("employee_id");
 
-                    reportdto = new ReportDTO(id, title, name, 0, 0, 0, emId, month, 0, department);
+                    reportdto = new ReportDTO(id, title, name, 0, 0, 0, emId, month, 0, "", jobTitle);
                     if (this.reportList == null) {
                         this.reportList = new ArrayList<>();
                     }
@@ -649,7 +657,7 @@ public class HRDao {
                     int excuseDay = rs.getInt("excused_absent_day");
                     month = rs.getInt("month");
 
-                    reportDTO = new ReportDTO(0, title, name, lateDay, absentDay, overtimeDay, "", month, excuseDay, "");
+                    reportDTO = new ReportDTO(0, title, name, lateDay, absentDay, overtimeDay, "", month, excuseDay, "", "");
                     if (this.reportList == null) {
                         this.reportList = new ArrayList<>();
                     }
@@ -841,11 +849,13 @@ public class HRDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.employee_id, e.employee_name, r.report_title, r.report_id, d.department_name, [month] "
+                String sql = "SELECT e.employee_id, e.employee_name, r.report_title, r.report_id, j.JobTitle, [month] "
                         + "FROM Report r "
                         + "JOIN employee e ON e.employee_id = r.employee_id "
-                        + "JOIN department d ON d.department_id = e.department_id "
-                        + "WHERE e.department_id = ? AND [month] = ? AND e.employee_name LIKE '%' + ? + '%' ";
+                        + "JOIN Job j ON j.JobID = e.JobID "
+                        + "JOIN department d ON d.department_id = j.department_id "
+                        + "WHERE d.department_id = ? AND [month] = ? AND e.employee_name LIKE '%' + ? + '%' AND [status] = 'completed' ";
+
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, departmentID);
                 stm.setInt(2, month);
@@ -855,11 +865,11 @@ public class HRDao {
                     name = rs.getString("employee_name");
                     String title = rs.getString("report_title");
                     int id = rs.getInt("report_id");
-                    String department = rs.getString("department_name");
                     month = rs.getInt("month");
                     String emID = rs.getString("employee_id");
+                    String jobTitle = rs.getString("JobTitle");
 
-                    reportdto = new ReportDTO(id, title, name, 0, 0, 0, emID, month, 0, department);
+                    reportdto = new ReportDTO(id, title, name, 0, 0, 0, emID, month, 0, "", jobTitle);
                     if (this.reportList == null) {
                         this.reportList = new ArrayList<>();
                     }
@@ -955,11 +965,13 @@ public class HRDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.employee_id, employee_name, gender, employee_phone, department_name, u.roleName, u.status, e.department_id "
+                String sql = "SELECT e.employee_id, employee_name, gender, employee_phone, "
+                        + "j.JobTitle, u.roleName, u.status, d.department_name "
                         + "FROM employee e "
-                        + "JOIN department d On e.department_id = d.department_id "
+                        + "JOIN Job j On e.JobID = j.JobID "
+                        + "JOIN department d ON j.department_id = d.department_id "
                         + "JOIN [User] u On u.employee_id = e.employee_id "
-                        + "WHERE e.department_id = ? AND e.employee_name LIKE '%' + ? + '%'";
+                        + "WHERE d.department_id = ? AND e.employee_name LIKE '%' + ? + '%'";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, departmetId);
                 stm.setString(2, name);
@@ -971,9 +983,9 @@ public class HRDao {
                     String phoneNumer = rs.getString("employee_phone");
                     String departmentName = rs.getString("department_name");
                     String role = rs.getString("roleName");
-                    departmetId = rs.getString("department_id");
                     boolean status = rs.getBoolean("status");
-                    employeedto = new EmployeeDto(employeeId, departmentName, employeeName, null, phoneNumer, null, "", 0, gender, "", employeeName, employeeName, employeeName, departmentName, role, "", "", "", status);
+                    String jobTitle = rs.getString("JobTitle");
+                    employeedto = new EmployeeDto(employeeId, departmentName, employeeName, null, phoneNumer, null, "", 0, gender, "", employeeName, employeeName, employeeName, departmentName, role, "", "", "", status, jobTitle);
                     if (this.employeeList == null) {
                         this.employeeList = new ArrayList<>();
                     }//end account List had NOT existed
@@ -994,6 +1006,7 @@ public class HRDao {
             }
         }
     }
+
     public void getStaffByName(String name) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
@@ -1002,9 +1015,11 @@ public class HRDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.employee_id, employee_name, gender, employee_phone, department_name, u.roleName, u.status, e.department_id "
+                String sql = "SELECT e.employee_id, employee_name, gender, employee_phone, "
+                        + "j.JobTitle, u.roleName, u.status, d.department_name "
                         + "FROM employee e "
-                        + "JOIN department d On e.department_id = d.department_id "
+                        + "JOIN Job j On e.JobID = j.JobID "
+                        + "JOIN department d ON j.department_id = d.department_id "
                         + "JOIN [User] u On u.employee_id = e.employee_id "
                         + "WHERE e.employee_name LIKE '%' + ? + '%'";
                 stm = conn.prepareStatement(sql);
@@ -1017,9 +1032,9 @@ public class HRDao {
                     String phoneNumer = rs.getString("employee_phone");
                     String departmentName = rs.getString("department_name");
                     String role = rs.getString("roleName");
-                    String departmetId = rs.getString("department_id");
                     boolean status = rs.getBoolean("status");
-                    employeedto = new EmployeeDto(employeeId, departmentName, employeeName, null, phoneNumer, null, "", 0, gender, "", employeeName, employeeName, employeeName, departmentName, role, "", "", "", status);
+                    String jobTitle = rs.getString("JobTitle");
+                    employeedto = new EmployeeDto(employeeId, departmentName, employeeName, null, phoneNumer, null, "", 0, gender, "", employeeName, employeeName, employeeName, departmentName, role, "", "", "", status, jobTitle);
                     if (this.employeeList == null) {
                         this.employeeList = new ArrayList<>();
                     }//end account List had NOT existed

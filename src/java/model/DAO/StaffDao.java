@@ -36,11 +36,12 @@ public class StaffDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.employee_id, employee_name, gender, employee_phone, "
-                        + "department_name, u.roleName, u.status, e.department_id "
-                        + "FROM employee e "
-                        + "JOIN department d On e.department_id = d.department_id "
-                        + "JOIN [User] u On u.employee_id = e.employee_id ";
+                String sql = "SELECT e.employee_id, employee_name, gender, employee_phone, \n"
+                        + "j.JobTitle, u.roleName, u.status, d.department_name\n"
+                        + "FROM employee e \n"
+                        + "JOIN Job j On e.JobID = j.JobID \n"
+                        + "JOIN department d ON j.department_id = d.department_id\n"
+                        + "JOIN [User] u On u.employee_id = e.employee_id";
                 stm = conn.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -50,10 +51,12 @@ public class StaffDao {
                     String phoneNumer = rs.getString("employee_phone");
                     String departmentName = rs.getString("department_name");
                     String role = rs.getString("roleName");
-                    String departmetId = rs.getString("department_id");
+                    String jobTitle = rs.getString("JobTitle");
                     boolean status = rs.getBoolean("status");
-                    employeedto = new EmployeeDto(employeeId, departmentName, employeeName, null, phoneNumer, null, "", 0, gender, "", employeeName, employeeName, employeeName, departmentName, role, "", "", "", status);
-
+                    employeedto = new EmployeeDto(
+                            employeeId, "", employeeName, null, phoneNumer, null, "", 0, gender, "",
+                            employeeName, employeeName, employeeName, departmentName, role, "", "", "", status, jobTitle
+                    );
                     if (this.staffList == null) {
                         this.staffList = new ArrayList<>();
                     }//end account List had NOT existed
@@ -83,11 +86,13 @@ public class StaffDao {
             conn = DBHelper.makeConnection();
             if (conn != null) {
                 String sql = "SELECT e.employee_id, employee_name, gender, employee_phone, "
-                        + "department_name, u.roleName, u.status, e.department_id "
+                        + "j.JobTitle, u.roleName, u.status, d.department_name "
                         + "FROM employee e "
-                        + "JOIN department d On e.department_id = d.department_id "
+                        + "JOIN Job j On e.JobID = j.JobID "
+                        + "JOIN department d ON j.department_id = d.department_id "
                         + "JOIN [User] u On u.employee_id = e.employee_id "
-                        + "WHERE e.department_id = ? ";
+                        + "WHERE d.department_id = ? ";
+
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, departmetId);
                 rs = stm.executeQuery();
@@ -98,9 +103,9 @@ public class StaffDao {
                     String phoneNumer = rs.getString("employee_phone");
                     String departmentName = rs.getString("department_name");
                     String role = rs.getString("roleName");
-                    departmetId = rs.getString("department_id");
                     boolean status = rs.getBoolean("status");
-                    employeedto = new EmployeeDto(employeeId, departmentName, employeeName, null, phoneNumer, null, "", 0, gender, "", employeeName, employeeName, employeeName, departmentName, role, "", "", "", status);
+                    String jobTitle = rs.getString("JobTitle");
+                    employeedto = new EmployeeDto(employeeId, departmentName, employeeName, null, phoneNumer, null, "", 0, gender, "", employeeName, employeeName, employeeName, departmentName, role, "", "", "", status, jobTitle);
                     if (this.staffList == null) {
                         this.staffList = new ArrayList<>();
                     }//end account List had NOT existed
@@ -131,11 +136,12 @@ public class StaffDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.[employee_id], [employee_name], e.employee_dob, gender, employee_phone, "
-                        + "employee_email, d.department_name, employee_address, u.roleName, u.username, employee_photo "
-                        + "FROM employee e "
-                        + "Join department d ON e.department_id = d.department_id "
-                        + "Join [User] u ON e.employee_id = u.employee_id "
+                String sql = "SELECT e.[employee_id], [employee_name], e.employee_dob, gender, employee_phone, \n"
+                        + "employee_email, d.department_name, employee_address, u.roleName, u.username\n"
+                        + ", employee_photo FROM employee e \n"
+                        + "JOIN Job j On j.JobID = e.JobID\n"
+                        + "Join department d ON j.department_id = d.department_id \n"
+                        + "Join[User] u ON e.employee_id = u.employee_id  "
                         + "WHERE [employee_name] LIKE N'%' + ? + N'%' ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, name);
@@ -152,7 +158,7 @@ public class StaffDao {
                     String roleName = rs.getString("roleName");
                     String username = rs.getString("username");
                     String photo = rs.getString("employee_photo");
-                    employeedto = new EmployeeDto(employeeId, "", employeeName, employeedob, phoneNumer, null, "", 0, gender, "", employeeEmail, address, "", departmentName, roleName, username, "", photo, false);
+                    employeedto = new EmployeeDto(employeeId, "", employeeName, employeedob, phoneNumer, null, "", 0, gender, "", employeeEmail, address, "", departmentName, roleName, username, "", photo, false, "");
 
                     if (staffDetail == null) {
                         staffDetail = new ArrayList<>();
@@ -354,10 +360,11 @@ public class StaffDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.[employee_id], employee_name, "
-                        + "e.[department_id], e.[employee_email] "
-                        + "FROM employee e "
-                        + "JOIN department d On e.department_id = d.department_id "
+                String sql = "SELECT e.[employee_id], employee_name, \n"
+                        + "d.[department_id], e.[employee_email] \n"
+                        + "FROM employee e \n"
+                        + "JOIN Job j ON j.JobID = e.JobID\n"
+                        + "JOIN department d On j.department_id = d.department_id \n"
                         + "JOIN [User] u On u.employee_id = e.employee_id ";
                 stm = conn.prepareStatement(sql);
                 rs = stm.executeQuery();
@@ -366,7 +373,7 @@ public class StaffDao {
                     String employeeName = rs.getString("employee_name");
                     String department_id = rs.getString("department_id");
                     String employeeEmail = rs.getString("employee_email");
-                    employeeDTO = new EmployeeDto(employeeId, department_id, employeeName, null, null, null, "", 0, true, "", employeeEmail, "", "", "", "", "", "", "", false);
+                    employeeDTO = new EmployeeDto(employeeId, department_id, employeeName, null, null, null, "", 0, true, "", employeeEmail, "", "", "", "", "", "", "", false, "");
 
 //                    employeeDTO = new EmployeeDto(employeeId, department_id, employeeName, null, 0, null,
 //                            null, 0, true, "", employeeEmail, "", null, "", "", "", "");
@@ -400,12 +407,13 @@ public class StaffDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.[employee_id], employee_name, "
-                        + "e.[department_id], e.[employee_email] "
-                        + "FROM employee e "
-                        + "JOIN department d On e.department_id = d.department_id "
-                        + "JOIN [User] u On u.employee_id = e.employee_id "
-                        + "WHERE e.department_id = ? ";
+                String sql = "SELECT e.[employee_id], employee_name, \n"
+                        + "d.[department_id], e.[employee_email] \n"
+                        + "FROM employee e \n"
+                        + "JOIN Job j ON j.JobID = e.JobID\n"
+                        + "JOIN department d On j.department_id = d.department_id \n"
+                        + "JOIN [User] u On u.employee_id = e.employee_id \n"
+                        + "WHERE j.department_id = ? ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, department_id);
                 rs = stm.executeQuery();
@@ -414,7 +422,7 @@ public class StaffDao {
                     String employeeName = rs.getString("employee_name");
                     department_id = rs.getString("department_id");
                     String employeeEmail = rs.getString("employee_email");
-                    employeeDTO = new EmployeeDto(employeeId, department_id, employeeName, null, "", null, employeeEmail, 0, true, department_id, employeeEmail, employeeName, employeeName, department_id, sql, employeeName, sql, sql, true);
+                    employeeDTO = new EmployeeDto(employeeId, department_id, employeeName, null, "", null, employeeEmail, 0, true, department_id, employeeEmail, employeeName, employeeName, department_id, sql, employeeName, sql, sql, true, "");
 
 //                    employeeDTO = new EmployeeDto(employeeId, department_id, employeeName, null, 0, null,
 //                            null, 0, true, "", employeeEmail, "", null, "", "", "", "");
@@ -450,10 +458,11 @@ public class StaffDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.[employee_id], employee_name, e.[department_id], "
+                String sql = "SELECT e.[employee_id], employee_name, d.[department_id], "
                         + "d.[department_name], e.[employee_email], e.[datejoin], u.roleName, u.username, u.[password] "
                         + "FROM employee e "
-                        + "JOIN department d On e.department_id = d.department_id "
+                        + "JOIN Job j ON j.JobID = e.JobID"
+                        + "JOIN department d On j.department_id = d.department_id "
                         + "JOIN [User] u On u.employee_id = e.employee_id "
                         + "WHERE [employee_name] LIKE N'%' + ? + N'%' ";
                 stm = conn.prepareStatement(sql);
@@ -471,7 +480,7 @@ public class StaffDao {
                     String username = rs.getString("username");
                     String password = rs.getString("password");
 
-                    EmployeeDTO = new EmployeeDto(employeeId, department_id, employeeName, datejoin, "", datejoin, employeeEmail, 0, true, department_id, employeeEmail, employeeName, employeeName, department_name, role, username, password, role, true);
+                    EmployeeDTO = new EmployeeDto(employeeId, department_id, employeeName, datejoin, "", datejoin, employeeEmail, 0, true, department_id, employeeEmail, employeeName, employeeName, department_name, role, username, password, role, true, "");
 //                    
 //                    EmployeeDTO = new EmployeeDto(employeeId, department_id, employeeName, null, 0, datejoin,
 //                            null, 0, true, "", employeeEmail, "", null, department_name, roleName, username, "");

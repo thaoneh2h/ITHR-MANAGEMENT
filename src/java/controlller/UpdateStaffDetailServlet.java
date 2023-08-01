@@ -66,7 +66,7 @@ public class UpdateStaffDetailServlet extends HttpServlet {
             // call Dao
             StaffDao dao = new StaffDao();
              EmployeeDto dto = new EmployeeDto(employeeId, "", employeeName, null, phoneNumer, null,
-                    "", 0, false, "", employeeEmail, address, null, "", "", "", "", "", false);
+                    "", 0, false, "", employeeEmail, address, null, "", "", "", "", "", false, "");
             
             
             boolean result = dao.UpdateStaffDetail(dto);

@@ -27,8 +27,8 @@ public class HRMDao {
     public List<DayLeaveDto> getDayLeaveList() {
         return dayLeaveList;
     }
-    
-     private List<ReportDTO> reportList;
+
+    private List<ReportDTO> reportList;
 
     public List<ReportDTO> getReportList() {
         return reportList;
@@ -76,7 +76,7 @@ public class HRMDao {
             }
         }
     }
-    
+
     public void getReport(int month) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
@@ -85,10 +85,11 @@ public class HRMDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.employee_id, e.employee_name, r.report_title, r.report_id, d.department_name, [month] "
-                        + "FROM Report r "
-                        + "JOIN employee e ON e.employee_id = r.employee_id "
-                        + "JOIN department d ON d.department_id = e.department_id "
+                String sql = "SELECT e.employee_id, e.employee_name, r.report_title, r.report_id, d.department_name, [month], j.JobTitle\n"
+                        + "FROM Report r \n"
+                        + "JOIN employee e ON e.employee_id = r.employee_id\n"
+                        + "JOIN Job j ON j.JobID = e.JobID\n"
+                        + "JOIN department d ON d.department_id = j.department_id \n"
                         + "WHERE [month] = ? AND [status] = 'completed'";
                 stm = conn.prepareStatement(sql);
                 stm.setInt(1, month);
@@ -100,8 +101,9 @@ public class HRMDao {
                     String department = rs.getString("department_name");
                     month = rs.getInt("month");
                     String emID = rs.getString("employee_id");
+                    String jobTitle = rs.getString("JobTitle");
 
-                    reportdto = new ReportDTO(id, title, name, 0, 0, 0, emID, month, 0, department);
+                    reportdto = new ReportDTO(id, title, name, 0, 0, 0, emID, month, 0, department, jobTitle);
                     if (this.reportList == null) {
                         this.reportList = new ArrayList<>();
                     }
@@ -122,7 +124,7 @@ public class HRMDao {
             }
         }
     }
-    
+
     public void getReportByName(int month, String name) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
@@ -131,23 +133,25 @@ public class HRMDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT e.employee_name, r.report_title, r.report_id, d.department_name, [month] "
+                String sql = "SELECT e.employee_id ,e.employee_name, r.report_title, r.report_id, d.department_name, [month] "
                         + "FROM Report r "
                         + "JOIN employee e ON e.employee_id = r.employee_id "
-                        + "JOIN department d ON d.department_id = e.department_id "
-                        + "WHERE [month] = ? AND e.employee_name = ?";
+                        + "JOIN Job j ON j.JobID = e.JobID "
+                        + "JOIN department d ON d.department_id = j.department_id "
+                        + "WHERE [month] = ? AND e.employee_name LIKE N'%'+ ? + '%'";
                 stm = conn.prepareStatement(sql);
                 stm.setInt(1, month);
                 stm.setString(2, name);
                 rs = stm.executeQuery();
                 while (rs.next()) {
+                    String emId = rs.getString("employee_id");
                     name = rs.getString("employee_name");
                     String title = rs.getString("report_title");
                     int id = rs.getInt("report_id");
                     String department = rs.getString("department_name");
                     month = rs.getInt("month");
 
-                    reportdto = new ReportDTO(id, title, name, 0, 0, 0, "", month, 0, department);
+                    reportdto = new ReportDTO(id, title, name, 0, 0, 0, emId, month, 0, department, "");
                     if (this.reportList == null) {
                         this.reportList = new ArrayList<>();
                     }
@@ -168,8 +172,8 @@ public class HRMDao {
             }
         }
     }
-    
-      public void getDayLeave(boolean status) throws SQLException {
+
+    public void getDayLeave(boolean status) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs = null;

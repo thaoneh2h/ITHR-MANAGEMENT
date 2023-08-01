@@ -20,11 +20,12 @@ public class ReportDTO {
     private int month;
     private int excused_absent_day;
     private String department;
+    private String jobTitle;
 
     public ReportDTO() {
     }
 
-    public ReportDTO(int id, String title, String employeeName, int late_day, int absent_day, int overtime_day, String employeeID, int month, int excused_absent_day, String department) {
+    public ReportDTO(int id, String title, String employeeName, int late_day, int absent_day, int overtime_day, String employeeID, int month, int excused_absent_day, String department, String jobTitle) {
         this.id = id;
         this.title = title;
         this.employeeName = employeeName;
@@ -35,6 +36,7 @@ public class ReportDTO {
         this.month = month;
         this.excused_absent_day = excused_absent_day;
         this.department = department;
+        this.jobTitle = jobTitle;
     }
 
     public int getId() {
@@ -115,6 +117,14 @@ public class ReportDTO {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
     
     

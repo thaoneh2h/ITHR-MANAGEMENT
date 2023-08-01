@@ -51,10 +51,11 @@
                                 <tr 
                                     class="text-[#464646] text-lg font-semibold"
                                     >
+                                    <th class="px-3 py-2 text-start">ID</th>
                                     <th class="px-3 py-2 text-start">Name</th>
                                     <th class="px-3 py-2 text-start">Gender</th>
                                     <th class="px-3 py-2 text-start">Phone Number</th>
-                                    <th class="px-3 py-2 text-start">Department</th>                         
+                                    <th class="px-3 py-2 text-start">Job Position</th>                         
                                     <th class="px-3 py-2 text-start">Role</th>
                                     <th class="px-3 py-2 text-start">Status</th>
                                     <th class="px-3 py-2 text-start w-20">Action</th>
@@ -64,6 +65,9 @@
                                 <c:forEach var="dto" items="${result}">
                                     <c:if test="${statusWorker == dto.status}">
                                         <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
+                                            <td class="px-3 py-3">
+                                                ${dto.employee_id}
+                                            </td>
                                             <td class="px-3 py-3 rounded-l-[0.25rem]">
                                                 <c:url var="staffDetail" value="DispatchServlet">
                                                     <c:param name="btnAction" value="staffDetail" />
@@ -85,7 +89,7 @@
                                                 ${dto.employee_phone}
                                             </td>
                                             <td class="px-3 py-3">
-                                                ${dto.departmentName}
+                                                ${dto.jobTitle}
                                             </td>        
                                             <td class="px-3 py-3">
                                                 ${dto.role}
@@ -144,10 +148,11 @@
                                 <tr 
                                     class="text-[#464646] text-lg font-semibold"
                                     >
+                                    <th class="px-3 py-2 text-start">ID</th>
                                     <th class="px-3 py-2 text-start">Name</th>
                                     <th class="px-3 py-2 text-start">Gender</th>
                                     <th class="px-3 py-2 text-start">Phone Number</th>
-                                    <th class="px-3 py-2 text-start">Department</th>                         
+                                    <th class="px-3 py-2 text-start">Job Position</th>                         
                                     <th class="px-3 py-2 text-start">Role</th>
                                     <th class="px-3 py-2 text-start">Status</th>
                                     <th class="px-3 py-2 text-start w-20">Action</th>
@@ -157,6 +162,9 @@
                                 <c:forEach var="dto" items="${result}">
                                     <c:if test="${statusWorker == dto.status}">
                                         <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
+                                            <td class="px-3 py-3">
+                                                ${dto.employee_id}
+                                            </td>
                                             <td class="px-3 py-3 rounded-l-[0.25rem]">
                                                 <c:url var="staffDetail" value="DispatchServlet">
                                                     <c:param name="btnAction" value="staffDetail" />
@@ -178,7 +186,7 @@
                                                 ${dto.employee_phone}
                                             </td>
                                             <td class="px-3 py-3">
-                                                ${dto.departmentName}
+                                                ${dto.jobTitle}
                                             </td>        
                                             <td class="px-3 py-3">
                                                 ${dto.role}
@@ -237,10 +245,11 @@
                                 <tr 
                                     class="text-[#464646] text-lg font-semibold"
                                     >
+                                    <th class="px-3 py-2 text-start">ID</th>
                                     <th class="px-3 py-2 text-start">Name</th>
                                     <th class="px-3 py-2 text-start">Gender</th>
                                     <th class="px-3 py-2 text-start">Phone Number</th>
-                                    <th class="px-3 py-2 text-start">Department</th>                         
+                                    <th class="px-3 py-2 text-start">Job Position</th>                         
                                     <th class="px-3 py-2 text-start">Role</th>
                                     <th class="px-3 py-2 text-start">Status</th>
                                     <th class="px-3 py-2 text-start w-20">Action</th>
@@ -250,6 +259,9 @@
                                 <c:forEach var="dto" items="${result}">
                                     <c:if test="${statusWorker == dto.status}">
                                         <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
+                                            <td class="px-3 py-3">
+                                                ${dto.employee_id}
+                                            </td>
                                             <td class="px-3 py-3 rounded-l-[0.25rem]">
                                                 <c:url var="staffDetail" value="DispatchServlet">
                                                     <c:param name="btnAction" value="staffDetail" />
@@ -271,7 +283,7 @@
                                                 ${dto.employee_phone}
                                             </td>
                                             <td class="px-3 py-3">
-                                                ${dto.departmentName}
+                                                ${dto.jobTitle}
                                             </td>        
                                             <td class="px-3 py-3">
                                                 ${dto.role}
