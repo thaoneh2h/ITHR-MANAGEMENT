@@ -42,16 +42,42 @@ public class UserTimekeepingMonthServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UserDto userDTO = (UserDto) session.getAttribute("user");
         String employeeID = userDTO.getEmployeeId();
-        String month = request.getParameter("Month");
-       try {
-            TimekeepingDAO dao = new TimekeepingDAO();
-            List<TimekeepingDTO> timekeepingDetail = dao.userTimekeepingDetail(employeeID, month);
+        String monthInput = request.getParameter("Month");
+        int year = 0;
+        int month = 0;
+        
+          try {
+            if(monthInput != null && !monthInput.isEmpty()) {
+                try{
+                     String[] parts = monthInput.split("-");
+                        if (parts.length == 2) {
+                             year = Integer.parseInt(parts[0]);
+                            month = Integer.parseInt(parts[1]);
+                TimekeepingDAO dao = new TimekeepingDAO();
+            List<TimekeepingDTO> timekeepingDetail = dao.userTimekeepingDetail(employeeID, month, year);
             if (timekeepingDetail != null) {
                 request.setAttribute("USER_TIMEKEEPING_MONTH", timekeepingDetail);
                 request.setAttribute("GET_MONTH", month);
             } else {
                 
             }
+                        }
+                } catch(NumberFormatException ex){
+                    
+                
+                }
+            
+            }
+           
+//       try {
+//            TimekeepingDAO dao = new TimekeepingDAO();
+//            List<TimekeepingDTO> timekeepingDetail = dao.userTimekeepingDetail(employeeID, month);
+//            if (timekeepingDetail != null) {
+//                request.setAttribute("USER_TIMEKEEPING_MONTH", timekeepingDetail);
+//                request.setAttribute("GET_MONTH", month);
+//            } else {
+//                
+//            }
         } catch (Exception e) {
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);

@@ -46,7 +46,7 @@
                     <c:set var="Date" value="${requestScope.MONTH}"/>
                     <c:set var="resultDate" value="${requestScope.SEARCH_DATE}"/>
 
-                    <form action="DispatchServlet" class="flex gap-3">
+                    <!--<form action="DispatchServlet" class="flex gap-3">
                         <select name="Month" onchange="toggleButton(this)" class="rounded-md p-1 cursor-pointer" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
                             <option value="" disabled selected>Month: ${Date}</option>
                             <option value="01">January</option>
@@ -73,12 +73,18 @@
                                 }
                             }
                         </script>
+                    </form><br/> -->
+
+                    <form id="searchForm" action="DispatchServlet?btnAction=SearchMonth" method="post">
+                        <div class="relative max-w-sm">
+                            <input name="Month" onchange="submitForm()" type="month" id="datepickerId" data-date="${param.Month}" value="${param.Month}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Select date">
+                        </div>
                     </form>
 
                     <c:if test="${not empty resultDate}">
-                        
+
                         <!-- LOGIN AS ROLE HRM -->
-                        
+
                         <c:if test="${sessionScope.user.roleName == 'HRM'}">
                             <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">
                                 <thead>
@@ -125,9 +131,9 @@
                                 </tbody>
                             </table>
                         </c:if> <!-- END ROLE HRM -->
-                        
+
                         <!-- LOGIN AS ROLE LEADER -->
-                        
+
                         <c:if test="${sessionScope.user.roleName == 'LEADER'}">
                             <table class="w-full" style="border-collapse: separate !important; border-spacing: 0 10px;">
                                 <thead>
@@ -143,42 +149,9 @@
 
                                     <c:forEach var="dto" items="${resultDate}">
 
-                                        <!-- DEPARTMENT SD -->
+                                        <!-- DEPARTMENT BS -->
 
-                                        <c:if test="${fn:substring(dto.department_id, 0, 2) eq 'SD' && fn:substring(sessionScope.user.employeeId, 0, 2) eq 'SD'}">
-
-                                            <c:if test="${not displayedEmployees.contains(dto.employee_id)}">
-                                                <c:set var="displayedEmployees" value="${displayedEmployees},${dto.employee_id}" scope="request" />
-                                                <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
-                                                    <td class="px-3 py-3 rounded-l-[0.25rem]">
-                                                        ${dto.employee_id}
-                                                    </td>
-                                                    <td class="px-3 py-3">
-                                                        ${dto.employee_name}
-                                                    </td>
-                                                    <td class="px-3 py-3">
-                                                        ${dto.department_id}
-                                                    </td>
-                                                    <td class="px-3 py-3 rounded-r-[0.25rem]">
-                                                        <c:url var="timekeepingDetail" value="DispatchServlet">
-                                                            <c:param name="btnAction" value="timekeepingDetail" />
-                                                            <c:param name="employeeName" value="${dto.employee_name}"/>
-                                                            <c:param name="monthParam" value="${Date}"/>
-                                                        </c:url>
-                                                        <a 
-                                                            href="${timekeepingDetail}"
-                                                            class="rounded-md px-2 py-1 text-white bg-[#0d6efd] hover:scale-105 transition-all"
-                                                            > 
-                                                            Detail
-                                                        </a> 
-                                                    </td>
-                                                </tr>
-                                            </c:if>
-                                        </c:if> <!-- END DEPARTMENT SD -->
-
-                                        <!-- DEPARTMENT UI -->
-
-                                        <c:if test="${fn:substring(dto.department_id, 0, 2) eq 'UI' && fn:substring(sessionScope.user.employeeId, 0, 2) eq 'UI'}">
+                                        <c:if test="${fn:substring(dto.department_id, 0, 2) eq 'BS' && fn:substring(sessionScope.user.employeeId, 0, 2) eq 'BS'}">
 
                                             <c:if test="${not displayedEmployees.contains(dto.employee_id)}">
                                                 <c:set var="displayedEmployees" value="${displayedEmployees},${dto.employee_id}" scope="request" />
@@ -207,11 +180,11 @@
                                                     </td>
                                                 </tr>
                                             </c:if>
-                                        </c:if> <!-- END DEPARTMENT UI -->
+                                        </c:if> <!-- END DEPARTMENT BS -->
 
-                                        <!-- DEPARTMENT SM -->
+                                        <!-- DEPARTMENT PD -->
 
-                                        <c:if test="${fn:substring(dto.department_id, 0, 2) eq 'SM' && fn:substring(sessionScope.user.employeeId, 0, 2) eq 'SM'}">
+                                        <c:if test="${fn:substring(dto.department_id, 0, 2) eq 'PD' && fn:substring(sessionScope.user.employeeId, 0, 2) eq 'PD'}">
 
                                             <c:if test="${not displayedEmployees.contains(dto.employee_id)}">
                                                 <c:set var="displayedEmployees" value="${displayedEmployees},${dto.employee_id}" scope="request" />
@@ -240,12 +213,45 @@
                                                     </td>
                                                 </tr>
                                             </c:if>
-                                        </c:if> <!-- END DEPARTMENT SM -->
+                                        </c:if> <!-- END DEPARTMENT PD -->
+
+                                        <!-- DEPARTMENT TL -->
+
+                                        <c:if test="${fn:substring(dto.department_id, 0, 2) eq 'TL' && fn:substring(sessionScope.user.employeeId, 0, 2) eq 'TL'}">
+
+                                            <c:if test="${not displayedEmployees.contains(dto.employee_id)}">
+                                                <c:set var="displayedEmployees" value="${displayedEmployees},${dto.employee_id}" scope="request" />
+                                                <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
+                                                    <td class="px-3 py-3 rounded-l-[0.25rem]">
+                                                        ${dto.employee_id}
+                                                    </td>
+                                                    <td class="px-3 py-3">
+                                                        ${dto.employee_name}
+                                                    </td>
+                                                    <td class="px-3 py-3">
+                                                        ${dto.department_id}
+                                                    </td>
+                                                    <td class="px-3 py-3 rounded-r-[0.25rem]">
+                                                        <c:url var="timekeepingDetail" value="DispatchServlet">
+                                                            <c:param name="btnAction" value="timekeepingDetail" />
+                                                            <c:param name="employeeName" value="${dto.employee_name}"/>
+                                                            <c:param name="monthParam" value="${Date}"/>
+                                                        </c:url>
+                                                        <a 
+                                                            href="${timekeepingDetail}"
+                                                            class="rounded-md px-2 py-1 text-white bg-[#0d6efd] hover:scale-105 transition-all"
+                                                            > 
+                                                            Detail
+                                                        </a> 
+                                                    </td>
+                                                </tr>
+                                            </c:if>
+                                        </c:if> <!-- END DEPARTMENT TL -->
                                     </c:forEach>
                                 </tbody>
                             </table>
                         </c:if>
-                        
+
                         <!-- END ROLE LEADER -->
 
                     </c:if>
@@ -261,5 +267,11 @@
             </div>
         </section>
         <%@include file="/Layout/TailwindFooter.jsp" %>
+         <script>
+
+            function submitForm() {
+                document.getElementById("searchForm").submit();
+            }
+        </script>
     </body>
 </html>

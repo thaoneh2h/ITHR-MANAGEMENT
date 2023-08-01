@@ -39,11 +39,19 @@ public class SearchDateTimekeepingServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = SEARCH_TIMEKEEPING_PAGE;      
-        String month = request.getParameter("Month");
+        String monthInput = request.getParameter("Month");
+        int year = 0;
+        int month = 0;
 
         try {
-            TimekeepingDAO dao = new TimekeepingDAO();
-            List<TimekeepingDTO> searchDate = dao.searchDate(month);
+            if(monthInput != null && !monthInput.isEmpty()) {
+                try{
+                     String[] parts = monthInput.split("-");
+                        if (parts.length == 2) {
+                             year = Integer.parseInt(parts[0]);
+                            month = Integer.parseInt(parts[1]);
+                             TimekeepingDAO dao = new TimekeepingDAO();
+            List<TimekeepingDTO> searchDate = dao.searchDate(month, year);
             if (searchDate != null) {
                 request.setAttribute("SEARCH_DATE", searchDate);
                 request.setAttribute("MONTH", month);
@@ -51,6 +59,14 @@ public class SearchDateTimekeepingServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("SEARCH_DATE_ERROR", "Not found staff");
             }
+                        }
+                } catch(NumberFormatException ex){
+                    
+                
+                }
+            
+            }
+           
         } catch (Exception e) {
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);

@@ -36,8 +36,9 @@ public class TimekeepingDAO {
             con = DBHelper.makeConnection();
             //2.SQL command
             if (con != null) {
-                String sql = "select employee_id, employee_name, department_id "
-                        + "from employee";
+                String sql = "select employee_id, employee_name, j.department_id "
+                        + "from employee e "
+                        + "Join Job j on j.JobID = e.JobID ";
                 //3. create statement
                 stm = con.prepareStatement(sql);
                 //4. execute statement
@@ -68,7 +69,7 @@ public class TimekeepingDAO {
         }
     }
     
-     public List<TimekeepingDTO> searchDate(String month) throws SQLException {
+     public List<TimekeepingDTO> searchDate(int month, int year) throws SQLException {
         List<TimekeepingDTO> searchDate = null;
         Connection con = null;
         PreparedStatement stm = null;
@@ -77,12 +78,14 @@ public class TimekeepingDAO {
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "select e.employee_id, e.employee_name, e.department_id "
+                String sql = "select e.employee_id, e.employee_name, j.department_id "
                         + "from employee e "
                         + "Join timekeeping t on t.employee_id = e.employee_id "
-                        + "Where MONTH(t.[date]) = ?";
+                        + "Join Job j on j.JobID = e.JobID "
+                        + "Where MONTH(t.[date]) = ? AND YEAR(t.[date]) = ?";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, month);
+                stm.setInt(1, month);
+                stm.setInt(2, year);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String id = rs.getString("employee_id");
@@ -249,7 +252,7 @@ public class TimekeepingDAO {
         return searchDate;
     }
       
-      public List<TimekeepingDTO> userTimekeepingDetail(String emp_ID, String month) throws SQLException {
+      public List<TimekeepingDTO> userTimekeepingDetail(String emp_ID, int month, int year) throws SQLException {
         List<TimekeepingDTO> searchDate = null;
         Connection con = null;
         PreparedStatement stm = null;
@@ -261,10 +264,11 @@ public class TimekeepingDAO {
                 String sql = "select e.employee_id, e.employee_name, t.[date], t.time_in, t.[time_out], t.[status] "
                         + "from employee e "
                         + "Join timekeeping t on t.employee_id = e.employee_id "
-                        + "Where e.employee_id = ? AND MONTH(t.[date]) = ?";
+                        + "Where e.employee_id = ? AND MONTH(t.[date]) = ? AND YEAR(t.[date]) = ?";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, emp_ID);
-                stm.setString(2, month);
+                stm.setInt(2, month);
+                stm.setInt(3, year);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String id = rs.getString("employee_id");
