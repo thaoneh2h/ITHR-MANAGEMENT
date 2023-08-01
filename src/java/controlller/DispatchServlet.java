@@ -213,6 +213,9 @@ public class DispatchServlet extends HttpServlet {
                 case "UserSearchMonth":
                     url = "UserTimekeepingMonthServlet";
                     break;
+                case "submit":
+                    url = "SubmitMessageServlet";
+                    break;
             }
         } catch (Exception e) {
         } finally {
