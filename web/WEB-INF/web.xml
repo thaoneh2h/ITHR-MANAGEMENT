@@ -188,6 +188,10 @@
         <servlet-name>SearchStaffServlet</servlet-name>
         <servlet-class>controlller.SearchStaffServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>JobRecruitmentServlet</servlet-name>
+        <servlet-class>controlller.JobRecruitmentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DispatchServlet</servlet-name>
         <url-pattern>/DispatchServlet</url-pattern>
@@ -375,6 +379,10 @@
     <servlet-mapping>
         <servlet-name>SearchStaffServlet</servlet-name>
         <url-pattern>/SearchStaffServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JobRecruitmentServlet</servlet-name>
+        <url-pattern>/JobRecruitmentServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
