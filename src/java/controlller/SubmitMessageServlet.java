@@ -46,7 +46,7 @@ public class SubmitMessageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, AddressException, MessagingException {
         response.setContentType("text/html;charset=UTF-8");
-        String emailTo = "maxgotpayne@gmail.com"; // Replace with the specific email address
+        String emailTo = "thanhphongchupanh@gmail.com"; // Replace with the specific email address
 
         // Retrieve form data from the request
         String email = request.getParameter("txtemail");
@@ -71,8 +71,8 @@ public class SubmitMessageServlet extends HttpServlet {
     }
 
     private void sendEmail(String emailTo, EmailMessageDTO emailMessage) {
-        final String username = "nghia14302@gmail.com"; // Replace with your Gmail email
-        final String password = "ujvgkoinfjxrrkkg"; // Replace with your Gmail password
+        final String username = "phongngo17092003@gmail.com"; // Replace with your Gmail email
+        final String password = "fuqnehunzsfoqdld"; // Replace with your Gmail password
 
         // Setup properties for the mail server
         Properties props = new Properties();
@@ -95,7 +95,7 @@ public class SubmitMessageServlet extends HttpServlet {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(emailMessage.getEmail()));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
-            message.setSubject("Contact Form Submission");
+            message.setSubject("IT-Human-Resource-Management Guest Message");
             message.setText("Email: " + emailMessage.getEmail() + "\n"
                     + "Phone: " + emailMessage.getPhoneNumber() + "\n"
                     + "Message: " + emailMessage.getMessage());
