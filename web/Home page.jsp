@@ -143,7 +143,7 @@
                                 <c:if test="${not empty result}" >
                                     <c:forEach var="dto" items="${result}" varStatus="counter">
                                         <tr>
-                                            <td>${dto.jobTitle}.</td>
+                                            <td>${dto.jobTitle}</td>
                                         </tr>
                                     </c:forEach>
                                 </c:if>

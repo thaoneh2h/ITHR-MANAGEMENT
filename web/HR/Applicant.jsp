@@ -31,8 +31,24 @@
                         class="w-fit font-medium flex gap-2 rounded-xl bg-[#9BABB850] overflow-hidden p-[6px] ml-auto mb-5" id="btn-mode"
                         style="box-shadow: rgba(0, 0, 0, 0.1) 0px 25px 50px -10px, rgba(0, 0, 0, 0.15) 0px 15px 30px -15px, rgba(0, 0, 0, 0.25) 0px -1px 3px 0px inset;"
                         >
-
                     </form>
+                    <style>
+                        tr[data-applicant-id] + tr {
+                            display: none;
+                        }
+
+                    </style>
+                    <script>
+                        function addInputRow(row) {
+                            const inputRow = row.nextElementSibling;
+                            if (inputRow.style.display === 'none') {
+                                inputRow.style.display = 'table-row';
+                            } else {
+                                inputRow.style.display = 'none';
+                            }
+                        }
+
+                    </script>
 
                     <c:set var="resultPending" value="${requestScope.LIST_PENDING_APPLICANT}" />
                     <c:if test="${not empty resultPending}">
@@ -52,7 +68,7 @@
                             <tbody>
                                 <c:forEach var="dto" items="${resultPending}" varStatus="loop">
                                 <form action="UpdateApplicantServlet">
-                                    <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
+                                    <tr class="bg-white hover:shadow-md hover:bg-[#00000010]" data-applicant-id="${dto.applicantID}" onclick="addInputRow(this)"">
                                         <td class="px-3 py-3 rounded-l-[0.25rem]">${loop.count}.</td>
                                         <td class="px-3 py-3">${dto.name}</td>
                                         <td class="px-3 py-3 rounded-r-[0.25rem]">
@@ -65,7 +81,7 @@
                                         </td>
                                         <td class="px-3 py-3">${dto.email}</td>
                                         <td class="px-3 py-3">${dto.phoneNumber}</td>
-                                        <td class="px-3 py-3">${dto.departmentName}</td>
+                                        <td class="px-3 py-3">${dto.jobTitle}</td>
                                         <td class="px-3 py-3">
                                             ${dto.interviewDate}
                                             <c:if test="${empty dto.interviewDate}">
@@ -75,15 +91,41 @@
                                         <td class="px-3 py-3 rounded-r-[0.25rem]">
                                             <input type="hidden" name="applicantID" value="${dto.applicantID}">
                                             <button>
-                                         <input type="submit" name="btnAction" value="Reject" class="text-white bg-red-700 rounded-md px-2 py-1 cursor-pointer hover:text-red-700 hover:bg-red-100 border-2 border-red-700 transition-all font-medium" >
+                                                <input type="submit" name="btnAction" value="Reject" class="text-white bg-red-700 rounded-md px-2 py-1 cursor-pointer hover:text-red-700 hover:bg-red-100 border-2 border-red-700 transition-all font-medium" >
 
                                             </button>
                                             <button>
-                                            <input type="submit" name="btnAction" value="Approve" class="text-white bg-[#0d6efd] rounded-md pqx-2 py-1 cursor-pointer hover:text-[#0d6efd] hover:bg-[#dce7f9] p-2 border-2 border-[#0d6efd] transition-all font-medium">
+                                                <input type="submit" name="btnAction" value="Approve" class="text-white bg-[#0d6efd] rounded-md pqx-2 py-1 cursor-pointer hover:text-[#0d6efd] hover:bg-[#dce7f9] p-2 border-2 border-[#0d6efd] transition-all font-medium">
 
                                             </button>
                                         </td> 
                                     </tr>
+                                    <tr class="hidden" data-applicant-id="${dto.applicantID}">
+                                        <td colspan="8">
+                                            <input type="date" name="date" class="w-full p-2 border rounded-md" min="${currentDate}" onchange="validateDate(this)">
+                                            <button class="bg-blue-500 text-white px-4 py-2 rounded-md ml-2">
+                                                <input type="submit" name="btnAction" value="Set" >
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <script>
+                                        // Lấy ngày hiện tại
+                                        const currentDate = new Date().toISOString().split('T')[0];
+                                    </script>
+                                    <script>
+                                        function validateDate(input) {
+                                            const selectedDate = new Date(input.value);
+                                            const currentDate = new Date();
+
+                                            if (selectedDate < currentDate) {
+                                                alert("Please choose the correct date.");
+                                                input.value = '';
+                                            }
+                                        }
+                                    </script>
+
+
                                 </form>
                             </c:forEach>
                         </c:if>
@@ -118,7 +160,7 @@
                                             </td> 
                                             <td class="px-3 py-3">${dto.email}</td>
                                             <td class="px-3 py-3">${dto.phoneNumber}</td>
-                                            <td class="px-3 py-3">${dto.departmentName}</td>
+                                            <td class="px-3 py-3">${dto.jobTitle}</td>
                                             <td class="px-3 py-3">
                                                 ${dto.interviewDate}
                                                 <c:if test="${empty dto.interviewDate}">
@@ -149,7 +191,9 @@
                                         <c:forEach var="dto" items="${resultReject}" varStatus="loop">               
                                             <tr class="bg-white hover:shadow-md hover:bg-[#00000010]">
                                                 <td class="px-3 py-3 rounded-l-[0.25rem]">${loop.count}.</td>
-                                                <td class="px-3 py-3">${dto.name}</td>
+                                                <td class="px-3 py-3">
+                                                    ${dto.name}
+                                                </td>
                                                 <td class="px-3 py-3">
                                                     <c:if test="${dto.gender}">
                                                         Male
@@ -160,7 +204,7 @@
                                                 </td>
                                                 <td class="px-3 py-3">${dto.email}</td>
                                                 <td class="px-3 py-3">${dto.phoneNumber}</td>
-                                                <td class="px-3 py-3">${dto.departmentName}</td>
+                                                <td class="px-3 py-3">${dto.jobTitle}</td>
                                                 <td class="px-3 py-3">
                                                     ${dto.interviewDate}
                                                     <c:if test="${empty dto.interviewDate}">
@@ -168,7 +212,7 @@
                                                     </c:if>
                                                 </td>
 
-                                            </tr>
+                                            </tr>                                           
                                         </c:forEach>
                                     </tbody>
                                 </table>
@@ -201,6 +245,7 @@
                                     <input type="submit" name="btnAction" value="Rejected" class="cursor-pointer w-full p-[6px] px-4 rounded-lg bg-[#dc3545] text-white"/>
                                 `
                             </script>
+
 
                             <%@include file="/Layout/TailwindFooter.jsp" %>
                             </body>
