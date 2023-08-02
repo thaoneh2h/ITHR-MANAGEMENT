@@ -270,8 +270,7 @@
                         </div>
                     </div>
                 </section>
-            </section>
-            <%@include file="Layout/Footer.jsp" %>
+            </section>  
             <script type="text/javascript">
                 document.addEventListener('DOMContentLoaded', function () {
                     window.setTimeout(document.querySelector('svg').classList.add('animated'), 1000);
@@ -282,5 +281,6 @@
                     window.location.href = 'ApplyPage.jsp?id=' + idValue;
                 }
             </script>
+            <%@include file="Layout/Footer.jsp" %>
     </body>
 </html>
