@@ -380,6 +380,7 @@
         <servlet-name>SearchStaffServlet</servlet-name>
         <url-pattern>/SearchStaffServlet</url-pattern>
     </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>JobRecruitmentServlet</servlet-name>
         <url-pattern>/JobRecruitmentServlet</url-pattern>

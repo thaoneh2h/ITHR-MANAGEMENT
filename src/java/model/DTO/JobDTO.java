@@ -21,6 +21,11 @@ public class JobDTO {
         this.jobStatus = jobStatus;
         this.departmentID = departmentID;
     }
+      public JobDTO( String jobTitle) {
+      
+        this.jobTitle = jobTitle;
+       
+    }
 
     public int getJobID() {
         return jobID;

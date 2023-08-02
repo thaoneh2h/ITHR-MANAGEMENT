@@ -1,5 +1,10 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page contentType="text/html"
-                                                                         pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ page import="java.util.List" %>
+<%@ page import="model.DTO.JobDTO" %>
+
+
 <!DOCTYPE html>
 
 <html>
@@ -132,34 +137,62 @@
                                                                 </a>
                                                             </div>
                                                         </div>-->
-                        <table border="1">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:set var="result" value="${requestScope.LIST_JOB}"/>    
-                                <c:if test="${not empty result}" >
-                                    <c:forEach var="dto" items="${result}" varStatus="counter">
-                                        <tr>
-                                            <td>${dto.jobTitle}.</td>
-                                        </tr>
-                                    </c:forEach>
-                                </c:if>
+
+                        <table>
+                            <tbody id="jobTitles">
+                                <c:forEach items="${LIST_JOB}" var="job">
+                                    <tr>
+                                        <td>${job.jobTitle}</td>
+                                    </tr>
+
+                                </c:forEach>
                             </tbody>
                         </table>
-
-
 
                     </div>
                 </div>
                 <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        var xhttp = new XMLHttpRequest();
-                        xhttp.open("GET", "JobRecruitmentServlet", true);
-                        xhttp.send();
+                    window.addEventListener('DOMContentLoaded', function () {
+                        fetchJobTitles(); // Fetch job titles when the page loads
                     });
+
+                    function fetchJobTitles() {
+                        fetch('JobRecruitmentServlet') // Use the relative URL here
+                                .then(response => response.json())
+                                .then(data => {
+                                    const jobTitlesContainer = document.getElementById('jobTitles');
+                                    data.forEach(job => {
+                                        const row = document.createElement('tr');
+
+                                        // Create a cell for the job title
+                                        const titleCell = document.createElement('td');
+                                        titleCell.textContent = job.jobTitle;
+                                        row.appendChild(titleCell);
+
+                                        // Create a cell for the Apply button
+                                        const applyCell = document.createElement('td');
+                                        const applyButton = document.createElement('button');
+                                        applyButton.textContent = 'Apply';
+
+                                        // Set the JobID as a data attribute on the Apply button
+                                        applyButton.setAttribute('data-jobid', job.jobID);
+
+                                        applyButton.addEventListener('click', function () {
+                                            // Function to navigate to ApplyPage.jsp when the button is clicked
+                                            const jobID = applyButton.getAttribute('data-jobid');
+                                            window.location.href = 'ApplyPage.jsp?jobID=' + jobID;
+                                        });
+
+                                        applyCell.appendChild(applyButton);
+                                        row.appendChild(applyCell);
+
+                                        // Append the row to the table body
+                                        jobTitlesContainer.appendChild(row);
+                                    });
+                                })
+                                .catch(error => console.error('Error fetching job titles:', error));
+                    }
+
                 </script>
 
                 <!------------------------------------------------------------------------------------------->
