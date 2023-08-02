@@ -22,12 +22,12 @@ public class ApplicantDto {
     private Date interviewDate;
     private int jobOfferingID;
     private String employeeID;
-    private String departmentName;
+    private String jobTitle;
 
     public ApplicantDto() {
     }
 
-    public ApplicantDto(int applicantID, String name, String phoneNumber, String email, String CV, boolean gender, boolean status, Date interviewDate, int jobOfferingID, String employeeID, String departmentName) {
+    public ApplicantDto(int applicantID, String name, String phoneNumber, String email, String CV, boolean gender, boolean status, Date interviewDate, int jobOfferingID, String employeeID, String jobTitle) {
         this.applicantID = applicantID;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -38,7 +38,7 @@ public class ApplicantDto {
         this.interviewDate = interviewDate;
         this.jobOfferingID = jobOfferingID;
         this.employeeID = employeeID;
-        this.departmentName = departmentName;
+        this.jobTitle = jobTitle;
     }
 
     public int getApplicantID() {
@@ -121,13 +121,15 @@ public class ApplicantDto {
         this.employeeID = employeeID;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public String getJobTitle() {
+        return jobTitle;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
+
+    
     
     
     

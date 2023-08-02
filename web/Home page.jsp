@@ -20,98 +20,7 @@
     <body>
         <%@include file="/Layout/Header.jsp" %>
 
-        <!--------------------------------------------------------------------------------------------->
-        <section class="container-fluid banner-bg mb-3">
-            <!------------------------------------------------------------------------------------------->
-            <div class="row row-cols-2 p-5" data-aos="fade-up">
-                <div class="d-flex flex-column justify-content-center col">
-                    <h1 class="fw-bold mb-5">
-                        New <span class="text-primary">offers</span> are waiting for you
-                    </h1>
-                    <p class="fs-3">
-                        A place where you can show off your
-                        <span class="text-primary">qualities</span> and
-                        <span class="text-primary">skills</span>. We always offers you the
-                        profestional and creative working system.
-                    </p>
-                </div>
-                <div class="col p-5"><%@include file="assets/banner4.svg" %></div>
-            </div>
-        </section>
-
-        <!--------------------------------------------------------------------------------------------->
-        <section class="workplace-and-contact pb-5">
-            <!------------------------------------------------------------------------------------------->
-            <section class="cotainer-fluid p-5" data-aos="fade-right">
-                <!----------------------------------------------------------------------------------------->
-                <div class="row justify-content-center">
-                    <div class="m-4 col-3">
-                        <div class="mb-4">
-                            <p class="text-center h2 fw-bold">WORKING PLACE</p>
-                        </div>
-                        <p class="fs-3">
-                            We always provide best <span class="text-primary">quality</span> and
-                            <span class="text-primary">comfortable</span> environment for you to
-                            perform as well as you can.
-                        </p>
-                    </div>
-                    <div class="slider-container col-6">
-                        <div id="environment" class="carousel slide">
-                            <div class="carousel-indicators">
-                                <button
-                                    type="button"
-                                    data-bs-target="#environment"
-                                    data-bs-slide-to="0"
-                                    class="active"
-                                    aria-current="true"
-                                    aria-label="Slide 1"
-                                    ></button>
-                                <button
-                                    type="button"
-                                    data-bs-target="#environment"
-                                    data-bs-slide-to="1"
-                                    aria-label="Slide 2"
-                                    ></button>
-                                <button
-                                    type="button"
-                                    data-bs-target="#environment"
-                                    data-bs-slide-to="2"
-                                    aria-label="Slide 3"
-                                    ></button>
-                            </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="assets/wp1.jpg" class="d-block w-100" alt="wp1" />
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="assets/wp2.jpg" class="d-block w-100" alt="wp2" />
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="assets/wp3.jpg" class="d-block w-100" alt="wp3" />
-                                </div>
-                            </div>
-                            <button
-                                class="carousel-control-prev"
-                                type="button"
-                                data-bs-target="#environment"
-                                data-bs-slide="prev"
-                                >
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button
-                                class="carousel-control-next"
-                                type="button"
-                                data-bs-target="#environment"
-                                data-bs-slide="next"
-                                >
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
+     
 
             <!------------------------------------------------------------------------------------------->
             <section class="continer-fluid careers">
@@ -138,6 +47,7 @@
                                                             </div>
                                                         </div>-->
 
+
                         <table>
                             <tbody id="jobTitles">
                                 <c:forEach items="${LIST_JOB}" var="job">
@@ -146,7 +56,8 @@
                                     </tr>
 
                                 </c:forEach>
-                            </tbody>
+
+
                         </table>
 
                     </div>
