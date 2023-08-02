@@ -7,6 +7,15 @@ package controlller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,10 +39,13 @@ public class UpdateApplicantServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, NumberFormatException {
+            throws ServletException, IOException, NumberFormatException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         String button = request.getParameter("btnAction");
         int applicantID = Integer.parseInt(request.getParameter("applicantID"));
+        String date = request.getParameter("date");
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+
         String url = "HR/Applicant.jsp";
         HRDao dao = new HRDao();
         try {
@@ -45,6 +57,13 @@ public class UpdateApplicantServlet extends HttpServlet {
                 case "Reject":
                     dao.updateApplicantStatus(false, applicantID);
                     url = "MainController?btnAction=Pending";
+                    break;
+                case "Set":
+                    if (!date.equals("")) {
+                        Date interviewDate = formatDate.parse(date);
+                        dao.updateInterviewDate(interviewDate, applicantID);
+                        url = "MainController?btnAction=Pending";
+                    }
                     break;
             }
         } catch (Exception e) {
@@ -65,7 +84,13 @@ public class UpdateApplicantServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NumberFormatException ex) {
+            Logger.getLogger(UpdateApplicantServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(UpdateApplicantServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -79,7 +104,13 @@ public class UpdateApplicantServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NumberFormatException ex) {
+            Logger.getLogger(UpdateApplicantServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(UpdateApplicantServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

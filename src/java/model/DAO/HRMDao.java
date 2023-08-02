@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.DTO.DayLeaveDto;
+import model.DTO.JobDTO;
 import model.DTO.ReportDTO;
 import utils.DBHelper;
 
@@ -201,6 +202,52 @@ public class HRMDao {
                         this.dayLeaveList = new ArrayList<>();
                     }
                     this.dayLeaveList.add(dto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    private List<JobDTO> jobList;
+
+    public List<JobDTO> getJobList() {
+        return jobList;
+    }
+
+    public void JobList() throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        JobDTO dto = null;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT JobID, JobTitle, JobStatus, [department_id] "
+                        + "FROM Job\n"
+                        + "WHERE JobStatus = 1 ";
+                stm = conn.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt("JobID");
+                    String departmentid = rs.getString("department_id");
+                    String title = rs.getString("JobTitle");
+                    boolean status = rs.getBoolean("JobStatus");
+                    dto = new JobDTO(id, title, status, departmentid);
+                    if (this.jobList == null) {
+                        this.jobList = new ArrayList<>();
+                    }
+                    this.jobList.add(dto);
                 }
             }
         } catch (Exception e) {

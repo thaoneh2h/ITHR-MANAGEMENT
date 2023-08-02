@@ -693,10 +693,10 @@ public class HRDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT a.Applicant_id, a.[name], a.email, a.phoneNumer, d.department_name, a.interviewDate, a.gender "
-                        + "FROM Applicant a "
-                        + "JOIN department d ON a.department_id = d.department_id "
-                        + "WHERE a.[status] IS NULL ";
+                String sql = "SELECT a.Applicant_id, a.[name], a.email, a.phoneNumer, j.JobTitle, a.interviewDate, a.gender \n"
+                        + "FROM Applicant a \n"
+                        + "JOIN Job j ON j.JobID = a.JobID "
+                        + "WHERE a.[status] IS NULL  ";
                 stm = conn.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -704,10 +704,10 @@ public class HRDao {
                     String email = rs.getString("email");
                     String name = rs.getString("name");
                     String phone = rs.getString("phoneNumer");
-                    String departmentName = rs.getString("department_name");
+                    String jobTitle = rs.getString("JobTitle");
                     Date interviewDate = rs.getDate("interviewDate");
                     boolean gender = rs.getBoolean("gender");
-                    applicantDto = new ApplicantDto(id, name, phone, email, "", gender, false, interviewDate, 0, "", departmentName);
+                    applicantDto = new ApplicantDto(id, name, phone, email, "", gender, false, interviewDate, 0, "", jobTitle);
                     if (this.listApplicant == null) {
                         this.listApplicant = new ArrayList<>();
                     }
@@ -738,9 +738,9 @@ public class HRDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "SELECT a.[name], a.email, a.phoneNumer, d.department_name, a.interviewDate, a.gender "
-                        + "FROM Applicant a "
-                        + "JOIN department d ON a.department_id = d.department_id "
+                String sql = "SELECT a.[name], a.email, a.phoneNumer, j.JobTitle, a.interviewDate, a.gender \n"
+                        + "FROM Applicant a \n"
+                        + "JOIN Job j ON j.JobID = a.JobID\n"
                         + "WHERE a.[status] = ? ";
                 stm = conn.prepareStatement(sql);
                 stm.setBoolean(1, status);
@@ -749,10 +749,10 @@ public class HRDao {
                     String email = rs.getString("email");
                     String name = rs.getString("name");
                     String phone = rs.getString("phoneNumer");
-                    String departmentName = rs.getString("department_name");
+                    String jobTitle = rs.getString("JobTitle");
                     Date interviewDate = rs.getDate("interviewDate");
                     boolean gender = rs.getBoolean("gender");
-                    applicantDto = new ApplicantDto(0, name, phone, email, "", gender, false, interviewDate, 0, "", departmentName);
+                    applicantDto = new ApplicantDto(0, name, phone, email, "", gender, false, interviewDate, 0, "", jobTitle);
                     if (this.listApplicant == null) {
                         this.listApplicant = new ArrayList<>();
                     }
@@ -932,7 +932,7 @@ public class HRDao {
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = " UPDATE Applicant "
+                String sql = "UPDATE Applicant "
                         + "SET [status] = ? "
                         + "WHERE Applicant_id = ? ";
                 stm = conn.prepareStatement(sql);
@@ -1054,5 +1054,38 @@ public class HRDao {
                 conn.close();
             }
         }
+    }
+
+    public boolean updateInterviewDate(Date interviewDate,int applicantID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "UPDATE Applicant "
+                        + "SET [interviewDate] = ? "
+                        + "WHERE Applicant_id = ? ";
+                stm = conn.prepareStatement(sql);
+                 java.sql.Date sqlDate = new java.sql.Date(interviewDate.getTime());
+                stm.setDate(1, sqlDate);
+                stm.setInt(2, applicantID);
+
+                int effect = stm.executeUpdate();
+                if (effect > 0) {
+                    result = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
     }
 }
