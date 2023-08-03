@@ -14,15 +14,15 @@ import utils.DBHelper;
 
 public class GuessDao {
 
-    public static boolean insertApplicant(int id, String name, String phone, String email, boolean gender, String interviewDate, String address, String dob, int age, int jobID) throws SQLException {
+    public static boolean insertApplicant(int id, String name, String phone, String email, boolean gender, String interviewDate, String address, String dob, int age) throws SQLException {
         boolean result = false;
         Connection conn = null;
         PreparedStatement stm = null;
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "INSERT INTO Applicant (Applicant_id, name, phoneNumer, email, gender, interviewDate, address, dob, age, JobID) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+                String sql = "INSERT INTO Applicant (JobID, name, phoneNumer, email, gender, interviewDate, address, dob, age) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 
                 stm = conn.prepareStatement(sql);
                 stm.setInt(1, id);
@@ -34,7 +34,6 @@ public class GuessDao {
                 stm.setString(7, address);
                 stm.setString(8, dob);
                 stm.setInt(9, age);
-                stm.setInt(10, jobID);
 
                 int effectRow = stm.executeUpdate();
 
