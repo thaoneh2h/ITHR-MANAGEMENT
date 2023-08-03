@@ -219,13 +219,9 @@ public class HRMDao {
         }
     }
 
-    private List<JobDTO> jobList;
-
-    public List<JobDTO> getJobList() {
-        return jobList;
-    }
-
-    public void JobList() throws SQLException {
+   
+    public List<JobDTO> JobList() throws SQLException {
+        List<JobDTO> dtoList = null;
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -239,15 +235,16 @@ public class HRMDao {
                 stm = conn.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
-                    int id = rs.getInt("JobID");
+                     int id = rs.getInt("JobID");
                     String departmentid = rs.getString("department_id");
                     String title = rs.getString("JobTitle");
                     boolean status = rs.getBoolean("JobStatus");
                     dto = new JobDTO(id, title, status, departmentid);
-                    if (this.jobList == null) {
-                        this.jobList = new ArrayList<>();
-                    }
-                    this.jobList.add(dto);
+
+                    if (dtoList == null) {
+                        dtoList = new ArrayList<>();
+                    }//end account List had NOT existed
+                    dtoList.add(dto);
                 }
             }
         } catch (Exception e) {
@@ -263,5 +260,6 @@ public class HRMDao {
                 conn.close();
             }
         }
+        return dtoList;
     }
 }

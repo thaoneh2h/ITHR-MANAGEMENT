@@ -11,21 +11,18 @@ import java.sql.SQLException;
 import java.util.Date;
 import utils.DBHelper;
 
-/**
- *
- * @author ADMIN
- */
+
 public class GuessDao {
-    
-    public static boolean insertApplicant(int id, String name, String phone, String email, boolean gender, String deparmentID, String interviewDate, String address, String dob, int age) throws SQLException{
+
+    public static boolean insertApplicant(int id, String name, String phone, String email, boolean gender, String interviewDate, String address, String dob, int age) throws SQLException {
         boolean result = false;
         Connection conn = null;
         PreparedStatement stm = null;
         try {
             conn = DBHelper.makeConnection();
             if (conn != null) {
-                String sql = "INSERT INTO Applicant (Applicant_id, name, phoneNumer, email, gender, department_id, interviewDate, dob, address, age) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+                String sql = "INSERT INTO Applicant (JobID, name, phoneNumer, email, gender, interviewDate, address, dob, age) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 
                 stm = conn.prepareStatement(sql);
                 stm.setInt(1, id);
@@ -33,13 +30,11 @@ public class GuessDao {
                 stm.setString(3, phone);
                 stm.setString(4, email);
                 stm.setBoolean(5, gender);
-                stm.setString(6, deparmentID);
-                stm.setString(7, interviewDate);
+                stm.setString(6, interviewDate);
+                stm.setString(7, address);
                 stm.setString(8, dob);
-                stm.setString(9, address);
-                stm.setInt(10, age);
-//                java.sql.Date sqlDate = new java.sql.Date(interviewDate.getTime());
-//                stm.setDate(7, sqlDate);
+                stm.setInt(9, age);
+
                 int effectRow = stm.executeUpdate();
 
                 if (effectRow > 0) {
@@ -50,10 +45,15 @@ public class GuessDao {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if(stm!=null) stm.close();
-            if(conn!=null) conn.close();
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
-        
+
         return result;
     }
 }
+

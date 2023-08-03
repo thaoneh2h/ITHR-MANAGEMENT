@@ -50,17 +50,28 @@ public class ApplyApplicantServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = APPLY_PAGE;
         request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
+      
 
         String idValue = request.getParameter("idValue");
+        int jobId = 0; // Default value in case the parameter is not provided or invalid
+
+        if (idValue != null && !idValue.isEmpty()) {
+            try {
+                jobId = Integer.parseInt(idValue);
+            } catch (NumberFormatException e) {
+                // Handle the case when the idValue cannot be parsed into an integer
+                e.printStackTrace();
+                // You may choose to show an error message to the user or handle it differently based on your requirements
+            }
+        }
         Random random = new Random();
-        int id = random.nextInt(1000);
+
         String name = request.getParameter("txtName");
         String phone = request.getParameter("txtPhone");
         boolean gender = Boolean.parseBoolean(request.getParameter("txtSex"));
         String email = request.getParameter("txtEmail");
         String address = request.getParameter("txtAdress");
-        String deparmentID = request.getParameter("position");
+
         Part part = request.getPart("cv");
 
         String dob = request.getParameter("date");
@@ -94,7 +105,7 @@ public class ApplyApplicantServlet extends HttpServlet {
             // Tiếp tục xử lý tập tin
             InputStream is = part.getInputStream();
             boolean sucs = uploadFile(is, path);
-            boolean check = GuessDao.insertApplicant(id, name, phone, email, gender, deparmentID, interviewDate, address, dob, age);
+            boolean check = GuessDao.insertApplicant(jobId, name, phone, email, gender, interviewDate, address, dob, age);
 
             url = "ApplyPage.jsp"
                     + "?id=" + idValue;
