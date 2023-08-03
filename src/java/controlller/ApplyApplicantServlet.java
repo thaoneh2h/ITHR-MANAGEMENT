@@ -95,7 +95,6 @@ public class ApplyApplicantServlet extends HttpServlet {
 
         // Định dạng ngày bất kỳ theo định dạng năm-tháng-ngày
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String interviewDate = dateFormat.format(randomDate);
 
         try {
 
@@ -105,7 +104,7 @@ public class ApplyApplicantServlet extends HttpServlet {
             // Tiếp tục xử lý tập tin
             InputStream is = part.getInputStream();
             boolean sucs = uploadFile(is, path);
-            boolean check = GuessDao.insertApplicant(jobId, name, phone, email, gender, interviewDate, address, dob, age);
+            boolean check = GuessDao.insertApplicant(jobId, name, phone, email, gender, address, dob, age);
 
             url = "ApplyPage.jsp"
                     + "?id=" + idValue;
