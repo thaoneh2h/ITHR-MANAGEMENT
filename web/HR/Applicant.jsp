@@ -70,7 +70,10 @@
                                 <form action="UpdateApplicantServlet">
                                     <tr class="bg-white hover:shadow-md hover:bg-[#00000010]" data-applicant-id="${dto.applicantID}" onclick="addInputRow(this)"">
                                         <td class="px-3 py-3 rounded-l-[0.25rem]">${loop.count}.</td>
-                                        <td class="px-3 py-3">${dto.name}</td>
+                                        <td class="px-3 py-3">
+                                            ${dto.name}
+                                             <input type="hidden" name="txtName" value="${dto.name}">
+                                        </td>
                                         <td class="px-3 py-3 rounded-r-[0.25rem]">
                                             <c:if test="${dto.gender}">
                                                 Male
@@ -81,7 +84,10 @@
                                         </td>
                                         <td class="px-3 py-3">${dto.email}</td>
                                         <td class="px-3 py-3">${dto.phoneNumber}</td>
-                                        <td class="px-3 py-3">${dto.jobTitle}</td>
+                                        <td class="px-3 py-3">
+                                            ${dto.jobTitle}
+                                              <input type="hidden" name="txtJobTitle" value=" ${dto.jobTitle}">
+                                        </td>
                                         <td class="px-3 py-3">
                                             ${dto.interviewDate}
                                             <c:if test="${empty dto.interviewDate}">

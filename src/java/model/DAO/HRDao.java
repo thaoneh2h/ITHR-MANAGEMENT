@@ -501,6 +501,82 @@ public class HRDao {
         return employeedto;
     }
 
+    public String getDepartmentIDInApplicant(int applicantID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        EmployeeDto employeedto = null;
+        String departmentID = "";
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT TOP 1 d.department_id \n"
+                        + "FROM employee e \n"
+                        + "JOIN Job j ON j.JobID = e.JobID\n"
+                        + "JOIN department d ON d.department_id = j.department_id\n"
+                        + "JOIN Applicant a ON j.JobID = a.JobID\n"
+                        + "WHERE a.Applicant_id = ? ";
+                stm = conn.prepareStatement(sql);
+                stm.setInt(1, applicantID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    departmentID = rs.getString("department_id");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return departmentID;
+    }
+
+    public String getUsernameByDepartment(String departmentID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        EmployeeDto employeedto = null;
+        String username = "";
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT u.username\n"
+                        + "FROM employee e \n"
+                        + "JOIN Job j ON j.JobID = e.JobID\n"
+                        + "JOIN department d ON d.department_id = j.department_id\n"
+                        + "JOIN [User] u ON u.employee_id = e.employee_id\n"
+                        + "WHERE d.department_id = ? AND u.roleName = 'LEADER' ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, departmentID);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    username = rs.getString("username");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return username;
+    }
+
     public void getEmployeeOfEachDepartment(String departmentID) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
@@ -1056,7 +1132,7 @@ public class HRDao {
         }
     }
 
-    public boolean updateInterviewDate(Date interviewDate,int applicantID) throws SQLException {
+    public boolean updateInterviewDate(Date interviewDate, int applicantID) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
         boolean result = false;
@@ -1067,7 +1143,7 @@ public class HRDao {
                         + "SET [interviewDate] = ? "
                         + "WHERE Applicant_id = ? ";
                 stm = conn.prepareStatement(sql);
-                 java.sql.Date sqlDate = new java.sql.Date(interviewDate.getTime());
+                java.sql.Date sqlDate = new java.sql.Date(interviewDate.getTime());
                 stm.setDate(1, sqlDate);
                 stm.setInt(2, applicantID);
 
@@ -1087,5 +1163,44 @@ public class HRDao {
             }
         }
         return result;
+    }
+
+    public String getEmailByDepartment(String departmentID, String username) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        EmployeeDto employeedto = null;
+        String email = "";
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql = "SELECT e.employee_email \n"
+                        + "FROM employee e \n"
+                        + "JOIN Job j ON j.JobID = e.JobID\n"
+                        + "JOIN department d ON d.department_id = j.department_id\n"
+                        + "JOIN [User] u ON u.employee_id = e.employee_id\n"
+                        + "WHERE d.department_id = ? AND u.username = ? ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, departmentID);
+                stm.setString(2, username);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    email = rs.getString("employee_email");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return email;
     }
 }

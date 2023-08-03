@@ -199,43 +199,43 @@
                     <div class="row row-cols-2 justify-content-evenly align-items-center">
                         <div class="col-4">
                             <!------------------------------------------------------------------------------------->
-                            <form class="container" onSubmit="submitForm()">
-                                <h2 class="mb-3">Leave a message</h2>
-                                <div class="mb-3">
-                                    <label for="txtemail" class="form-label">Email address</label>
-                                    <input
-                                        required
-                                        type="email"
-                                        class="form-control"
-                                        id="txtemail"
-                                        placeholder="name@example.com"
-                                        />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="phone" class="form-label">Phone number</label>
-                                    <input
-                                        required
-                                        type="tel"
-                                        class="form-control"
-                                        id="phone"
-                                        placeholder="0912312312"
-                                        />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="message" class="form-label">Message</label>
-                                    <textarea class="form-control" id="message" rows="3"></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <button
-                                        class="btn btn-primary"
-                                        id="contactBtn"
-                                        type="submit"
-                                        value="submit"
-                                        >
-                                        Submit
-                                    </button>
-                                </div>
-                            </form>
+                            <form class="container" onSubmit="submitForm()" action="DispatchServlet">
+                            <h2 class="mb-3">Leave a message</h2>
+                            <div class="mb-3">
+                                <label for="txtemail" class="form-label">Email address</label>
+                                <input
+                                    required
+                                    type="email"
+                                    class="form-control"
+                                    id="txtemail"
+                                    placeholder="name@example.com" name="txtemail"
+                                    />
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone number</label>
+                                <input
+                                    required
+                                    type="tel"
+                                    class="form-control"
+                                    id="phone"
+                                    placeholder="0912312312" name="phone"
+                                    />
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="3" name="message"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <button
+                                    class="btn btn-primary"
+                                    id="contactBtn"
+                                    type="submit"
+                                    value="submit" name="btnAction"
+                                    >
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
                         </div>
                         <div class="col-4">
                             <h2 class="mb-5">About our social contact</h2>

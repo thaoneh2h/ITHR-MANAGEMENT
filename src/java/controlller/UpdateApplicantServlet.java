@@ -14,14 +14,27 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.DAO.HRDao;
+import model.DTO.EmailMessageDTO;
+import model.DTO.EmployeeDto;
+import model.DTO.UserDto;
 
 /**
  *
@@ -44,6 +57,8 @@ public class UpdateApplicantServlet extends HttpServlet {
         String button = request.getParameter("btnAction");
         int applicantID = Integer.parseInt(request.getParameter("applicantID"));
         String date = request.getParameter("date");
+        String candidateName = request.getParameter("txtName");
+        String jobTitle = request.getParameter("txtJobTitle");
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 
         String url = "HR/Applicant.jsp";
@@ -62,13 +77,79 @@ public class UpdateApplicantServlet extends HttpServlet {
                     if (!date.equals("")) {
                         Date interviewDate = formatDate.parse(date);
                         dao.updateInterviewDate(interviewDate, applicantID);
-                        url = "MainController?btnAction=Pending";
                     }
+
+                    // ====== Send mail to Leader =====
+                    HttpSession session = request.getSession();
+                    // Get department ID
+                    String departmentid = dao.getDepartmentIDInApplicant(applicantID);
+                    // Get Leader of department's username
+                    String username = dao.getUsernameByDepartment(departmentid);
+                    
+                    String emailTo = dao.getEmailByDepartment(departmentid, username); // Replace with the specific email address                   
+
+                    // Retrieve form data from the request
+                    Date interviewDate = formatDate.parse(date);
+                    String message = "Dear Lead FE,\n"
+                            + "HR Department would like to send the list of candidates for interview for the position of "+jobTitle+" as follows:\n"
+                            + "     " + candidateName + " – " + interviewDate + "\n"
+                            + "Interview location at the Development Cooperation Department.\n"
+                            + "If there is any change in time or location, please send it to HR department 24 hours before the interview for HR to re-arrange.\n"
+                            + "Thank you\n"
+                            + "HRM";
+
+                    // Create an instance of the model class and populate it with the form data
+                    EmailMessageDTO emailMessage = new EmailMessageDTO();
+                    emailMessage.setMessage(message);
+                    emailMessage.setEmail("phongngo17092003@gmail.com");
+
+                    // Send the email using the email service (JavaMail API)
+                    sendEmail(emailTo, emailMessage);
+                    // Forward the request to a success or confirmation page
+                    url = "MainController?btnAction=Pending";
                     break;
             }
         } catch (Exception e) {
         } finally {
             response.sendRedirect(url);
+        }
+    }
+
+    private void sendEmail(String emailTo, EmailMessageDTO emailMessage) {
+        final String username = "phongngo17092003@gmail.com"; // Replace with your Gmail email
+        final String password = "fuqnehunzsfoqdld"; // Replace with your Gmail password
+
+        // Setup properties for the mail server
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        // Create a session with authentication
+        Session session = Session.getDefaultInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
+        try {
+            // Create a MimeMessage for the email
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(emailMessage.getEmail()));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
+            message.setSubject("Informing About Scheduling Interview Date for Candidates");
+            message.setText("Message: " + emailMessage.getMessage());
+
+            // Send the email
+            Transport.send(message);
+
+            System.out.println("Email sent successfully!");
+        } catch (MessagingException e) {
+            // Handle any exceptions that occurred during sending the email
+            throw new RuntimeException(e);
         }
     }
 

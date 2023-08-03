@@ -46,7 +46,7 @@ public class SubmitMessageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, AddressException, MessagingException {
         response.setContentType("text/html;charset=UTF-8");
-        String emailTo = "thanhphongchupanh@gmail.com"; // Replace with the specific email address
+        String emailTo = "xuanthaonguyen137202@gmail.com"; // Replace with the specific email address
 
         // Retrieve form data from the request
         String email = request.getParameter("txtemail");
@@ -96,9 +96,8 @@ public class SubmitMessageServlet extends HttpServlet {
             message.setFrom(new InternetAddress(emailMessage.getEmail()));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
             message.setSubject("IT-Human-Resource-Management Guest Message");
-            message.setText("Email: " + emailMessage.getEmail() + "\n"
-                    + "Phone: " + emailMessage.getPhoneNumber() + "\n"
-                    + "Message: " + emailMessage.getMessage());
+            message.setText("Message: " + emailMessage.getMessage() + "\n"
+                    + "Phone: " + emailMessage.getPhoneNumber());
 
             // Send the email
             Transport.send(message);
