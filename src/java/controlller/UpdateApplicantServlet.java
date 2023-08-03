@@ -141,7 +141,7 @@ public class UpdateApplicantServlet extends HttpServlet {
             message.setFrom(new InternetAddress(emailMessage.getEmail()));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
             message.setSubject("Informing About Scheduling Interview Date for Candidates");
-            message.setText("Message: " + emailMessage.getMessage());
+            message.setText(emailMessage.getMessage());
 
             // Send the email
             Transport.send(message);
