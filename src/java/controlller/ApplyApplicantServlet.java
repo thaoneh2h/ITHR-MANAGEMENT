@@ -71,6 +71,7 @@ public class ApplyApplicantServlet extends HttpServlet {
         boolean gender = Boolean.parseBoolean(request.getParameter("txtSex"));
         String email = request.getParameter("txtEmail");
         String address = request.getParameter("txtAdress");
+        int applicantID = random.nextInt(200);
 
         Part part = request.getPart("cv");
 
@@ -105,7 +106,7 @@ public class ApplyApplicantServlet extends HttpServlet {
             // Tiếp tục xử lý tập tin
             InputStream is = part.getInputStream();
             boolean sucs = uploadFile(is, path);
-            boolean check = GuessDao.insertApplicant(jobId, name, phone, email, gender, interviewDate, address, dob, age);
+            boolean check = GuessDao.insertApplicant(applicantID, name, phone, email, gender, interviewDate, address, dob, age, jobId);
 
             url = "ApplyPage.jsp"
                     + "?id=" + idValue;
