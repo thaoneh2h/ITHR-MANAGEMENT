@@ -39,7 +39,7 @@
         </section>
 
         <!--------------------------------------------------------------------------------------------->
-        <section class="workplace-and-contact pb-5">
+        <section class="workplace-and-contact">
 
             <!------------------------------------------------------------------------------------------->
             <section class="cotainer-fluid p-5" data-aos="fade-right">
@@ -97,80 +97,36 @@
                         <div class="m-4">
                             <p class="text-center h2 fw-bold">Careers</p>
                         </div>
+                        <!--                                
+                        <div class="card border-0 mb-3">
+                                                         <div class="card-body d-flex justify-content-between full-width align-items-center">
+                                                             <div class="full-width">
+                                                                 <h6 class="card-subtitle mb-2 text-secondary">CounsinTech</h6>
+                                                                 <h4>{dto.jobTitle} Recruitment</h4> 
+                                                             </div>
+                                                             <a href="#" onclick="goToDestination('back-end')">
+                                                                 <button class="btn btn-primary">
+                                                                     Apply
+                                                                 </button>
+                                                             </a>
+                                                         </div>
+                                                     </div>
+                        -->
 
 
-
-                        <!--                                <div class="card border-0 mb-3">
-                                                            <div class="card-body d-flex justify-content-between full-width align-items-center">
-                                                                <div class="full-width">
-                                                                    <h6 class="card-subtitle mb-2 text-secondary">CounsinTech</h6>
-                                                                    <h4>{dto.jobTitle} Recruitment</h4> 
-                                                                </div>
-                                                                <a href="#" onclick="goToDestination('back-end')">
-                                                                    <button class="btn btn-primary">
-                                                                        Apply
-                                                                    </button>
-                                                                </a>
-                                                            </div>
-                                                        </div>-->
-
-
-                        <table>
-                            <tbody id="jobTitles">
+                        <div>
+                            <div id="jobTitles">
                                 <c:forEach items="${LIST_JOB}" var="job">
                                     <tr>
                                         <td>${job.jobTitle} Recruitment</td>
                                     </tr>
                                 </c:forEach>
-                        </table>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
-                <script>
-                    window.addEventListener('DOMContentLoaded', function () {
-                        fetchJobTitles(); // Fetch job titles when the page loads
-                    });
 
-                    function fetchJobTitles() {
-                        fetch('JobRecruitmentServlet') // Use the relative URL here
-                                .then(response => response.json())
-                                .then(data => {
-                                    const jobTitlesContainer = document.getElementById('jobTitles');
-                                    data.forEach(job => {
-                                        const row = document.createElement('tr');
-
-                                        // Create a cell for the job title
-                                        const titleCell = document.createElement('td');
-                                        titleCell.textContent = job.jobTitle;
-                                        row.appendChild(titleCell);
-
-                                        // Create a cell for the Apply button
-                                        const applyCell = document.createElement('td');
-                                        const applyButton = document.createElement('button');
-                                        applyButton.textContent = 'Apply';
-                                        applyButton.classList.add('apply-button'); // Thêm lớp CSS "apply-button"
-
-
-                                        // Set the JobID as a data attribute on the Apply button
-                                        applyButton.setAttribute('data-jobid', job.jobID);
-
-                                        applyButton.addEventListener('click', function () {
-                                            // Function to navigate to ApplyPage.jsp when the button is clicked
-                                            const jobID = applyButton.getAttribute('data-jobid');
-                                            window.location.href = 'ApplyPage.jsp?jobID=' + jobID;
-                                        });
-
-                                        applyCell.appendChild(applyButton);
-                                        row.appendChild(applyCell);
-
-                                        // Append the row to the table body
-                                        jobTitlesContainer.appendChild(row);
-                                    });
-                                })
-                                .catch(error => console.error('Error fetching job titles:', error));
-                    }
-
-                </script>
                 <style>
                     .apply-button {
                         background-color: #007bff;
@@ -189,17 +145,20 @@
 
                 </style>
 
-                <!------------------------------------------------------------------------------------------->
-                <section class="container-fluid contact" data-aos="fade-left">
-                    <div class="m-4">
-                        <p class="text-center h2 fw-bold">CONTACT</p>
-                    </div>
 
-                    <!----------------------------------------------------------------------------------------->
-                    <div class="row row-cols-2 justify-content-evenly align-items-center">
-                        <div class="col-4">
-                            <!------------------------------------------------------------------------------------->
-                            <form class="container" onSubmit="submitForm()" action="DispatchServlet">
+            </section>  
+
+            <!------------------------------------------------------------------------------------------->
+            <section class="container-fluid contact pb-5" data-aos="fade-left">
+                <div class="m-4">
+                    <p class="text-center h2 fw-bold">CONTACT</p>
+                </div>
+
+                <!----------------------------------------------------------------------------------------->
+                <div class="row row-cols-2 justify-content-evenly align-items-center">
+                    <div class="col-4">
+                        <!------------------------------------------------------------------------------------->
+                        <form class="container" onSubmit="submitForm()" action="DispatchServlet">
                             <h2 class="mb-3">Leave a message</h2>
                             <div class="mb-3">
                                 <label for="txtemail" class="form-label">Email address</label>
@@ -296,12 +255,13 @@
                             </div>
                         </div>
                     </div>
-                </section>
-            </section>  
+                </div>
+            </section>                         
+
             <script type="text/javascript">
-                document.addEventListener('DOMContentLoaded', function () {
-                    window.setTimeout(document.querySelector('svg').classList.add('animated'), 1000);
-                });
+            //    document.addEventListener('DOMContentLoaded', function () {
+            //        window.setTimeout(document.querySelector('svg').classList.add('animated'), 1000);
+            //    });
             </script>
             <script>
                 function goToDestination(idValue) {
@@ -309,5 +269,54 @@
                 }
             </script>
             <%@include file="Layout/Footer.jsp" %>
+            <script>
+                window.addEventListener('DOMContentLoaded', function () {
+                     fetchJobTitles(); // Fetch job titles when the page loads
+                });
+
+                function fetchJobTitles() {
+                    fetch('./JobRecruitmentServlet') // Use the relative URL here
+                            .then(response => {
+                                return response.json();
+                            })
+                            .then(data => {
+                                const jobTitlesContainer = document.getElementById('jobTitles');
+                                data.forEach(job => {
+                                    const cardContainer = document.createElement('div');
+                                    cardContainer.className = 'card border-0 mb-3'
+
+                                    const cardBody = document.createElement('div');
+                                    cardBody.className = 'card-body d-flex justify-content-between p-2 full-width align-items-center';
+
+                                    const bodyContent = document.createElement('div');
+                                    bodyContent.className = 'full-width';
+                                    const companyText = document.createElement('h6');
+                                    companyText.className = 'card-subtitle mb-2 text-secondary';
+                                    companyText.textContent = 'CounsinTech';
+
+                                    const jobTitle = document.createElement('h4');
+                                    jobTitle.textContent = job.jobTitle;
+
+                                   bodyContent.appendChild(companyText);
+                                   bodyContent.appendChild(jobTitle);
+
+                                   
+                                    const applyButton = document.createElement('button');
+                                    applyButton.className = 'btn btn-primary';
+                                    applyButton.textContent = 'Apply'
+
+                                    cardBody.appendChild(bodyContent);
+                                    cardBody.appendChild(applyButton);
+                                    cardContainer.appendChild(cardBody);
+
+                                    // Append the row to the table body
+                                    jobTitlesContainer.appendChild(cardContainer);
+                                });
+                            })
+                }
+
+            </script>
+        </section>
+
     </body>
 </html>
