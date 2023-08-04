@@ -86,7 +86,7 @@
                                         <td class="px-3 py-3">${dto.phoneNumber}</td>
                                         <td class="px-3 py-3">
                                             ${dto.jobTitle}
-                                              <input type="hidden" name="txtJobTitle" value=" ${dto.jobTitle}">
+                                              <input type="hidden" name="txtJobTitle" value="${dto.jobTitle}">
                                         </td>
                                         <td class="px-3 py-3">
                                             ${dto.interviewDate}

@@ -461,7 +461,7 @@ public class StaffDao {
                 String sql = "SELECT e.[employee_id], employee_name, d.[department_id], "
                         + "d.[department_name], e.[employee_email], e.[datejoin], u.roleName, u.username, u.[password] "
                         + "FROM employee e "
-                        + "JOIN Job j ON j.JobID = e.JobID"
+                        + "JOIN Job j ON j.JobID = e.JobID "
                         + "JOIN department d On j.department_id = d.department_id "
                         + "JOIN [User] u On u.employee_id = e.employee_id "
                         + "WHERE [employee_name] LIKE N'%' + ? + N'%' ";

@@ -501,7 +501,7 @@ public class HRDao {
         return employeedto;
     }
 
-    public String getDepartmentIDInApplicant(int applicantID) throws SQLException {
+    public String getDepartmentIDInApplicant(String jobTitle) throws SQLException {
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -511,13 +511,11 @@ public class HRDao {
             conn = DBHelper.makeConnection();
             if (conn != null) {
                 String sql = "SELECT TOP 1 d.department_id \n"
-                        + "FROM employee e \n"
-                        + "JOIN Job j ON j.JobID = e.JobID\n"
-                        + "JOIN department d ON d.department_id = j.department_id\n"
-                        + "JOIN Applicant a ON j.JobID = a.JobID\n"
-                        + "WHERE a.Applicant_id = ? ";
+                        + "FROM department d\n"
+                        + "JOIN Job j ON j.department_id = d.department_id\n"
+                        + "WHERE j.JobTitle = ?";
                 stm = conn.prepareStatement(sql);
-                stm.setInt(1, applicantID);
+                stm.setString(1, jobTitle);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     departmentID = rs.getString("department_id");

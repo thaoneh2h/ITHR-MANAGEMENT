@@ -82,7 +82,7 @@ public class UpdateApplicantServlet extends HttpServlet {
                     // ====== Send mail to Leader =====
                     HttpSession session = request.getSession();
                     // Get department ID
-                    String departmentid = dao.getDepartmentIDInApplicant(applicantID);
+                    String departmentid = dao.getDepartmentIDInApplicant(jobTitle);
                     // Get Leader of department's username
                     String username = dao.getUsernameByDepartment(departmentid);
                     
