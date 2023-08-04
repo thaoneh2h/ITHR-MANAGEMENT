@@ -195,73 +195,73 @@
                                 </button>
                             </div>
                         </form>
-                        </div>
-                        <div class="col-4">
-                            <h2 class="mb-5">About our social contact</h2>
+                    </div>
+                    <div class="col-4">
+                        <h2 class="mb-5">About our social contact</h2>
 
-                            <!------------------------------------------------------------------------------------->
-                            <div class="row">
-                                <!----------------------------------------------------------------------------------->
-                                <div class="row mb-5">
-                                    <div class="mb-3 col">
-                                        <a href="#" class="text-decoration-none link-primary">
-                                            <img
-                                                class="me-3"
-                                                src="assets/facebook-logo.png"
-                                                alt="facebook-logo"
-                                                width="40"
-                                                />
-                                            <span> facebook.com </span>
-                                        </a>
-                                    </div>
-                                    <div class="mb-3 col">
-                                        <a href="#" class="text-decoration-none link-primary">
-                                            <img
-                                                class="me-3"
-                                                src="assets/gmail-logo.png"
-                                                alt="facebook-logo"
-                                                width="40"
-                                                />
-                                            <span> gmail.com </span>
-                                        </a>
-                                    </div>
+                        <!------------------------------------------------------------------------------------->
+                        <div class="row">
+                            <!----------------------------------------------------------------------------------->
+                            <div class="row mb-5">
+                                <div class="mb-3 col">
+                                    <a href="#" class="text-decoration-none link-primary">
+                                        <img
+                                            class="me-3"
+                                            src="assets/facebook-logo.png"
+                                            alt="facebook-logo"
+                                            width="40"
+                                            />
+                                        <span> facebook.com </span>
+                                    </a>
                                 </div>
+                                <div class="mb-3 col">
+                                    <a href="#" class="text-decoration-none link-primary">
+                                        <img
+                                            class="me-3"
+                                            src="assets/gmail-logo.png"
+                                            alt="facebook-logo"
+                                            width="40"
+                                            />
+                                        <span> gmail.com </span>
+                                    </a>
+                                </div>
+                            </div>
 
-                                <!----------------------------------------------------------------------------------->
-                                <div class="row mb-5">
-                                    <div class="mb-3 col">
-                                        <a href="#" class="text-decoration-none link-primary">
-                                            <img
-                                                class="me-3"
-                                                src="assets/instagram-logo.png"
-                                                alt="facebook-logo"
-                                                width="40"
-                                                />
-                                            <span> instagram.com </span>
-                                        </a>
-                                    </div>
-                                    <div class="mb-3 col">
-                                        <a href="#" class="text-decoration-none link-primary">
-                                            <img
-                                                class="me-3"
-                                                src="assets/twitter-logo.png"
-                                                alt="facebook-logo"
-                                                width="40"
-                                                />
-                                            <span> twitter.com </span>
-                                        </a>
-                                    </div>
+                            <!----------------------------------------------------------------------------------->
+                            <div class="row mb-5">
+                                <div class="mb-3 col">
+                                    <a href="#" class="text-decoration-none link-primary">
+                                        <img
+                                            class="me-3"
+                                            src="assets/instagram-logo.png"
+                                            alt="facebook-logo"
+                                            width="40"
+                                            />
+                                        <span> instagram.com </span>
+                                    </a>
+                                </div>
+                                <div class="mb-3 col">
+                                    <a href="#" class="text-decoration-none link-primary">
+                                        <img
+                                            class="me-3"
+                                            src="assets/twitter-logo.png"
+                                            alt="facebook-logo"
+                                            width="40"
+                                            />
+                                        <span> twitter.com </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                </div>
             </section>                         
 
             <script type="text/javascript">
-            //    document.addEventListener('DOMContentLoaded', function () {
-            //        window.setTimeout(document.querySelector('svg').classList.add('animated'), 1000);
-            //    });
+                //    document.addEventListener('DOMContentLoaded', function () {
+                //        window.setTimeout(document.querySelector('svg').classList.add('animated'), 1000);
+                //    });
             </script>
             <script>
                 function goToDestination(idValue) {
@@ -271,7 +271,7 @@
             <%@include file="Layout/Footer.jsp" %>
             <script>
                 window.addEventListener('DOMContentLoaded', function () {
-                     fetchJobTitles(); // Fetch job titles when the page loads
+                    fetchJobTitles(); // Fetch job titles when the page loads
                 });
 
                 function fetchJobTitles() {
@@ -297,13 +297,19 @@
                                     const jobTitle = document.createElement('h4');
                                     jobTitle.textContent = job.jobTitle;
 
-                                   bodyContent.appendChild(companyText);
-                                   bodyContent.appendChild(jobTitle);
+                                    bodyContent.appendChild(companyText);
+                                    bodyContent.appendChild(jobTitle);
 
-                                   
+
                                     const applyButton = document.createElement('button');
                                     applyButton.className = 'btn btn-primary';
-                                    applyButton.textContent = 'Apply'
+                                    applyButton.textContent = 'Apply';
+                                    applyButton.setAttribute('data-jobid', job.jobID);
+                                    applyButton.addEventListener('click', function () {
+                                        // Function to navigate to ApplyPage.jsp when the button is clicked
+                                        const jobID = applyButton.getAttribute('data-jobid');
+                                        window.location.href = 'ApplyPage.jsp?jobID=' + jobID;
+                                    });
 
                                     cardBody.appendChild(bodyContent);
                                     cardBody.appendChild(applyButton);
@@ -311,6 +317,8 @@
 
                                     // Append the row to the table body
                                     jobTitlesContainer.appendChild(cardContainer);
+
+
                                 });
                             })
                 }
